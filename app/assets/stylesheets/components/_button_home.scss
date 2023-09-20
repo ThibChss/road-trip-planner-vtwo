@@ -1,0 +1,48 @@
+.button_link {
+  align-items: center;
+  background-image: linear-gradient(144deg, $red-accent, $aqua-accent);
+  border: 0;
+  border-radius: 8px;
+  // box-shadow: rgba(151, 65, 252, 0.2) 0 15px 30px -5px;
+  box-sizing: border-box;
+  color: $text-white;
+  display: inline-flex;
+  font-family: Phantomsans, sans-serif;
+  font-size: 18px;
+  justify-content: center;
+  line-height: 1em;
+  // max-width: 100%;
+  // min-width: 140px;
+  padding: 3px;
+  text-decoration: none;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: all .3s;
+  margin-top: 15px;
+  font-weight: bold;
+}
+
+.button_link:active,
+.button_link:hover {
+  outline: 0;
+}
+
+.button_link span {
+  background-color: $green-black;
+  padding: 16px 24px;
+  border-radius: 6px;
+  // width: 100%;
+  height: 100%;
+  transition: 300ms;
+}
+
+.button_link:hover span {
+  background: none;
+}
+
+.button_link:active {
+  transform: scale(0.9);
+}

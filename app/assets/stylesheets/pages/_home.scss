@@ -1,0 +1,64 @@
+body {
+  height: 100vh;
+}
+
+.banner-container-image {
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.infos-container {
+  height: 100%;
+  // width: 40%;
+  display: flex;
+  align-items: center;
+}
+
+.infos {
+  width: 100%;
+  height: 70%;
+  display: grid;
+  grid:
+    ". . card-one card-one card-one card-one card-one card-one card-one card-one . ." 1fr
+    "card-two card-two card-two card-two card-two card-two . . . . . ." 1fr
+    ". . . . . card-three card-three card-three card-three . . ." 1fr;
+  gap: 8px;
+  align-items: center;
+
+  .card-one { grid-area: card-one; }
+  .card-two { grid-area: card-two; }
+  .card-three { grid-area: card-three; }
+
+}
+
+.title-container {
+  // width: 60%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-home {
+  font-weight: bold;
+  font-size: 75px;
+  margin: 0;
+}
+
+.color-title {
+  background: linear-gradient(120deg, $aqua-prim, $red-accent);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.subtitle-home {
+  font-size: 40px;
+  font-weight: lighter;
+  margin: 0;
+}
