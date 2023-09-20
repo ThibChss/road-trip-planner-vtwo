@@ -1,0 +1,38 @@
+.card-one,
+.card-two,
+.card-three {
+  height: 200px;
+  // width: 250px;
+  border-radius: 6px;
+  backdrop-filter: blur(5px);
+  display: grid;
+  align-items: center;
+  h4 {
+    margin: 0;
+    font-size: 28px;
+    text-align: center;
+  }
+  div {
+    display: flex;
+    align-items: center;
+    img {
+      height: 140px;
+    }
+    p {
+      margin: 0;
+      padding: 0px 10px;
+    }
+  }
+}
+
+.card-one {
+  background: rgba($aqua-prim, 0.2);
+}
+
+.card-two {
+  background: rgba($text-white, 0.2);
+}
+
+.card-three {
+  background: rgba($red-accent, 0.2);
+}

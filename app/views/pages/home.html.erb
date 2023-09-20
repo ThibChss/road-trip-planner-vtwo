@@ -1,0 +1,22 @@
+<div  class='banner-container-image'
+      style='background-image: url(<%= image_path 'banner_background.svg' %>)'>
+
+  <%# BANNER %>
+  <div class="row justify-content-center">
+    <%# BANNER TITLE %>
+    <div class='title-container col-11 col-lg-12'>
+      <div>
+        <h1 class='title-home'>ROAD <span class='color-title'>BUDDY</span></h1>
+        <h5 class='subtitle-home'>It was never this easy to plan your trip</h5>
+        <%= link_to profile_path, class: 'button_link' do %>
+          <span class="text">Get Started</span>
+        <% end %>
+      </div>
+    </div>
+
+    <%# BANNER EXPLANATION %>
+    <div class='infos-container col-5 d-none'>
+      <%#= render 'cards_home' %>
+    </div>
+  </div>
+</div>
