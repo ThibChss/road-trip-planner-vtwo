@@ -1,0 +1,11 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  payd_by_id: 1
+  trip_event: one
+  total_paid: 1.5
+
+two:
+  payd_by_id: 1
+  trip_event: two
+  total_paid: 1.5
