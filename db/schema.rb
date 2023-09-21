@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2023_09_20_115713) do
+ActiveRecord::Schema[7.0].define(version: 2023_09_21_221618) do
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
 
@@ -52,7 +52,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_115713) do
   end
 
   create_table "prices", force: :cascade do |t|
-    t.integer "payd_by_id"
+    t.integer "paid_by_id"
     t.bigint "trip_event_id", null: false
     t.float "total_paid"
     t.datetime "created_at", null: false
@@ -64,7 +64,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_115713) do
     t.bigint "trip_id", null: false
     t.integer "creator_id"
     t.string "name"
-    t.string "event_type"
+    t.string "category", default: "Not Specified"
     t.datetime "start_date"
     t.datetime "end_date"
     t.datetime "created_at", null: false
@@ -79,6 +79,7 @@ ActiveRecord::Schema[7.0].define(version: 2023_09_20_115713) do
     t.bigint "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer "status", default: 1
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
