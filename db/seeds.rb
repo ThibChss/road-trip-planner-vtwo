@@ -46,15 +46,15 @@ print "\n"
 # CREATING INSTANCES
 puts 'Creating some users 🙍🏻'
 thib = User.create(username: 'Le Thib', first_name: 'Thibault', last_name: 'Chassine', email: 'thib@gmail.com', password: 'password')
-quentin = User.create(username: 'La Quen', first_name: 'Quentin', last_name: 'Brll', email: 'quen@gmail.com', password: 'password')
-astrid = User.create(username: 'La Jeune', first_name: 'Astrid', last_name: 'Flpv', email: 'astr@gmail.com', password: 'password')
-antoine = User.create(username: 'La Tute', first_name: 'Antoine', last_name: 'Blc', email: 'anto@gmail.com', password: 'password')
-clea = User.create(username: 'Kéké', first_name: 'Cléa', last_name: 'Drd', email: 'clea@gmail.com', password: 'password')
-louis = User.create(username: 'Le Louis', first_name: 'Louis', last_name: 'Lps', email: 'loui@gmail.com', password: 'password')
-jeanne = User.create(username: 'La Jane', first_name: 'Jeanne', last_name: 'Prt', email: 'jean@gmail.com', password: 'password')
-quitterie = User.create(username: 'Kit', first_name: 'Quitterie', last_name: 'Urcl', email: 'quit@gmail.com', password: 'password')
-margaux = User.create(username: 'Marguiche', first_name: 'Margaux', last_name: 'Cts', email: 'marg@gmail.com', password: 'password')
-theo = User.create(username: 'Le T', first_name: 'Théo', last_name: 'Crd', email: 'theo@gmail.com', password: 'password')
+User.create(username: 'La Quen', first_name: 'Quentin', last_name: 'Brll', email: 'quen@gmail.com', password: 'password')
+User.create(username: 'La Jeune', first_name: 'Astrid', last_name: 'Flpv', email: 'astr@gmail.com', password: 'password')
+User.create(username: 'La Tute', first_name: 'Antoine', last_name: 'Blc', email: 'anto@gmail.com', password: 'password')
+User.create(username: 'Kéké', first_name: 'Cléa', last_name: 'Drd', email: 'clea@gmail.com', password: 'password')
+User.create(username: 'Le Louis', first_name: 'Louis', last_name: 'Lps', email: 'loui@gmail.com', password: 'password')
+User.create(username: 'La Jane', first_name: 'Jeanne', last_name: 'Prt', email: 'jean@gmail.com', password: 'password')
+User.create(username: 'Kit', first_name: 'Quitterie', last_name: 'Urcl', email: 'quit@gmail.com', password: 'password')
+User.create(username: 'Marguiche', first_name: 'Margaux', last_name: 'Cts', email: 'marg@gmail.com', password: 'password')
+User.create(username: 'Le T', first_name: 'Théo', last_name: 'Crd', email: 'theo@gmail.com', password: 'password')
 puts 'Done 👌🏻'
 print "\n"
 

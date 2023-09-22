@@ -1,0 +1,15 @@
+.background-avatar {
+  height: 40px;
+  width: 40px;
+  border-radius: 5px;
+  background: linear-gradient(120deg, $aqua-prim, $red-accent);
+  cursor: pointer;
+}
+
+.avatar-user {
+  height: 40px;
+  width: 40px;
+  object-fit: cover;
+  border: 2px solid transparent;
+  border-radius: 5px;
+}
