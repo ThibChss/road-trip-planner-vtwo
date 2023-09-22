@@ -1,0 +1,17 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trip: one
+  creator_id: 1
+  name: MyString
+  event_type: MyString
+  start_date: 2023-09-20 13:47:22
+  end_date: 2023-09-20 13:47:22
+
+two:
+  trip: two
+  creator_id: 1
+  name: MyString
+  event_type: MyString
+  start_date: 2023-09-20 13:47:22
+  end_date: 2023-09-20 13:47:22

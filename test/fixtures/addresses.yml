@@ -1,0 +1,13 @@
+# Read about fixtures at https://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  trip_event: one
+  address: MyString
+  longitude: 1.5
+  latitude: 1.5
+
+two:
+  trip_event: two
+  address: MyString
+  longitude: 1.5
+  latitude: 1.5
