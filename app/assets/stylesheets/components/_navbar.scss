@@ -1,0 +1,43 @@
+.navbar-parent-container {
+  // background-color: transparent;
+  position: fixed;
+  height: 80px;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.navbar-container {
+  height: 100%;
+  width: 95%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.link-navbar {
+  text-decoration: none;
+  color: inherit;
+  display: flex;
+  align-items: center;
+  .title-navbar {
+    margin: 0;
+    font-size: 24px;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+}
+
+.logo-navbar {
+  width: 40px;
+  height: 40px;
+}
+
+.container-menu-user {
+  display: flex;
+  align-items: center;
+}
+
+.bell-notifications {
+  margin-right: 20px;
+}

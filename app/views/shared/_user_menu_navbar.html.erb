@@ -1,0 +1,23 @@
+<div class='container-menu-user'>
+  <i class="gg-bell bell-notifications"></i>
+
+  <div class='dropdown-parent' tabindex='-1'>
+    <div class="background-avatar">
+      <%= image_tag 'avatar.jpg', alt: "Avatar User", class: 'avatar-user' %>
+    </div>
+
+    <div class='dropdown-container'>
+      <%= link_to profile_path, class: 'dropdown-item' do %>
+        <p>Profile</p>
+      <% end %>
+
+      <div class="dropdown-item">
+        <p>Search Friends</p>
+      </div>
+
+      <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: 'dropdown-item' do %>
+        <p>Log Out</p>
+      <% end %>
+    </div>
+  </div>
+</div>
