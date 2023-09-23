@@ -1,0 +1,26 @@
+<div  class='container-image-login'
+      style='background-image: url(<%= image_path 'banner_background.svg' %>)'>
+
+  <div class="container-forms-parent row col-11 col-lg-10 col-xl-8">
+    <div class='container-forms row'>
+      <div class='forms-infos col-lg-6 d-lg-block d-none'>
+      </div>
+
+      <div class='forms-display col-lg-6 col-12'>
+        <div class="link-to-connect">
+          <%= link_to new_user_session_path, class: 'direct-to', data: { turbo_frame: 'form' } do %>
+            <span>Sign In</span>
+          <% end %>
+          <%= link_to new_user_registration_path, class: 'direct-to', data: { turbo_frame: 'form' } do %>
+            <span>Sign Up</span>
+          <% end %>
+        </div>
+
+        <%= turbo_frame_tag 'form', src: new_user_session_path do %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+</div>
