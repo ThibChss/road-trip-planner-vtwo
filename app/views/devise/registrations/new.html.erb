@@ -1,13 +1,27 @@
 <%= turbo_frame_tag 'form' do %>
   <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),
-                                html: { data: { turbo: false }}) do |f| %>
-    <%= f.error_notification %>
+                                html: { data: { turbo: false,
+                                                turbo_frame: 'form',
+                                                controller: 'form-redirect',
+                                                action: 'turbo:submit-end->form-redirect#redirect' }}) do |f| %>
 
     <div class="form-inputs">
+      <%= f.input :first_name,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "first_name" } %>
+      <%= f.input :last_name,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "last_name" } %>
+      <%= f.input :username,
+                  required: true,
+                  autofocus: true,
+                  input_html: { autocomplete: "username" } %>
       <%= f.input :email,
                   required: true,
                   autofocus: true,
-                  input_html: { autocomplete: "email" }%>
+                  input_html: { autocomplete: "email" } %>
       <%= f.input :password,
                   required: true,
                   hint: ("#{@minimum_password_length} characters minimum" if @minimum_password_length),

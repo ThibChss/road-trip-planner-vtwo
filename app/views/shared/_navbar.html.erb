@@ -1,10 +1,14 @@
 <div class="navbar-parent-container">
   <div class="navbar-container">
+
     <%# LOGO %>
-    <%= link_to root_path, class: 'link-navbar' do %>
-      <%= image_tag 'logo.svg', alt: "Logo", class: 'logo-navbar' %>
-      <h5 class='title-navbar'>ROAD <span class='color-title'>BUDDY</span></h5>
-    <% end %>
+      <%= link_to root_path, class: 'link-navbar' do %>
+        <% unless params[:action] == 'home' %>
+          <%= image_tag 'logo.svg', alt: "Logo", class: 'logo-navbar' %>
+          <h5 class='title-navbar'>ROAD <span class='color-title'>BUDDY</span></h5>
+        <% end %>
+      <% end %>
+
 
     <% if user_signed_in? %>
       <%= render 'shared/user_menu_navbar' %>
