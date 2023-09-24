@@ -7,7 +7,7 @@
   box-sizing: border-box;
   color: $text-white;
   display: inline-flex;
-  font-family: Phantomsans, sans-serif;
+  // font-family: Phantomsans, sans-serif;
   font-size: 18px;
   justify-content: center;
   line-height: 1em;
@@ -43,6 +43,24 @@
   background: none;
 }
 
-.button_link:active {
-  transform: scale(0.9);
+// .button_link:active {
+//   transform: scale(0.9);
+// }
+
+.button_submit {
+  background: $green-black;
+  border: none;
+  color: $text-white;
+  font-size: 16px;
+  border-radius: 3px;
+  transition: 300ms;
+  padding: 8px 20px;
+  &:hover {
+    background: none;
+    transition: 300ms;
+  }
+  &:focus,
+  &:active {
+    color: inherit;
+  }
 }

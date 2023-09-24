@@ -1,3 +1,13 @@
+.container-image-login {
+  height: 100%;
+  background-position: center;
+  background-size: cover;
+  background-repeat: no-repeat;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
 .container-forms-parent {
   height: 70%;
   justify-content: center;
@@ -37,4 +47,13 @@
   align-items: center;
   color: inherit;
   text-decoration: none;
+}
+
+.form-frame {
+  height: 90%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  position: relative;
 }
