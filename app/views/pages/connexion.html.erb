@@ -5,17 +5,21 @@
       <div class='forms-infos col-lg-6 d-lg-block d-none'>
       </div>
 
-      <div class='forms-display col-lg-6 col-12'>
+      <div class='forms-display col-lg-6 col-12'
+            data-controller='tabs-nav'
+            data-tabs-nav-active-class='active'>
         <div class="link-to-connect">
-          <%= link_to new_user_session_path, class: 'direct-to', data: { turbo_frame: 'form' } do %>
+          <%= link_to new_user_session_path, class: 'direct-to active', data: { turbo_frame: 'form',
+                                                                                tabs_nav_target: 'link' } do %>
             <span>Sign In</span>
           <% end %>
-          <%= link_to new_user_registration_path, class: 'direct-to', data: { turbo_frame: 'form' } do %>
+          <%= link_to new_user_registration_path, class: 'direct-to', data: { turbo_frame: 'form',
+                                                                              tabs_nav_target: 'link' } do %>
             <span>Sign Up</span>
           <% end %>
         </div>
 
-        <%= turbo_frame_tag 'form', src: new_user_registration_path, class: 'form-frame' do %>
+        <%= turbo_frame_tag 'form', src: new_user_session_path, class: 'form-frame', data: { action: 'turbo:before-frame-render->tabs-nav#activeTab' } do %>
 
         <% end %>
       </div>
