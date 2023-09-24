@@ -7,7 +7,7 @@
     </div>
 
     <div class='dropdown-container'>
-      <%= link_to profile_path, class: 'dropdown-item' do %>
+      <%= link_to profile_path(current_user), class: 'dropdown-item' do %>
         <p>Profile</p>
       <% end %>
 
