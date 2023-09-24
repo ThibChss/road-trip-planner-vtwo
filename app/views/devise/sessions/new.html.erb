@@ -1,31 +1,100 @@
 <%= turbo_frame_tag 'form' do %>
 
   <% if flash[:alert].present? %>
-    <div class="alert alert-danger">
+    <div class="flash_error">
       <%= flash[:alert] %>
     </div>
   <% end %>
 
-  <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name),
-                                html: { data: { turbo: false,
-                                                turbo_frame: 'form',
-                                                controller: 'form-redirect',
-                                                action: 'turbo:submit-end->form-redirect#redirect' }}) do |f| %>
-    <div class="form-inputs">
-      <%= f.input :email,
-                  required: false,
-                  autofocus: true,
-                  input_html: { autocomplete: "email" } %>
-      <%= f.input :password,
-                  required: false,
-                  input_html: { autocomplete: "current-password" } %>
-      <%= f.input :remember_me, as: :boolean if devise_mapping.rememberable? %>
-    </div>
+  <%# FORM SIGN IN %>
+  <div class='container-form'>
 
-    <div class="form-actions">
-      <%= f.button :submit, "Log in" %>
-    </div>
-  <% end %>
+    <h4 class='title-form'>Welcome back!</h4>
 
-  <%= render "devise/shared/links" %>
+    <%= simple_form_for(resource, as: resource_name, url: session_path(resource_name),
+                                  html: {
+                                    id: 'form_contain',
+                                    data: {
+                                      # turbo: false,
+                                      turbo_frame: 'form',
+                                      turbo_action: 'replace',
+                                      controller: 'form-redirect form-focus',
+                                      form_focus_focused_class: 'focused',
+                                      action: 'turbo:submit-end->form-redirect#redirect'
+                                    }
+                                  }) do |f| %>
+      <div class="form-inputs">
+
+        <%# INPUT EMAIL %>
+        <div class='background-input'>
+          <%= f.input :email,
+                      required: false,
+                      autofocus: true,
+                      input_html: { autocomplete: "email",
+                                    class: 'input-form',
+                                      data: {
+                                        action: 'focus->form-focus#focused',
+                                        identity: 'email'
+                                      }
+                                    },
+                      label_html: { class: 'label-form',
+                                      data: {
+                                        form_focus_target: 'label',
+                                        identity: 'email'
+                                      }
+                                    },
+                      wrapper_html: { class: 'container-label-input',
+                                      data: {
+                                        form_focus_target: 'wrapper',
+                                        identity: 'email'
+                                      }
+                                    }
+          %>
+        </div>
+
+        <%# INPUT PASSWORD %>
+        <div class="background-input">
+          <%= f.input :password,
+                      required: false,
+                      input_html: { autocomplete: "current-password",
+                                    class: 'input-form',
+                                      data: {
+                                        action: 'focus->form-focus#focused',
+                                        identity: 'password'
+                                      }
+                                    },
+                      label_html: { class: 'label-form',
+                                      data: {
+                                        form_focus_target: 'label',
+                                        identity: 'password'
+                                      }
+                                    },
+                      wrapper_html: { class: 'container-label-input',
+                                      data: {
+                                        form_focus_target: 'wrapper',
+                                        identity: 'password'
+                                      }
+                                    }
+          %>
+        </div>
+
+      </div>
+
+      <%= f.label :remember_me, id: 'label_check' do %>
+        <%= f.check_box :remember_me, class: 'input_checkbox', hidden: true, checked_value: :true, unchecked_value: :false if devise_mapping.rememberable? %>
+        <div id='--checkbox'>
+          <div id='checked_symbol'></div>
+        </div>
+        <span class='label-checkbox-remember'>Remember Me</span>
+      <% end %>
+
+      <div class="form-actions">
+        <div class='button_link'>
+          <%= f.submit "Log In", class: 'text button_submit' %>
+        </div>
+      </div>
+    <% end %>
+
+    <%#= render "devise/shared/links" %>
+  </div>
 <% end %>

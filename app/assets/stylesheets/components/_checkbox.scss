@@ -1,0 +1,30 @@
+#label_check .input_checkbox:checked ~ #--checkbox {
+  #checked_symbol {
+    background-color: transparent;
+    transition: 0.3s background-color ease-in-out;
+  }
+}
+
+#label_check {
+  display: flex;
+  align-items: center;
+}
+
+#--checkbox {
+  background: $gradient-green-red;
+  width: 15px;
+  height: 15px;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#checked_symbol {
+  height: 12px;
+  width: 12px;
+  background-color: $whitish;
+  border: 2px solid transparent;
+  border-radius: 4px;
+  transition: 0.3s background-color ease-in-out;
+}

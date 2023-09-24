@@ -1,9 +1,126 @@
-.container-image-login {
-  height: 100%;
-  background-position: center;
-  background-size: cover;
-  background-repeat: no-repeat;
+.container-form {
+  width: 100%;
   display: flex;
   justify-content: center;
   align-items: center;
+  flex-direction: column;
+  height: 100%;
+}
+
+input,
+select,
+textarea,
+textarea:focus,
+input:focus {
+  font-weight: bold;
+  color: $aqua-prim;
+}
+
+#form_contain {
+  width: 70%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+
+.title-form {
+  font-size: 32px;
+  margin-bottom: 90px;
+}
+
+.form-inputs {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+  margin-bottom: 30px;
+}
+
+.container-label-input {
+  position: relative;
+  // margin: 30px 0;
+  border: 2px solid;
+  border-color:$aqua-prim;
+  border-radius: 5px;
+  transition: all 0.3s ease-in-out;
+  // &:focus-within {
+  // }
+}
+
+.container-label-input.focused {
+  border-color:transparent;
+  transition: all 0.3s ease-in-out;
+}
+
+.background-input {
+  border-radius: 5px;
+  background: linear-gradient(170deg, #0d6363, #bc5c5c);
+}
+
+.input-form {
+  width: 100%;
+  background: $whitish;
+  padding: 5px;
+  border: none;
+  border-radius: 4px;
+  &:focus {
+    outline: none;
+  }
+}
+
+.label-form {
+  position: absolute;
+  top: 0;
+  font-size: 18px;
+  bottom: 0;
+  margin-top: auto;
+  margin-bottom: auto;
+  height: fit-content;
+  width: 100%;
+  padding-left: 10px;
+  color: $aqua-prim;
+  font-weight: bold;
+
+  animation-duration: 0.3s;
+  animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+  animation: labelFocusOut 0.3s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+.label-form.focused {
+  bottom: 60px;
+  font-size: 15px;
+  padding-left: 0px;
+  left: -3px;
+
+  animation: labelFocus 0.3s cubic-bezier(0.215, 0.610, 0.355, 1.000) both;
+}
+
+.label-checkbox-remember {
+  margin-left: 10px;
+  font-weight: bold;
+}
+
+@keyframes labelFocus {
+  from {
+    bottom: 0;
+    font-size: 18px;
+    padding-left: 10px;
+  }
+  to {
+    bottom: 60px;
+    font-size: 15px;
+    padding-left: 0px;
+  }
+}
+
+@keyframes labelFocusOut {
+  from {
+    bottom: 60px;
+    font-size: 15px;
+    padding-left: 0px;
+  }
+  to {
+    bottom: 0;
+    font-size: 18px;
+    padding-left: 10px;
+  }
 }

@@ -8,8 +8,8 @@ export default class extends Controller {
 
   redirect(event) {
     const success   = event.detail.success
-    const path      = window.location.origin
+    const path      = event.detail.fetchResponse.response.url
 
-    if (success) Turbo.visit(path, { action: 'replace' })
+    if (success) Turbo.visit(path)
   }
 }
