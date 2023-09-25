@@ -6,14 +6,14 @@ class PagesController < ApplicationController
 
   def profile
     @user = User.find_by(slug: params[:slug])
-    return redirect_to root_path, alert: "There is nothing here" if @user.nil?
+    return redirect_to profile_path(current_user), alert: "This person doesn't exist 👤" if @user.nil?
 
     @authorize = PagesControllerPolicy.new(current_user, @user).profile?
 
     if @user && @authorize
       authorize @user, policy_class: PagesControllerPolicy
     else
-      redirect_to root_path, alert: "You do not have acces to #{@user.username}'s profile"
+      redirect_to profile_path(current_user), alert: "You do not have acces to #{@user.username}'s profile 🚫"
     end
   end
 
