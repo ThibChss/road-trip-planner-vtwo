@@ -1,16 +1,43 @@
-.flash_error {
+.flash {
+  // transform: translateX(-50%);
+
   position: absolute;
-  top: 0;
-  width: 100%;
-  text-align: center;
-  border: none;
-  color: $red-accent;
-  background: #bc5c5c69;
-  font-weight: bold;
-  text-shadow: 0px 15px 40px;
-  overflow: hidden;
-  height: 10%;
+  top: 4.5rem;
+  right: 15px;
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
+  max-width: 93%;
+  width: max-content;
+  gap: 10px;
+
+  &__message.flash__alert {
+    color: $red-accent;
+    background: $whitish;
+    padding: 10px 20px;
+    border: 2px solid $red-accent;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 0px 8px;
+    animation: appear-then-fade 4s both;
+  }
+  &__message.flash__notice {
+    color: $aqua-second;
+    background: $whitish;
+    padding: 10px 15px;
+    border: 2px solid $aqua-accent;
+    border-radius: 5px;
+    font-weight: bold;
+    box-shadow: 0px 0px 8px $aqua-accent;
+    animation: appear-then-fade 4s both;
+  }
+}
+
+@keyframes appear-then-fade {
+  0%, 100% {
+    opacity:0
+  }
+  5%, 60% {
+    opacity:1
+  }
 }

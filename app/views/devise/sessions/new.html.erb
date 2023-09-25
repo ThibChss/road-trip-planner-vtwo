@@ -1,10 +1,6 @@
 <%= turbo_frame_tag 'form' do %>
 
-  <% if flash[:alert].present? %>
-    <div class="flash_error">
-      <%= flash[:alert] %>
-    </div>
-  <% end %>
+  <%= turbo_stream.prepend "flash", partial: "shared/flash_message" %>
 
   <%# FORM SIGN IN %>
   <div class='container-form'>

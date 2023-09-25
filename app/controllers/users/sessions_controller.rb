@@ -31,16 +31,18 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
-  # def create
-  #   # auth_options = { recall: nil, scope: :user }
-  #   self.resource = warden.authenticate!(auth_options)
+  def create
+    # auth_options = { recall: nil, scope: :user }
+    self.resource = warden.authenticate!(auth_options)
 
-  #   if resource
-  #     sign_in(resource_name, resource)
-  #     redirect_to after_sign_in_path_for(resource)
-  #   else
-  #     flash.now[:alert] = 'Invalid email or password'
-  #     # render 'pages/connect', layout: false
-  #   end
-  # end
+    if resource
+      sign_in(resource_name, resource)
+      redirect_to after_sign_in_path_for(resource), notice: "Hello #{resource.first_name}! 👋🏻"
+    else
+      respond_to do |format|
+        format.html { render 'pages/connect', layout: false }
+        format.turbo_stream { flash.now[:alert] = 'Invalid email or password' }
+      end
+    end
+  end
 end

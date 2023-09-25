@@ -39,6 +39,22 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def create
+    super do
+      unless resource.save
+        messages = resource.errors.full_messages.map(&:downcase).map(&:strip)
+
+        if messages.count == 1
+          flash_messages = "Something went wrong with the #{messages.join}."
+        else
+          flash_messages = "Something went wrong with the #{messages[0..-2].join(', ')} and the #{messages[-1]}."
+        end
+
+        flash.now[:alert] = flash_messages
+      end
+    end
+  end
+
   # protected
 
   # If you have extra params to permit, append them to the sanitizer.
