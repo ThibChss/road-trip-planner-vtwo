@@ -6,5 +6,5 @@ Rails.application.routes.draw do
 
   root 'pages#home'
   get :connexion, to: 'pages#connexion', as: :connexion
-  get 'profile/:id', to: 'pages#profile', as: :profile
+  get '/:slug', to: 'pages#profile', as: :profile
 end

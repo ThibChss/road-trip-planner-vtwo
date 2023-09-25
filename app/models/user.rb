@@ -28,8 +28,20 @@ class User < ApplicationRecord
   # Basic validations
   validates :first_name, :last_name, :username, :email, presence: true
   validates :email, :username, uniqueness: true
+  after_create :set_slug
+  validates :slug, uniqueness: true
 
   def full_name
     "#{first_name} #{last_name}"
+  end
+
+  def to_param
+    slug
+  end
+
+  private
+
+  def set_slug
+    update(slug: username.slugify)
   end
 end
