@@ -5,6 +5,6 @@ Rails.application.routes.draw do
   }
 
   root 'pages#home'
-  get :connexion, to: 'pages#connexion', as: :connexion
-  get '/:slug', to: 'pages#profile', as: :profile
+  get :connect, to: 'pages#connect', as: :connect
+  get 'profile/:slug', to: 'pages#profile', as: :profile
 end

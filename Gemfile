@@ -51,6 +51,8 @@ gem "bootstrap", "~> 5.2"
 
 gem "devise"
 
+gem 'pundit'
+
 gem "font-awesome-sass", "~> 6.1"
 
 gem "simple_form"
