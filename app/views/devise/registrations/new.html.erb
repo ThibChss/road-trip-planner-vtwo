@@ -1,13 +1,15 @@
 <%= turbo_frame_tag 'form' do %>
 
+  <%= turbo_stream.prepend "flash", partial: "shared/flash_message" %>
+
   <div class="container-form">
     <%= simple_form_for(resource, as: resource_name, url: registration_path(resource_name),
                                   html: {
                                     id: 'form_contain',
                                     data: {
-                                      turbo: false,
+                                      # turbo: false,
                                       turbo_frame: 'form',
-                                      turbo_action: 'replace',
+                                      # turbo_action: 'replace',
                                       controller: 'form-redirect form-focus',
                                       form_focus_focused_class: 'focused',
                                       action: 'turbo:submit-end->form-redirect#redirect'
