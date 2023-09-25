@@ -18,13 +18,14 @@
         <% form_keys = %i[first_name last_name username email password password_confirmation].each do |key| %>
           <div class="background-input">
             <%= f.input key,
-                        required: true,
+                        # required: true,
                         autofocus: true,
                         label: key.to_s.titleize,
                         input_html: {
                                       autocomplete: key.to_s,
                                       class: 'input-form',
                                       data: {
+                                        form_focus_target: 'input',
                                         action: 'focus->form-focus#focused',
                                         identity: key.to_s
                                     }

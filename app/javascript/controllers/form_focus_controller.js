@@ -5,7 +5,8 @@ export default class extends Controller {
 
   static targets = [
     'label',
-    'wrapper'
+    'wrapper',
+    'input'
   ]
 
   static classes = [
@@ -13,6 +14,16 @@ export default class extends Controller {
   ]
 
   connect() {
+    this.inputTargets.forEach(input => {
+      const wrapper   = this.wrapperTargets.find(wrap => wrap.dataset.identity === input.dataset.identity)
+      const label     = this.labelTargets.find(lab => lab.dataset.identity === input.dataset.identity)
+      const value     = input.value
+
+      if (value != '') {
+        wrapper.classList.add(this.focusedClass)
+        label.classList.add(this.focusedClass)
+      }
+    });
   }
 
   focused(event) {
