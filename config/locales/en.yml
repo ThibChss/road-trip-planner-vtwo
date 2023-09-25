@@ -30,4 +30,27 @@
 # available at https://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  activerecord:
+    errors:
+      messages:
+        presence: ''
+        blank: ''
+        taken: ''
+        invalid: ''
+        too_short: ''
+      # models:
+      #   user:
+      #     attributes:
+      #       first_name:
+      #         blank: "Your first name is Required"
+      #       last_name:
+      #         blank: "Your last name is required"
+      #       username:
+      #         blank: "An username is required"
+      #       email:
+      #         blank: "Please enter an email address"
+      #         taken: "That email is already taken"
+      #         invalid: "Please enter a valid email address"
+      #       password:
+      #         blank: "Please specify a password"
+      #         too_short: "Password must be at least %{count} characters long"
