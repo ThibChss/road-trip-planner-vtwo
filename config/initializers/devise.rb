@@ -2,7 +2,7 @@
 
 # class MyFailureApp < Devise::FailureApp
 #   def redirect_url
-#     connexion_path
+#     connect_path
 #   end
 
 #   def respond

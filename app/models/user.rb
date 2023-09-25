@@ -28,7 +28,7 @@ class User < ApplicationRecord
   # Basic validations
   validates :first_name, :last_name, :username, :email, presence: true
   validates :email, :username, uniqueness: true
-  after_create :set_slug
+  before_validation :set_slug
   validates :slug, uniqueness: true
 
   def full_name
@@ -42,6 +42,6 @@ class User < ApplicationRecord
   private
 
   def set_slug
-    update(slug: username.slugify)
+    self.slug = username.slugify
   end
 end

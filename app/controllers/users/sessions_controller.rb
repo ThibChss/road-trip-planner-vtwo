@@ -40,7 +40,7 @@ class Users::SessionsController < Devise::SessionsController
   #     redirect_to after_sign_in_path_for(resource)
   #   else
   #     flash.now[:alert] = 'Invalid email or password'
-  #     # render 'pages/connexion', layout: false
+  #     # render 'pages/connect', layout: false
   #   end
   # end
 end
