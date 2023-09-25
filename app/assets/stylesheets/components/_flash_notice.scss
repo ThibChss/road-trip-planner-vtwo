@@ -10,7 +10,7 @@
   max-width: 93%;
   width: max-content;
   gap: 10px;
-
+  z-index: 12;
   &__message.flash__alert {
     color: $red-accent;
     background: $whitish;

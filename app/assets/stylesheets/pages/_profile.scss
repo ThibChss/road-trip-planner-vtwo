@@ -1,0 +1,131 @@
+.container-profile {
+  height: 100%;
+  width: 100%;
+  margin: 0;
+}
+
+.menu-container {
+  height: 100%;
+  padding: 0;
+  backdrop-filter: blur(10px);
+  position: relative;
+}
+
+.menu-container::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 2px;
+  height: 100%;
+  background: linear-gradient(to bottom, $aqua-accent, $red-accent);
+}
+
+.display-container {
+  height: 100%;
+  padding: 0;
+}
+
+.empty__block {
+  height: 20%;
+}
+
+.menu__items {
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  gap: 25px;
+}
+
+.menu-item {
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding-left: 30px;
+  padding-right: 10px;
+  height: 50px;
+  color: $text-white;
+  transition: all 0.2s ease-out;
+  &:hover {
+    transform: translateX(-10px);
+    transition: all 0.2s ease-in;
+  }
+  h4 {
+    margin-bottom: 0;
+  }
+
+  span {
+    font-weight: bold;
+  }
+}
+
+.empty__block_display {
+  width: 100%;
+  height: 10%;
+}
+
+.frame__profile {
+  width: 100%;
+  height: 90%;
+  position: relative;
+}
+
+.frame__profile::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 2px;
+  background: linear-gradient(to right, #608F8F, $red-accent);
+}
+
+.title_profile {
+  height: 100px;
+  font-size: 40px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 0;
+  margin-bottom: 0;
+  margin-left: 30px;
+  font-weight: bold;
+}
+
+.user_last_name_profile {
+  background: linear-gradient(120deg, $aqua-prim, $red-accent);
+  background-clip: text;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.user_username_profile {
+  font-size: 25px;
+  font-style: normal;
+}
+
+.container-title-profile {
+  margin: 0;
+  justify-content: space-around;
+  align-items: center;
+  height: 170px;
+}
+
+.menu_select_profile_mobile {
+  padding: 0;
+  justify-content: center;
+}
+
+.select_path_input {
+  background: transparent;
+  border: 2px solid #569595;
+  border-radius: 5px;
+  color: #f1fdfd;
+}
+
+.container_frame_profile {
+  height: 100%;
+}
+
+// #turbo__profile

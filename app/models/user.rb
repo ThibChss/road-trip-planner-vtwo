@@ -27,7 +27,7 @@ class User < ApplicationRecord
 
   # Basic validations
   validates :first_name, :last_name, :username, :email, presence: true
-  validates :email, :username, uniqueness: true
+  validates :email, :username, uniqueness: { case_sensitive: true }
   before_validation :set_slug
   validates :slug, uniqueness: true
 

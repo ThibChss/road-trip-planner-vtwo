@@ -1,0 +1,10 @@
+<% items = [
+  ["Trips", '', { class: 'option_select_profile' }],
+  ["Friends", '', { class: 'option_select_profile' }],
+  ["Parameters", '', { class: 'option_select_profile' }],
+] %>
+
+<%= select_tag nil, options_for_select(items, request.path),
+                class: "select_path_input col-md-9 col-sm-5 col-6"
+                # onchange: "Turbo.visit(this.selectedOptions[0].value)"
+                %>
