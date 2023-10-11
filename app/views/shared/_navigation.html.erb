@@ -1,10 +1,36 @@
-<% items = [
-  ["Trips", '', { class: 'option_select_profile' }],
-  ["Friends", '', { class: 'option_select_profile' }],
-  ["Parameters", '', { class: 'option_select_profile' }],
-] %>
+<% items_current_user = {
+  'Trip Menu': [
+    ['Trips', '', { class: 'option_menu_select' }]
+  ],
+  'Friends Menu': [
+    ['Your Friends', friends_path(@user), { class: 'option_menu_select' }],
+    ['Invitations', '', { class: 'option_menu_select' }],
+    ['Sent Requests', '', { class: 'option_menu_select' }],
+    ['Search Friends', '', { class: 'option_menu_select' }]
+  ],
+  'Parameters Menu': [
+    ['Parameters', '', { class: 'option_menu_select' }]
+  ]
+} %>
 
-<%= select_tag nil, options_for_select(items, request.path),
-                class: "select_path_input col-md-9 col-sm-5 col-6"
-                # onchange: "Turbo.visit(this.selectedOptions[0].value)"
-                %>
+<% items_other_user = {
+  'Trip Menu': [
+    ['Trips', '', { class: 'option_menu_select' }]
+  ],
+  'Friends Menu': [
+    ["#{@user.first_name}'#{@user.first_name.downcase.ends_with?('s') ? '' : 's'} Friends", friends_path(@user), { class: 'option_menu_select' }],
+  ],
+  'Parameters Menu': [
+    ['Parameters', '', { class: 'option_menu_select' }]
+  ]
+} %>
+
+<% if @user == current_user %>
+  <%= select_tag nil, grouped_options_for_select(items_current_user, request.path),
+                  class: "select_path_input col-md-9 col-sm-5 col-6",
+                  onchange: "Turbo.visit(this.selectedOptions[0].value, { frame: 'turbo__profile' })" %>
+<% else %>
+  <%= select_tag nil, grouped_options_for_select(items_other_user, request.path),
+                  class: "select_path_input col-md-9 col-sm-5 col-6",
+                  onchange: "Turbo.visit(this.selectedOptions[0].value, { frame: 'turbo__profile' })" %>
+<% end %>

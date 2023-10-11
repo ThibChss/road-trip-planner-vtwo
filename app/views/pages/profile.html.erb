@@ -2,41 +2,100 @@
   <%= turbo_page_requires_reload %>
 <%# * %>
 
-<div class="container-profile row banner-container-image" style='background-image: url(<%= image_path 'banner_background.svg' %>)'>
-  <div class="menu-container d-none col-md-3 d-lg-block">
+<div class="container-profile row banner-container-image"
+      style='background-image: url(<%= image_path 'banner_background.svg' %>)'>
+
+  <%# Menu profile %>
+  <div class="menu-container d-none col-md-3 d-lg-block"
+        data-controller='menu-profile'
+        data-menu-profile-active-class='active'>
     <div class="empty__block">
     </div>
     <div class="menu__items">
-      <div class='menu-item'>
+      <div class='menu-item' data-action='click->menu-profile#hideSubMenu'>
         <h4>Trips</h4> <span class="material-symbols-outlined">navigate_next</span>
       </div>
-      <div class='menu-item'>
-        <h4>Friends</h4> <span class="material-symbols-outlined">navigate_next</span>
+
+      <%# FRIENDS MENU %>
+      <div class="list-friends">
+        <%= tag.div data: { action: 'click->menu-profile#showSubMenu' } do  %>
+          <div class='menu-item'
+                data-menu-profile-target='friendMenu'>
+            <h4><%= @user == current_user ? 'Friends' : "#{@user.first_name}'#{@user.first_name.downcase.ends_with?('s') ? '' : 's'} Friends" %></h4>
+            <span class="material-symbols-outlined">
+              navigate_next
+            </span>
+          </div>
+        <% end %>
+
+        <% if @user == current_user %>
+          <div class="sub-sections-friends hidden"
+                data-menu-profile-target='subMenu'>
+
+            <%# Link to all mutual friends %>
+            <%= link_to friends_path(current_user), class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+              <div class='sub_menu_item'>
+                <h4>Your Friends</h4>
+                <span class="material-symbols-outlined">navigate_next</span>
+              </div>
+            <% end %>
+
+            <%# Link to all received friend requests %>
+            <%= link_to '#', class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+              <div class='sub_menu_item'>
+                <h4>Invitations</h4>
+                <span class="material-symbols-outlined">navigate_next</span>
+              </div>
+            <% end %>
+
+            <%# Link to all sent friend requests %>
+            <%= link_to pending_friends_path(current_user), class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+              <div class='sub_menu_item'>
+                <h4>Sent Requests</h4>
+                <span class="material-symbols-outlined">navigate_next</span>
+              </div>
+            <% end %>
+
+            <%# Link to the search for friends %>
+            <%= link_to '#', class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+              <div class='sub_menu_item'>
+                <h4>Search Friends</h4>
+                <span class="material-symbols-outlined">navigate_next</span>
+              </div>
+            <% end %>
+          </div>
+        <% end %>
       </div>
-      <div class='menu-item'>
-        <h4>Parameters</h4> <span class="material-symbols-outlined">navigate_next</span>
-      </div>
+
+
+      <% if @user == current_user %>
+        <div class='menu-item' data-action='click->menu-profile#hideSubMenu'>
+          <h4>Parameters</h4> <span class="material-symbols-outlined">navigate_next</span>
+        </div>
+      <% end %>
     </div>
   </div>
 
+  <%# Display of the selected section %>
   <div class="display-container col-12 col-lg-9">
     <div class="empty__block_display">
     </div>
 
     <div class="frame__profile">
-      <div class="container-title-profile row gap-4">
+      <div class="container-title-profile row">
         <h4 class='title_profile col-lg-10 col-md-7'>
           <span><%= @user.first_name %> <span class='user_last_name_profile'><%= @user.last_name.upcase %></span></span>
           <span class='user_username_profile'>A.K.A <%= @user.username %></span>
         </h4>
 
         <div class="menu_select_profile_mobile d-lg-none d-flex col-md-4 row">
-          <%= render 'shared/navigation' %>
+          <%= render 'shared/navigation', user: @user %>
         </div>
       </div>
 
       <div class="container_frame_profile">
         <%= turbo_frame_tag 'turbo__profile' do %>
+
         <% end %>
       </div>
     </div>

@@ -42,6 +42,6 @@ class User < ApplicationRecord
   private
 
   def set_slug
-    self.slug = username.slugify
+    self.slug = username.parameterize
   end
 end

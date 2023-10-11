@@ -1,0 +1,26 @@
+<%= turbo_frame_tag 'turbo__profile' do %>
+
+  <div class="friends_display">
+    <%# MUTUAL FRIENDS %>
+    <div class="container__friends">
+      <h4 class='friend_title'>
+        <% if @user == current_user %>
+          YOUR FRIENDS
+        <% else %>
+          <%= @user.first_name.upcase %>'<%= @user.first_name.downcase.ends_with?('s') ? '' : 'S' %> FRIENDS
+        <% end %>
+      </h4>
+
+      <div class="friend_item_container">
+        <% @friends.each do |friend| %>
+          <div class="friend_item">
+            <%= friend.full_name %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+
+
+
+<% end %>
