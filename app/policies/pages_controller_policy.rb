@@ -14,12 +14,30 @@ class PagesControllerPolicy < ApplicationPolicy
   end
 
   def profile?
-    # puts "Current user: #{user.username}"
-    # puts "Profile page: #{record.username}. Can see profile : #{record.private ? 'Yes' : 'No'}"
+    check_friends?
+  end
+
+  def friends?
+    check_friends?
+  end
+
+  def pending_friends?
+    user_record?
+  end
+
+  def invitations?
+    user_record?
+  end
+
+  def check_friends?
     if user == record || user.friends.include?(record)
       true
     else
       !record.private
     end
+  end
+
+  def user_record?
+    user == record
   end
 end

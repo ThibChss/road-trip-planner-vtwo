@@ -34,9 +34,13 @@ Lint/MissingSuper:
   Enabled: false
 Style/FrozenStringLiteralComment:
   Enabled: false
+Layout/EmptyLines:
+  Enabled: false
 Layout/LineLength:
-  Max: 120
+  Enabled: false
 Style/EmptyMethod:
   Enabled: false
 Bundler/OrderedGems:
+  Enabled: false
+Metrics/MethodLength:
   Enabled: false

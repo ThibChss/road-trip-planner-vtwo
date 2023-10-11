@@ -1,0 +1,10 @@
+.friends_display {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  height: 100%;
+}
+
+.container__friends {
+  flex-grow: 1;
+}

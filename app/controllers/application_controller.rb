@@ -5,6 +5,20 @@ class ApplicationController < ActionController::Base
   after_action :verify_authorized, unless: :skip_pundit?
   after_action :verify_policy_scoped, unless: :skip_pundit?
 
+  private
+
+  def redirect_signed_in_user!
+    redirect_to profile_path(current_user) if user_signed_in?
+  end
+
+  def redirect_nil_user!
+    redirect_to profile_path(current_user), alert: "This person doesn't exist 👤"
+  end
+
+  def redirect_unauthorized_user!
+    redirect_to profile_path(current_user), alert: "You do not have acces to #{@user.username}'s profile 🚫"
+  end
+
   protected
 
   def correct_connect_path?
