@@ -9,6 +9,8 @@ class PagesController < ApplicationController
   before_action :authorize_user!, only: %i[profile friends]
   # Authorize only the current_user
   before_action :authorize_current_user_only!, only: %i[pending_friends invitations]
+  # Check if the page is rendered in a turbo frame
+  before_action :in_turbo_frame?, only: %i[friends pending_friends]
 
   def home; end
 

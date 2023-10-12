@@ -39,6 +39,14 @@ class Users::RegistrationsController < Devise::RegistrationsController
   #   super
   # end
 
+  def new
+    if request.headers['Turbo-Frame']
+      super
+    else
+      redirect_to connect_path, alert: "Cannot find this page"
+    end
+  end
+
   def create
     super do
       unless resource.save

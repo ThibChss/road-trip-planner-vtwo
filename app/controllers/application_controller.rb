@@ -19,6 +19,10 @@ class ApplicationController < ActionController::Base
     redirect_to profile_path(current_user), alert: "You do not have acces to #{@user.username}'s profile 🚫"
   end
 
+  def in_turbo_frame?
+    redirect_to profile_path(@user), alert: "Cannot find this page" unless request.headers['Turbo-Frame']
+  end
+
   protected
 
   def correct_connect_path?

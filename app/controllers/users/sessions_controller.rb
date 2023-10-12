@@ -31,6 +31,14 @@ class Users::SessionsController < Devise::SessionsController
   #   devise_parameter_sanitizer.permit(:sign_in, keys: [:attribute])
   # end
 
+  def new
+    if request.headers['Turbo-Frame']
+      super
+    else
+      redirect_to connect_path, alert: "Cannot find this page"
+    end
+  end
+
   def create
     # auth_options = { recall: nil, scope: :user }
     self.resource = warden.authenticate!(auth_options)

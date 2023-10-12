@@ -216,7 +216,6 @@ GEM
     simple_form (5.2.0)
       actionpack (>= 5.2)
       activemodel (>= 5.2)
-    slugify (1.0.7)
     sprockets (4.2.1)
       concurrent-ruby (~> 1.0)
       rack (>= 2.2.4, < 4)
@@ -273,7 +272,6 @@ DEPENDENCIES
   sassc-rails
   selenium-webdriver
   simple_form
-  slugify
   sprockets-rails
   stimulus-rails
   turbo-rails
