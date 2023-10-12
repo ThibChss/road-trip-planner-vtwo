@@ -1,0 +1,55 @@
+<% if user == current_user %>
+  <%= tag.div data: { action: 'click->menu-profile#showSubMenu' } do  %>
+    <div class='menu-item'
+          data-menu-profile-target='friendMenu'>
+      <h4>Friends</h4>
+      <span class="material-symbols-outlined">
+        navigate_next
+      </span>
+    </div>
+  <% end %>
+
+  <div class="sub-sections-friends hidden"
+        data-menu-profile-target='subMenu'>
+    <%# Link to all mutual friends %>
+    <%= link_to friends_path(current_user), class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+      <div class='sub_menu_item'>
+        <h4>Your Friends</h4>
+        <span class="material-symbols-outlined">navigate_next</span>
+      </div>
+    <% end %>
+
+    <%# Link to all received friend requests %>
+    <%= link_to '#', class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+      <div class='sub_menu_item'>
+        <h4>Invitations</h4>
+        <span class="material-symbols-outlined">navigate_next</span>
+      </div>
+    <% end %>
+
+    <%# Link to all sent friend requests %>
+    <%= link_to pending_friends_path(current_user), class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+      <div class='sub_menu_item'>
+        <h4>Sent Requests</h4>
+        <span class="material-symbols-outlined">navigate_next</span>
+      </div>
+    <% end %>
+
+    <%# Link to the search for friends %>
+    <%= link_to '#', class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+      <div class='sub_menu_item'>
+        <h4>Search Friends</h4>
+        <span class="material-symbols-outlined">navigate_next</span>
+      </div>
+    <% end %>
+  </div>
+<% else %>
+  <%= link_to friends_path(user), class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+    <div class='menu-item'>
+      <h4><%= "#{user.first_name}'#{s_or_not?(user)} Friends" %></h4>
+      <span class="material-symbols-outlined">
+        navigate_next
+      </span>
+    </div>
+  <% end %>
+<% end %>

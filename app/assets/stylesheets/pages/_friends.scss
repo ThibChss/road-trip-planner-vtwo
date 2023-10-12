@@ -3,8 +3,57 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   height: 100%;
+  padding: 0;
 }
 
 .container__friends {
   flex-grow: 1;
+}
+
+.search_bar_friends {
+  border: 1px solid;
+  border-radius: 5px;
+  padding: 5px 10px;
+  margin: 20px 0;
+}
+
+.friends_items {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 40px;
+}
+
+.friends_items::after {
+  content: "";
+  width: 210px;
+}
+
+.friend_item {
+  border-radius: 5px;
+  background: rgba($aqua-accent, 0.4);
+  backdrop-filter: blur(5px);
+  height: 280px;
+  width: 200px;
+  overflow: hidden;
+
+  &:hover {
+    img {
+      transform: scale(1.04) translateY(-4px);
+      transition: all 0.2s ease-in;
+    }
+  }
+
+  img {
+    transition: all 0.2s ease-out;
+    width: 100%;
+    height: 65%;
+    object-fit: cover;
+    object-position: center;
+  }
+}
+
+.link_to_friend_profile {
+  text-decoration: none;
+  color: inherit;
 }

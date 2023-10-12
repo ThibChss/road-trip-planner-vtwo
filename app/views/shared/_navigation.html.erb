@@ -5,7 +5,7 @@
   'Friends Menu': [
     ['Your Friends', friends_path(@user), { class: 'option_menu_select' }],
     ['Invitations', '', { class: 'option_menu_select' }],
-    ['Sent Requests', '', { class: 'option_menu_select' }],
+    ['Sent Requests', pending_friends_path(@user), { class: 'option_menu_select' }],
     ['Search Friends', '', { class: 'option_menu_select' }]
   ],
   'Parameters Menu': [
@@ -18,10 +18,7 @@
     ['Trips', '', { class: 'option_menu_select' }]
   ],
   'Friends Menu': [
-    ["#{@user.first_name}'#{@user.first_name.downcase.ends_with?('s') ? '' : 's'} Friends", friends_path(@user), { class: 'option_menu_select' }],
-  ],
-  'Parameters Menu': [
-    ['Parameters', '', { class: 'option_menu_select' }]
+    ["#{@user.first_name}'#{@user.first_name.downcase.ends_with?('s') ? '' : 's'} Friends", friends_path(@user), { class: 'option_menu_select' }]
   ]
 } %>
 

@@ -1,26 +1,42 @@
 <%= turbo_frame_tag 'turbo__profile' do %>
 
-  <div class="friends_display">
-    <%# MUTUAL FRIENDS %>
-    <div class="container__friends">
-      <h4 class='friend_title'>
-        <% if @user == current_user %>
-          YOUR FRIENDS
-        <% else %>
-          <%= @user.first_name.upcase %>'<%= @user.first_name.downcase.ends_with?('s') ? '' : 'S' %> FRIENDS
-        <% end %>
-      </h4>
+  <div class="row m-0 justify-content-center">
+    <div class="friends_display col-11">
+      <%# MUTUAL FRIENDS %>
+      <div class="container__friends">
+        <h4 class='friend_title'>
+          <% if @user == current_user %>
+            YOUR FRIENDS
+          <% else %>
+            <%= @user.first_name.upcase %>'<%= s_or_not?(@user) %> FRIENDS
+          <% end %>
+        </h4>
 
-      <div class="friend_item_container">
-        <% @friends.each do |friend| %>
-          <div class="friend_item">
-            <%= friend.full_name %>
+
+        <div class="friend_item_container">
+
+          <div class="search_bar_friends">
+            Search
           </div>
-        <% end %>
+
+          <div class="friends_items">
+            <% @friends.each do |friend| %>
+                <%= link_to profile_path(friend), class: 'link_to_friend_profile' do %>
+                  <div class="friend_item">
+                    <%= image_tag "https://source.unsplash.com/random/?person?sig=#{rand(0..1000) * rand(0..1000)}", alt: "avatar_user" %>
+                    <div class='text_friend_card'>
+                      <h5><%= friend.full_name %></h5>
+                      <span><%= @user.friends_in_common(friend).count %> <%= 'friend'.pluralize(@user.friends_in_common(friend).count) %> in common</span>
+                      <% if friend.friend?(@user) %>
+
+                      <% end %>
+                    </div>
+                  </div>
+                <% end %>
+            <% end %>
+          </div>
+        </div>
       </div>
     </div>
   </div>
-
-
-
 <% end %>

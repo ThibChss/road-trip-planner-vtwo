@@ -14,7 +14,7 @@ class User < ApplicationRecord
 
   # Mutual friendships and mutual friends details
   has_many :friendships, -> { where(status: true) }
-  has_many :friends, -> { order(first_name: :asc) }, through: :friendships
+  has_many :friends, through: :friendships
 
   # Sent friendships requests and sent friends details
   has_many :sent_friendships_requests, -> { where(status: false).order(created_at: :desc) }, class_name: :Friendship
@@ -35,8 +35,18 @@ class User < ApplicationRecord
     "#{first_name} #{last_name}"
   end
 
+  # Send the slug to params instead of id
   def to_param
     slug
+  end
+
+  # Methods for friends
+  def friends_in_common(user)
+    friends & user.friends
+  end
+
+  def friend?(user)
+    friends.include?(user)
   end
 
   private

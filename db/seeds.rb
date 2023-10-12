@@ -1,15 +1,15 @@
 # DELETING INSTANCES
-puts 'Destroying trips'
+puts 'Destroying trips ❌'
 Trip.destroy_all
 puts 'Done 👌🏻'
 print "\n"
 
-puts 'Destroying people'
+puts 'Destroying people 💀'
 User.destroy_all
 puts 'Done 👌🏻'
 print "\n"
 
-puts 'Destroying participation'
+puts 'Destroying participation 📅'
 Participant.destroy_all
 puts 'Done 👌🏻'
 print "\n"
@@ -19,22 +19,22 @@ Friendship.destroy_all
 puts 'Done 👌🏻'
 print "\n"
 
-puts 'Destroying events'
+puts 'Destroying events 👎🏻'
 TripEvent.destroy_all
 puts 'Done 👌🏻'
 print "\n"
 
-puts 'Destroying prices'
+puts 'Destroying prices 💲'
 Price.destroy_all
 puts 'Done 👌🏻'
 print "\n"
 
-puts 'Destroying debts'
+puts 'Destroying debts 🎉'
 PaidForTripEvent.destroy_all
 puts 'Done 👌🏻'
 print "\n"
 
-puts 'Destroying places'
+puts 'Destroying places 💣'
 Address.destroy_all
 puts 'Done 👌🏻'
 print "\n"
@@ -121,8 +121,10 @@ people = {
   }
 }
 
+the_team = []
+
 people.each do |_, infos|
-  User.create(
+  the_team << User.create(
     username: infos[:username],
     first_name: infos[:first_name],
     last_name: infos[:last_name],
@@ -134,6 +136,18 @@ end
 
 thib = User.first
 
+30.times do
+  user = User.create(
+    username: Faker::Internet.username,
+    first_name: Faker::Name.first_name,
+    last_name: Faker::Name.last_name,
+    email: Faker::Internet.email,
+    private: [true, false].sample,
+    password: 'password'
+  )
+  user.username = user.username.titleize
+end
+
 puts 'Done 👌🏻'
 print "\n"
 
@@ -141,19 +155,32 @@ print "\n"
 
 puts 'Creating friends 💞'
 
-users = User.where.not(id: thib)
+users_team = User.where(id: the_team).where.not(id: thib)
 
-users.each do |user|
-  status = [true, false].sample
-  Friendship.create(user: thib, friend: user, status:)
-  Friendship.create(user:, friend: thib, status:)
+users_team.each do |user|
+  Friendship.create(user: thib, friend: user, status: true)
+  Friendship.create(user:, friend: thib, status: true)
 
   status = [true, false].sample
-  friends = users.where.not(id: user)
+  friends = users_team.where.not(id: user)
   friend = friends.sample
 
   Friendship.create(user: friend, friend: user, status:)
   Friendship.create(user:, friend:, status:)
+end
+
+other_users = User.where.not(id: the_team)
+
+other_users.each do |user|
+  status = [true, false].sample
+  everyone = User.where.not(id: user).where.not(id: thib)
+  someone = everyone.sample
+
+  Friendship.create(user:, friend: someone, status:)
+  Friendship.create(user: someone, friend: user, status:)
+
+  Friendship.create(user: thib, friend: user, status: true)
+  Friendship.create(user:, friend: thib, status: true)
 end
 
 puts 'Done 👌🏻'
