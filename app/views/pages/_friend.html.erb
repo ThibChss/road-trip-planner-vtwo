@@ -1,0 +1,25 @@
+<div class="friend_item">
+  <%= image_tag "https://source.unsplash.com/random/?person?sig=#{rand(0..1000) * rand(0..1000)}", alt: "avatar_user" %>
+
+  <div class="text_friend_card_container">
+    <div class='text_friend_card'>
+      <h5><%= link_to friend.full_name, profile_path(friend), class: 'link_to_friend_profile' %></h5>
+      <span>
+        <span class="material-symbols-outlined">group</span>
+        <%= current_user.friends_in_common(friend).count %> <%= 'friend'.pluralize(current_user.friends_in_common(friend).count) %> in common
+      </span>
+      <span>
+        <span class="material-symbols-outlined">travel_explore</span>
+        <%= current_user.trips_in_common(friend).count %> <%= 'trip'.pluralize(current_user.trips_in_common(friend).count) %> in common
+      </span>
+
+      <div class="bottom_text_friend">
+        <% unless friend.friend?(current_user) || current_user == friend %>
+          <%= link_to connect_path, class: 'button_add_friend' do %>
+            <span class="text">Add</span>
+          <% end %>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

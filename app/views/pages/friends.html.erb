@@ -19,37 +19,10 @@
             Search
           </div>
 
-          <div class="friends_items">
-            <% @friends.each_with_index do |friend| %>
-              <div class="friend_item">
-                <%= image_tag "https://source.unsplash.com/random/?person?sig=#{rand(0..1000) * rand(0..1000)}", alt: "avatar_user" %>
-
-                <div class="text_friend_card_container">
-                  <% cache friend do %>
-                    <div class='text_friend_card'>
-                      <h5><%= link_to friend.full_name, profile_path(friend), class: 'link_to_friend_profile' %></h5>
-                      <span>
-                        <span class="material-symbols-outlined">group</span>
-                        <%= @user.friends_in_common(friend).count %> <%= 'friend'.pluralize(@user.friends_in_common(friend).count) %> in common
-                      </span>
-                      <span>
-                        <span class="material-symbols-outlined">travel_explore</span>
-                        <%= @user.trips_in_common(friend).count %> <%= 'trip'.pluralize(@user.trips_in_common(friend).count) %> in common
-                      </span>
-
-                      <div class="bottom_text_friend">
-                        <% if !friend.friend?(current_user) %>
-                          <%= link_to connect_path, class: 'button_add_friend' do %>
-                            <span class="text">Add</span>
-                          <% end %>
-                        <% end %>
-                      </div>
-                    </div>
-                  <% end %>
-                </div>
-              </div>
-            <% end %>
+          <div class="friends_items" id='friends'>
+            
           </div>
+          <%= turbo_frame_tag "load_more", src: friends_path(format: :turbo_stream), loading: :lazy %>
         </div>
       </div>
     </div>
