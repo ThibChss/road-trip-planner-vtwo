@@ -20,6 +20,12 @@ class PagesController < ApplicationController
 
   def friends
     @friends = @user.friends
+
+    page_limit = 8
+    @current_page = params[:page].to_i
+
+    @friends = @user.friends.offset(page_limit * @current_page).limit(page_limit)
+    @next_page = @current_page + 1 if @user.friends.count > (page_limit * @current_page) + page_limit
   end
 
   def pending_friends
