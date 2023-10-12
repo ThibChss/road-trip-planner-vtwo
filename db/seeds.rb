@@ -40,7 +40,9 @@ puts 'Done 👌🏻'
 print "\n"
 
 
-
+print "\n"
+print "\n"
+print "\n"
 
 
 # CREATING INSTANCES

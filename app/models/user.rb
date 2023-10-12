@@ -40,6 +40,11 @@ class User < ApplicationRecord
     slug
   end
 
+  # Methods related to user's trips
+  def trips_in_common(user)
+    trips & user.trips
+  end
+
   # Methods for friends
   def friends_in_common(user)
     friends & user.friends
