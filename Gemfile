@@ -59,6 +59,8 @@ gem "simple_form"
 
 gem 'faker'
 
+gem "pg_search"
+
 # Not needed as .parameterize method does the same thing
 # gem 'slugify'
 

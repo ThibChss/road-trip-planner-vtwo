@@ -1,28 +1,45 @@
 <%= turbo_frame_tag 'turbo__profile' do %>
 
-  <div class="row m-0 justify-content-center">
+  <%#= turbo_stream_from "friends_#{@user.id}" %>
+
+  <div class="row m-0 justify-content-center h-100"
+        data-controller='search-friends'
+        data-search-friends-user-value='<%= @user.slug %>'>
     <div class="friends_display col-11">
       <%# MUTUAL FRIENDS %>
       <div class="container__friends">
-        <h4 class='friend_title'>
-          <% if @user == current_user %>
-            YOUR FRIENDS
-          <% else %>
-            <%= @user.first_name.upcase %>'<%= s_or_not?(@user) %> FRIENDS
+        <div class="header_mutual_friends">
+          <h4 class='friend_title'>
+            <% if @user == current_user %>
+              YOUR FRIENDS
+            <% else %>
+              <%= @user.first_name.upcase %>'<%= s_or_not?(@user) %> FRIENDS
+            <% end %>
+          </h4>
+
+          <%= form_with url: friends_path(@user), method: :get, class: "search_bar_friend_form" do %>
+            <%= text_field_tag :query,
+                  params[:query],
+                  placeholder: "Search Friend",
+                  id: 'search_bar_friends',
+                  data: {
+                    action: 'input->search-friends#reloadFrameSearch'
+                  }
+              %>
+            <%= submit_tag '#', disabled: true, hidden: true %>
           <% end %>
-        </h4>
+        </div>
 
 
         <div class="friend_item_container">
 
-          <div class="search_bar_friends">
-            Search
-          </div>
+          <%= turbo_frame_tag :search_mutual_friends, data: {
+                                                          search_friends_target: 'searchFrame'
+                                                        } do %>
+            <div class="friends_items" id='friends'></div>
 
-          <div class="friends_items" id='friends'>
-            
-          </div>
-          <%= turbo_frame_tag "load_more", src: friends_path(format: :turbo_stream), loading: :lazy %>
+            <%= turbo_frame_tag :load_more, src: friends_path(format: :turbo_stream, query: @query), loading: :lazy %>
+          <% end %>
         </div>
       </div>
     </div>

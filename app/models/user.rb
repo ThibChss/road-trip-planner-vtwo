@@ -1,4 +1,12 @@
 class User < ApplicationRecord
+  include PgSearch::Model
+
+  pg_search_scope :search_user,
+                  against: %i[username first_name last_name],
+                  using: {
+                    tsearch: { prefix: true } # <-- now `superman batm` will return something!
+                  }
+
   devise  :database_authenticatable, :registerable,
           :recoverable, :rememberable, :validatable
 

@@ -1,0 +1,21 @@
+.search_bar_friend_form {
+  // background-color: $aqua-second;
+  display: flex;
+  // position: sticky;
+  // top: 0;
+  // z-index: 1;
+  // padding-bottom: 20px;
+}
+
+#search_bar_friends {
+  flex-grow: 1;
+  background-color: $green-black;
+  border: none;
+  border-radius: 5px;
+  padding: 5px 10px;
+  // margin: 25px 0;
+  color: $text-white;
+  &:focus {
+    outline: none;
+  }
+}
