@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   end
 
   def in_turbo_frame?
-    redirect_to profile_path(@user), alert: "Cannot find this page" unless request.headers['Turbo-Frame']
+    redirect_to profile_path(@user), alert: "Cannot find this page" unless turbo_frame_request?
   end
 
   protected

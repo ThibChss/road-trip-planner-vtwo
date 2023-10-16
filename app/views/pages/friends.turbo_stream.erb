@@ -1,9 +1,9 @@
-<%= turbo_stream.append "friends" do %>
+<%= turbo_stream.append "friends", locals: { query: @query } do %>
   <%= render partial: "pages/friend", collection: @friends %>
 <% end %>
 
 <% if @next_page.present? %>
-    <%= turbo_stream.replace "load_more" do %>
-        <%= turbo_frame_tag "load_more", src: friends_path(page: @next_page, format: :turbo_stream), loading: :lazy %>
-    <% end %>
+  <%= turbo_stream.replace "load_more" do %>
+      <%= turbo_frame_tag "load_more", src: friends_path(page: @next_page, query: @query, format: :turbo_stream), loading: :lazy %>
+  <% end %>
 <% end %>
