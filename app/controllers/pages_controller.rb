@@ -21,14 +21,15 @@ class PagesController < ApplicationController
   def friends
     page_limit = 8
     @current_page = params[:page].to_i
+    @user_friends = @user.friends.where.not(id: current_user)
 
     if params[:query].present?
       @query = params[:query]
-      @friends = @user.friends.search_user(params[:query]).offset(page_limit * @current_page).limit(page_limit).uniq
-      @next_page = @current_page + 1 if @user.friends.search_user(params[:query]).count > (page_limit * @current_page) + page_limit
+      @friends = @user_friends.search_user(params[:query]).offset(page_limit * @current_page).limit(page_limit).uniq
+      @next_page = @current_page + 1 if @user_friends.search_user(params[:query]).count > (page_limit * @current_page) + page_limit
     else
-      @friends = @user.friends.offset(page_limit * @current_page).limit(page_limit)
-      @next_page = @current_page + 1 if @user.friends.count > (page_limit * @current_page) + page_limit
+      @friends = @user_friends.offset(page_limit * @current_page).limit(page_limit)
+      @next_page = @current_page + 1 if @user_friends.count > (page_limit * @current_page) + page_limit
     end
   end
 
