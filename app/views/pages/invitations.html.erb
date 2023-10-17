@@ -8,7 +8,7 @@
         </div>
 
 
-        <div class="friend_item_container">
+        <div class="pending_friend_item_container">
           <div class="friends_items" id='received_friends'></div>
 
           <%= turbo_frame_tag :load_more, src: invitations_path(format: :turbo_stream), loading: :lazy %>

@@ -30,7 +30,7 @@ class PagesController < ApplicationController
       @friends = @user_friends.search_user(params[:query]).offset(page_limit * @current_page).limit(page_limit).uniq
       @next_page = @current_page + 1 if @user_friends.search_user(params[:query]).count > (page_limit * @current_page) + page_limit
     else
-      @friends = @user_friends.offset(page_limit * @current_page).limit(page_limit)
+      @friends = @user_friends.offset(page_limit * @current_page).limit(page_limit).uniq
       @next_page = @current_page + 1 if @user_friends.count > (page_limit * @current_page) + page_limit
     end
   end
@@ -45,7 +45,6 @@ class PagesController < ApplicationController
   end
 
   def invitations
-    @invitations = @user.received_friends
     page_limit = 8
     @current_page = params[:page].to_i
     @user_received_friends = @user.received_friends.where.not(id: current_user)
