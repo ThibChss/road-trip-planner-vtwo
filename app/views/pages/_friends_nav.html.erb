@@ -20,7 +20,7 @@
     <% end %>
 
     <%# Link to all received friend requests %>
-    <%= link_to '#', class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
+    <%= link_to invitations_path(current_user), class: 'link_profile_sections', data: { turbo_frame: 'turbo__profile' } do  %>
       <div class='sub_menu_item'>
         <h4>Invitations</h4>
         <span class="material-symbols-outlined">navigate_next</span>

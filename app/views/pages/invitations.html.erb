@@ -1,17 +1,17 @@
 <%= turbo_frame_tag 'turbo__profile' do %>
   <div class="row m-0 justify-content-center h-100">
     <div class="friends_display col-11">
-      <%# PENDING FRIENDS %>
+      <%# RECEIVED FRIENDS %>
       <div class="container__friends">
         <div class="header_pending_friends">
-          <h4 class='friend_title'>YOUR SENT REQUESTS</h4>
+          <h4 class='friend_title'>INVITATIONS RECEIVED</h4>
         </div>
 
 
         <div class="friend_item_container">
-          <div class="friends_items" id='pending_friends'></div>
+          <div class="friends_items" id='received_friends'></div>
 
-          <%= turbo_frame_tag :load_more, src: pending_friends_path(format: :turbo_stream), loading: :lazy %>
+          <%= turbo_frame_tag :load_more, src: invitations_path(format: :turbo_stream), loading: :lazy %>
         </div>
       </div>
     </div>
