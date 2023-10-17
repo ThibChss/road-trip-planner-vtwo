@@ -1,5 +1,7 @@
 class PagesController < ApplicationController
+  # Does not require to be connected on the homepage
   skip_before_action :authenticate_user!, only: :home
+  # If user is already signed in => Does not allow access to this page
   before_action :redirect_signed_in_user!, only: :connect
   # Find the user first
   before_action :set_user, only: %i[profile friends pending_friends]
@@ -10,7 +12,7 @@ class PagesController < ApplicationController
   # Authorize only the current_user
   before_action :authorize_current_user_only!, only: %i[pending_friends invitations]
   # Check if the page is rendered in a turbo frame
-  before_action :in_turbo_frame?, only: %i[pending_friends]
+  before_action :in_turbo_frame?, only: %i[friends pending_friends]
 
   def home; end
 
@@ -34,7 +36,12 @@ class PagesController < ApplicationController
   end
 
   def pending_friends
-    @sent_requests = @user.sent_friends if @user == current_user
+    page_limit = 8
+    @current_page = params[:page].to_i
+    @user_sent_requests = @user.sent_friends.where.not(id: current_user)
+
+    @pending_friends = @user_sent_requests.offset(page_limit * @current_page).limit(page_limit)
+    @next_page = @current_page + 1 if @user_sent_requests.count > (page_limit * @current_page) + page_limit
   end
 
   def invitations
