@@ -16,9 +16,13 @@
       </span>
 
       <div class="bottom_text_friend">
-        <% unless friend.friend?(current_user) || current_user == friend %>
+        <% if !friend.friend?(current_user) && !current_user.sent_friends.include?(friend) %>
           <%= link_to connect_path, class: 'button_add_friend' do %>
             <span class="text">Add</span>
+          <% end %>
+        <% elsif current_user.sent_friends.include?(friend) %>
+          <%= link_to '#', class: 'button_add_friend' do %>
+            <span class="text">Cancel</span>
           <% end %>
         <% end %>
       </div>

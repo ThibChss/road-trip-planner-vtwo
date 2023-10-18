@@ -138,6 +138,8 @@ end
 
 thib = User.first
 
+quen = User.second
+
 30.times do
   user = User.create(
     username: Faker::Internet.username,
@@ -157,13 +159,16 @@ print "\n"
 
 puts 'Creating friends 💞'
 
-users_team = User.where(id: the_team).where.not(id: thib)
+users_team = User.where(id: the_team).where.not(id: [thib, quen])
 
 users_team.each do |user|
   Friendship.create(user: thib, friend: user, status: true)
   Friendship.create(user:, friend: thib, status: true)
 
   status = [true, false].sample
+
+  Friendship.create(user: quen, friend: user, status: false)
+
   friends = users_team.where.not(id: user)
   friend = friends.sample
 
