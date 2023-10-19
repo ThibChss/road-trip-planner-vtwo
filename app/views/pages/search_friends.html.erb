@@ -7,20 +7,16 @@
       <div class="container__friends">
         <div class="header_mutual_friends">
           <h4 class='friend_title'>
-            <% if @user == current_user %>
-              YOUR FRIENDS
-            <% else %>
-              <%= @user.first_name.upcase %>'<%= s_or_not?(@user) %> FRIENDS
-            <% end %>
+            SEARCH PEOPLE
           </h4>
 
-          <%= form_with url: friends_path(@user), method: :get, class: "search_bar_friend_form" do %>
+          <%= form_with url: search_friends_path(@user), method: :get, class: "search_bar_friend_form" do %>
             <%= text_field_tag :query,
                   params[:query],
-                  placeholder: "Search Friend",
+                  placeholder: "Search People",
                   id: 'search_bar_friends',
                   data: {
-                    action: 'input->search-friends#reloadFrameSearch'
+                    action: 'input->search-friends#reloadFrameSearchSuggestion'
                   }
               %>
             <%= submit_tag '#', disabled: true, hidden: true %>
@@ -29,12 +25,12 @@
 
 
         <div class="friend_item_container">
-          <%= turbo_frame_tag :search_mutual_friends, data: {
+          <%= turbo_frame_tag :search_new_friends, data: {
                                                           search_friends_target: 'searchFrame'
-                                                        } do %>
-            <div class="friends_items" id='friends'></div>
+                                                          } do %>
+            <div class="friends_items" id='search_new_friends_div'></div>
 
-            <%= turbo_frame_tag :load_more, src: friends_path(format: :turbo_stream, query: @query), loading: :lazy %>
+            <%= turbo_frame_tag :load_more, src: search_friends_path(query: @query, format: :turbo_stream), loading: :lazy %>
           <% end %>
         </div>
       </div>
