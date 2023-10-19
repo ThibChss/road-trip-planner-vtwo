@@ -29,6 +29,10 @@ class PagesControllerPolicy < ApplicationPolicy
     user_record?
   end
 
+  def search_friends?
+    user_record?
+  end
+
   def check_friends?
     if user == record || user.friends.include?(record)
       true
