@@ -28,6 +28,8 @@ class User < ApplicationRecord
   has_many :sent_friendships_requests, -> { where(status: false).order(created_at: :desc) }, class_name: :Friendship
   has_many :sent_friends, through: :sent_friendships_requests, source: :friend
 
+  # Friends suggestions
+
   # Received friendships requests and received friends details
   has_many  :received_friendships_requests, -> { where(status: false).order(created_at: :desc) },
             class_name: :Friendship, foreign_key: :friend_id
@@ -64,6 +66,10 @@ class User < ApplicationRecord
 
   def friendship_relation_exist?(user)
     !friend?(user) && !user.sent_friends.include?(self) && !user.received_friends.include?(self)
+  end
+
+  def friends_suggestions
+    User.where.not(id: self).where.not(id: sent_friends).where.not(id: received_friends).where.not(id: friends)
   end
 
   private

@@ -1,3 +1,39 @@
 <%= turbo_frame_tag 'turbo__profile' do %>
-  bonjour search
+  <div class="row m-0 justify-content-center h-100"
+        data-controller='search-friends'
+        data-search-friends-user-value='<%= @user.slug %>'>
+    <div class="friends_display col-11">
+      <%# MUTUAL FRIENDS %>
+      <div class="container__friends">
+        <div class="header_mutual_friends">
+          <h4 class='friend_title'>
+            SEARCH PEOPLE
+          </h4>
+
+          <%= form_with url: search_friends_path(@user), method: :get, class: "search_bar_friend_form" do %>
+            <%= text_field_tag :query,
+                  params[:query],
+                  placeholder: "Search People",
+                  id: 'search_bar_friends',
+                  data: {
+                    action: 'input->search-friends#reloadFrameSearchSuggestion'
+                  }
+              %>
+            <%= submit_tag '#', disabled: true, hidden: true %>
+          <% end %>
+        </div>
+
+
+        <div class="friend_item_container">
+          <%= turbo_frame_tag :search_new_friends, data: {
+                                                          search_friends_target: 'searchFrame'
+                                                          } do %>
+            <div class="friends_items" id='search_new_friends_div'></div>
+
+            <%= turbo_frame_tag :load_more, src: search_friends_path(query: @query, format: :turbo_stream), loading: :lazy %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
 <% end %>

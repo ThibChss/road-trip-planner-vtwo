@@ -50,6 +50,17 @@ class PagesController < ApplicationController
   end
 
   def search_friends
+    @user_suggestions = @user.friends_suggestions
+
+    if params[:query].present?
+      @query = params[:query]
+      @suggestions = @user_suggestions.search_user(@query).offset(@page_limit * @current_page).limit(@page_limit).uniq
+      puts @suggestions.empty?
+      @next_page = @current_page + 1 if @user_suggestions.search_user(@query).count > (@page_limit * @current_page) + @page_limit
+    else
+      @suggestions = @user_suggestions.offset(@page_limit * @current_page).limit(@page_limit).uniq
+      @next_page = @current_page + 1 if @user_suggestions.count > (@page_limit * @current_page) + @page_limit
+    end
   end
 
   private

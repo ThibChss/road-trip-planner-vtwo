@@ -1,7 +1,4 @@
 <%= turbo_frame_tag 'turbo__profile' do %>
-
-  <%#= turbo_stream_from "friends_#{@user.id}" %>
-
   <div class="row m-0 justify-content-center h-100"
         data-controller='search-friends'
         data-search-friends-user-value='<%= @user.slug %>'>
