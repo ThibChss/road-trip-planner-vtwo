@@ -62,6 +62,10 @@ class User < ApplicationRecord
     friends.include?(user)
   end
 
+  def friendship_relation_exist?(user)
+    !friend?(user) && !user.sent_friends.include?(self) && !user.received_friends.include?(self)
+  end
+
   private
 
   def set_slug
