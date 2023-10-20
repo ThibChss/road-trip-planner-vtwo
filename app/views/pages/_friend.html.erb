@@ -1,6 +1,6 @@
 <div class="friend_item">
   <div class="container_img_card">
-    <%= image_tag "https://source.unsplash.com/random/?person?sig=#{rand(0..1000) * rand(0..1000)}", alt: "avatar_user" %>
+    <%= image_tag "https://source.unsplash.com/random/?portrait?sig=#{rand(0..1000) * rand(0..1000)}", alt: "avatar_user" %>
   </div>
 
   <div class="text_friend_card_container">
@@ -17,8 +17,11 @@
 
       <div class="bottom_text_friend">
         <% if friend.friendship_relation_exist?(current_user) %>
-          <%= link_to connect_path, class: 'button_add_friend' do %>
-            <span class="text">Add</span>
+          <%= simple_form_for Friendship.new, url: friendships_path do |f| %>
+            <%= f.hidden_field :friend_id, value: friend.id %>
+            <%= button_tag(type: :submit, class: 'button_add_friend') do %>
+              <span class="text">Add</span>
+            <% end %>
           <% end %>
         <% elsif current_user.sent_friends.include?(friend) %>
           <%= link_to '#', class: 'button_add_friend' do %>

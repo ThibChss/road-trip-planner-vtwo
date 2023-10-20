@@ -11,4 +11,6 @@ Rails.application.routes.draw do
   get 'profile/:slug/pending_friends', to: 'pages#pending_friends', as: :pending_friends
   get 'profile/:slug/invitations', to: 'pages#invitations', as: :invitations
   get 'profile/:slug/search_friends', to: 'pages#search_friends', as: :search_friends
+
+  resources :friendships, only: %i[create destroy]
 end
