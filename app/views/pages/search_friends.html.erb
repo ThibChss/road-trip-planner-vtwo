@@ -29,6 +29,17 @@
                                                           search_friends_target: 'searchFrame'
                                                           } do %>
             <div class="friends_items" id='search_new_friends_div'></div>
+            <% if @suggestions.empty? && @query.present? %>
+              <div class="empty_friends_container">
+                <h4>No Results</h4>
+              </div>
+            <% elsif @suggestions.empty? %>
+              <div class="empty_friends_container">
+                <h4>No one to suggest</h4>
+              </div>
+            <% else %>
+              <div class="friends_items" id='friends'></div>
+            <% end %>
 
             <%= turbo_frame_tag :load_more, src: search_friends_path(query: @query, format: :turbo_stream), loading: :lazy %>
           <% end %>

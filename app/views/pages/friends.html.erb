@@ -30,9 +30,24 @@
 
         <div class="friend_item_container">
           <%= turbo_frame_tag :search_mutual_friends, data: {
-                                                          search_friends_target: 'searchFrame'
-                                                        } do %>
-            <div class="friends_items" id='friends'></div>
+                                                              search_friends_target: 'searchFrame'
+                                                            } do %>
+            <% if @friends.empty? && @query.present? %>
+              <div class="empty_friends_container">
+                <h4>No Results</h4>
+              </div>
+            <% elsif @friends.empty? %>
+              <div class="empty_friends_container">
+                <div class="empty_friends">
+                  <h4>You don't have any friends yet</h4>
+                  <%= link_to search_friends_path(@user), data: { turbo_frame: :turbo__profile }, class: 'button_add_friend' do %>
+                    <span class="text">Add Some</span>
+                  <% end %>
+                </div>
+              </div>
+            <% else %>
+              <div class="friends_items" id='friends'></div>
+            <% end %>
 
             <%= turbo_frame_tag :load_more, src: friends_path(format: :turbo_stream, query: @query), loading: :lazy %>
           <% end %>

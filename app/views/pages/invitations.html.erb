@@ -11,6 +11,14 @@
         <div class="pending_friend_item_container">
           <div class="friends_items" id='received_friends'></div>
 
+            <% if @invitations.empty? %>
+              <div class="empty_friends_container">
+                <h4>You have not received any invitations</h4>
+              </div>
+            <% else %>
+              <div class="friends_items" id='received_friends'></div>
+            <% end %>
+
           <%= turbo_frame_tag :load_more, src: invitations_path(format: :turbo_stream), loading: :lazy %>
         </div>
       </div>

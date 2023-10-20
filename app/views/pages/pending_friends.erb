@@ -9,7 +9,18 @@
 
 
         <div class="pending_friend_item_container">
-          <div class="friends_items" id='pending_friends'></div>
+          <% if @pending_friends.empty? %>
+            <div class="empty_friends_container">
+              <div class="empty_friends">
+                <h4>You didn't sent any invitations</h4>
+                <%= link_to search_friends_path(@user), data: { turbo_frame: :turbo__profile }, class: 'button_add_friend' do %>
+                  <span class="text">Add People</span>
+                <% end %>
+              </div>
+            </div>
+          <% else %>
+            <div class="friends_items" id='pending_friends'></div>
+          <% end %>
 
           <%= turbo_frame_tag :load_more, src: pending_friends_path(format: :turbo_stream), loading: :lazy %>
         </div>
