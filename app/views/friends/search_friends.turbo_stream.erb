@@ -1,5 +1,5 @@
 <%= turbo_stream.append "search_new_friends_div", locals: { query: @query } do %>
-  <%= render partial: "pages/friend", collection: @suggestions %>
+  <%= render partial: "friends/friend", collection: @suggestions %>
 <% end %>
 
 <% if @next_page.present? %>

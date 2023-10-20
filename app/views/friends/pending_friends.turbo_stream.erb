@@ -1,5 +1,5 @@
 <%= turbo_stream.append "pending_friends" do %>
-  <%= render partial: "pages/friend", collection: @pending_friends %>
+  <%= render partial: "friends/friend", collection: @pending_friends %>
 <% end %>
 
 <% if @next_page.present? %>

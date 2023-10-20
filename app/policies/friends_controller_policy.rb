@@ -1,6 +1,4 @@
-class PagesControllerPolicy < ApplicationPolicy
-  attr_reader :user, :record
-
+class FriendsControllerPolicy < ApplicationPolicy
   class Scope < Scope
     # NOTE: Be explicit about which records you allow access to!
     # def resolve
@@ -13,8 +11,20 @@ class PagesControllerPolicy < ApplicationPolicy
     @record = record
   end
 
-  def profile?
+  def friends?
     check_friends?
+  end
+
+  def pending_friends?
+    user_record?
+  end
+
+  def invitations?
+    user_record?
+  end
+
+  def search_friends?
+    user_record?
   end
 
   def check_friends?
