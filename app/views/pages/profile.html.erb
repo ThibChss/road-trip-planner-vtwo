@@ -48,7 +48,7 @@
       </div>
 
       <div class="container_frame_profile">
-        <%= turbo_frame_tag 'turbo__profile', src: search_friends_path(@user), loading: :lazy do %>
+        <%= turbo_frame_tag 'turbo__profile', src: friends_path(@user), loading: :lazy do %>
 
         <% end %>
       </div>
