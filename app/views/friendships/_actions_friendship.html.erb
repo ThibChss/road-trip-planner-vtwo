@@ -1,0 +1,23 @@
+<%# Check if friend request sent or invitation received or already friend %>
+<% if friend.friendship_relation_exist?(current_user) %>
+  <%# Form add friends => Create friendship %>
+  <%= render 'friendships/form_new_friendship', user: current_user, friend: friend, text_btn: 'Add', action: '' %>
+<%# Check if already sent friend request %>
+<% elsif current_user.sent_friends.include?(friend) %>
+  <%= link_to friendship_path(current_user.find_friendship(friend)), class: 'button_add_friend', data: {
+                                                                                                    turbo_method: :delete
+                                                                                                  } do %>
+    <span class="text">Cancel</span>
+  <% end %>
+<%# Check if received invitation %>
+<% elsif current_user.received_friends.include?(friend) %>
+  <%# Accept invitation %>
+  <%= render 'friendships/form_new_friendship', user: current_user, friend: friend, text_btn: 'Confirm', action: '*' %>
+
+  <%# Cancel invitation %>
+  <%= link_to remove_invitation_path(friend.find_friendship(current_user)), class: 'button_add_friend', data: {
+                                                                                                          turbo_method: :delete
+                                                                                                        }  do %>
+    <span class="text">Delete</span>
+  <% end %>
+<% end %>

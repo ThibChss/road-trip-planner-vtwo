@@ -19,4 +19,5 @@ Rails.application.routes.draw do
 
   # Friendships routes
   resources :friendships, only: %i[create destroy]
+  delete 'friendship/:id', to: 'friendships#remove', as: :remove_invitation
 end
