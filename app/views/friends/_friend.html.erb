@@ -31,7 +31,9 @@
           <% end %>
         <%# Check if already sent friend request %>
         <% elsif current_user.sent_friends.include?(friend) %>
-          <%= link_to '#', class: 'button_add_friend' do %>
+          <%= link_to friendship_path(current_user.find_friendship(friend)), class: 'button_add_friend', data: {
+                                                                                                            turbo_method: :delete
+                                                                                                          } do %>
             <span class="text">Cancel</span>
           <% end %>
         <%# Check if received invitation %>

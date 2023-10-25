@@ -14,4 +14,8 @@ class FriendshipPolicy < ApplicationPolicy
   def create?
     true if user
   end
+
+  def destroy?
+    true if user
+  end
 end

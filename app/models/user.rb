@@ -72,6 +72,10 @@ class User < ApplicationRecord
     User.where.not(id: self).where.not(id: sent_friends).where.not(id: received_friends).where.not(id: friends)
   end
 
+  def find_friendship(friend)
+    sent_friendships_requests.find_by(friend:)
+  end
+
   private
 
   def set_slug

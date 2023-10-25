@@ -9,7 +9,7 @@ class FriendshipsController < ApplicationController
 
     if @friendship.save
       @suggestions = @user.friends_suggestions
-      flash.now[:notice] = 'Invitation Sent 🎉'
+      flash.now[:notice] = "Invitation sent to #{@friend.first_name.capitalize} 🎉"
       render turbo_stream: [
         turbo_stream.remove("friend_item_#{@friend.id}"),
         turbo_stream.append(
@@ -24,6 +24,24 @@ class FriendshipsController < ApplicationController
                               partial: 'shared/flash_message'
                             )
     end
+
+    authorize @user, policy_class: FriendshipPolicy
+  end
+
+  def destroy
+    @friendship = Friendship.find(params[:id])
+    @friend = @friendship.friend
+    @friendship.destroy
+
+    flash.now[:alert] = "Cancel invitation to #{@friend.first_name.capitalize} 👋🏻"
+
+    render turbo_stream: [
+      turbo_stream.remove("friend_item_#{@friend.id}"),
+      turbo_stream.append(
+        :flash,
+        partial: 'shared/flash_message'
+      )
+    ]
 
     authorize @user, policy_class: FriendshipPolicy
   end
