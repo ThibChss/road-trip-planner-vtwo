@@ -8,12 +8,21 @@ class FriendshipsController < ApplicationController
     @friendship.friend = @friend
 
     if @friendship.save
+      @suggestions = @user.friends_suggestions
       flash.now[:notice] = 'Invitation Sent 🎉'
-
-      respond_to do |format|
-        format.html { flash.now[:notice] = 'Invitation Sent 🎉' }
-        format.turbo_stream
-      end
+      render turbo_stream: [
+        turbo_stream.remove("friend_item_#{@friend.id}"),
+        turbo_stream.append(
+          :flash,
+          partial: 'shared/flash_message'
+        )
+      ]
+    else
+      flash.now[:alert] = 'Something went wrong ❌'
+      render turbo_stream: turbo_stream.append(
+                              :flash,
+                              partial: 'shared/flash_message'
+                            )
     end
 
     authorize @user, policy_class: FriendshipPolicy
@@ -25,11 +34,11 @@ class FriendshipsController < ApplicationController
     @user = current_user
   end
 
-  def friendship_params
-    params.require(:friendship).permit(friendship: :friend_id)
-  end
-
   def set_friend
     @friend = User.find(params[:friendship][:friend_id])
+  end
+
+  def friendship_params
+    params.require(:friendship).permit(friendship: :friend_id)
   end
 end

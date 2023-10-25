@@ -1,4 +1,4 @@
-<div class="friend_item">
+<div class="friend_item" id="friend_item_<%= friend.id %>">
   <div class="container_img_card">
     <%= image_tag "https://source.unsplash.com/random/?portrait?sig=#{rand(0..1000) * rand(0..1000)}", alt: "avatar_user" %>
   </div>
@@ -16,22 +16,32 @@
       </span>
 
       <div class="bottom_text_friend">
+        <%# Check if friend request sent or invitation received or already friend %>
         <% if friend.friendship_relation_exist?(current_user) %>
-          <%= simple_form_for Friendship.new, url: friendships_path do |f| %>
+          <%# Form add friends => Create friendship %>
+          <%= simple_form_for Friendship.new, url: friendships_path, html: {
+                                                                            data: {
+                                                                              turbo: true
+                                                                            }
+                                                                          } do |f| %>
             <%= f.hidden_field :friend_id, value: friend.id %>
-            <%= button_tag(type: :submit, class: 'button_add_friend') do %>
+            <%= button_tag(type: :submit, class: 'button_add_friend', name: nil) do %>
               <span class="text">Add</span>
             <% end %>
           <% end %>
+        <%# Check if already sent friend request %>
         <% elsif current_user.sent_friends.include?(friend) %>
           <%= link_to '#', class: 'button_add_friend' do %>
             <span class="text">Cancel</span>
           <% end %>
+        <%# Check if received invitation %>
         <% elsif current_user.received_friends.include?(friend) %>
+          <%# Accept invitation %>
           <%= link_to '#', class: 'button_add_friend' do %>
             <span class="text">Confirm</span>
           <% end %>
 
+          <%# Cancel invitation %>
           <%= link_to '#', class: 'button_add_friend' do %>
             <span class="text">Delete</span>
           <% end %>
