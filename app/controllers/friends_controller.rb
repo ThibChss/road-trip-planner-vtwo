@@ -5,12 +5,12 @@ class FriendsController < ApplicationController
   before_action :user_exists?, only: %i[friends pending_friends invitations search_friends]
   # Set page limit and define current page
   before_action :define_page, only: %i[friends pending_friends invitations search_friends]
-  # Check if the page is rendered in a turbo frame
-  # before_action :in_turbo_frame?, only: %i[friends pending_friends invitations search_friends?]
   # If user exist check if it is authorized
   before_action :authorize_user!, only: %i[friends]
   # Authorize only the current_user
   before_action :authorize_current_user_only!, only: %i[pending_friends invitations search_friends]
+  # Check if the page is rendered in a turbo frame
+  before_action :in_turbo_frame?, only: %i[friends pending_friends invitations search_friends]
 
   def friends
     @user_friends = @user.friends.where.not(id: current_user)

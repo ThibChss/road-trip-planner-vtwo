@@ -1,0 +1,12 @@
+<%= simple_form_for Friendship.new, url: friendships_path, html: {
+                                                                  data: {
+                                                                    turbo: true
+                                                                  }
+                                                                } do |f| %>
+  <%= f.hidden_field :friend_id, value: friend.id %>
+  <%= f.hidden_field :user_id, value: user.id %>
+  <%= f.hidden_field :action, value: action %>
+  <%= button_tag(type: :submit, class: 'button_add_friend', name: nil) do %>
+    <span class="text"><%= text_btn %></span>
+  <% end %>
+<% end %>

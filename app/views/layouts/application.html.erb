@@ -15,11 +15,10 @@
 
   <body>
     <%= render 'shared/navbar' unless params[:action] == 'home' && !user_signed_in? %>
-    <%#= turbo_stream.prepend "flash", partial: "shared/flash_message" %>
 
-    <div id="flash" class="flash">
+    <%= turbo_frame_tag :flash, class: :flash do %>
       <%= render "shared/flash_message" %>
-    </div>
+    <% end %>
 
     <%= yield %>
   </body>

@@ -4,9 +4,9 @@
   ],
   'Friends Menu': [
     ['Your Friends', friends_path(@user), { class: 'option_menu_select' }],
-    ['Invitations', '', { class: 'option_menu_select' }],
-    ['Sent Requests', pending_friends_path(@user), { class: 'option_menu_select' }],
-    ['Search Friends', '', { class: 'option_menu_select' }]
+    ['Invitations', pending_friends_path(current_user), { class: 'option_menu_select' }],
+    ['Sent Requests', pending_friends_path(current_user), { class: 'option_menu_select' }],
+    ['Search Friends', search_friends_path(current_user), { class: 'option_menu_select' }]
   ],
   'Parameters Menu': [
     ['Parameters', '', { class: 'option_menu_select' }]
@@ -24,10 +24,10 @@
 
 <% if @user == current_user %>
   <%= select_tag nil, grouped_options_for_select(items_current_user, request.path),
-                  class: "select_path_input col-md-9 col-sm-5 col-6",
+                  class: "select_path_input col-md-9 col-sm-11 col-11",
                   onchange: "Turbo.visit(this.selectedOptions[0].value, { frame: 'turbo__profile' })" %>
 <% else %>
   <%= select_tag nil, grouped_options_for_select(items_other_user, request.path),
-                  class: "select_path_input col-md-9 col-sm-5 col-6",
+                  class: "select_path_input col-md-9 col-sm-11 col-11",
                   onchange: "Turbo.visit(this.selectedOptions[0].value, { frame: 'turbo__profile' })" %>
 <% end %>

@@ -1,9 +1,10 @@
 <%= turbo_frame_tag 'turbo__profile' do %>
+
   <div class="row m-0 justify-content-center h-100"
         data-controller='search-friends'
         data-search-friends-user-value='<%= @user.slug %>'>
     <div class="friends_display col-11">
-      <%# MUTUAL FRIENDS %>
+      <%# SEARCH NEW FRIENDS %>
       <div class="container__friends">
         <div class="header_mutual_friends">
           <h4 class='friend_title'>
@@ -28,6 +29,7 @@
           <%= turbo_frame_tag :search_new_friends, data: {
                                                           search_friends_target: 'searchFrame'
                                                           } do %>
+
             <div class="friends_items" id='search_new_friends_div'></div>
             <% if @suggestions.empty? && @query.present? %>
               <div class="empty_friends_container">
