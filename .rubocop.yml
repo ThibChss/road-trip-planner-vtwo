@@ -40,6 +40,10 @@ Layout/LineLength:
   Enabled: false
 Layout/FirstArgumentIndentation:
   Enabled: false
+Layout/EmptyLinesAroundBlockBody:
+  Enabled: false
+Metrics/BlockLength:
+  Enabled: false
 Style/EmptyMethod:
   Enabled: false
 Bundler/OrderedGems:

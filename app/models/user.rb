@@ -1,6 +1,9 @@
 class User < ApplicationRecord
   include PgSearch::Model
 
+  extend FriendlyId
+  friendly_id :username, use: :slugged
+
   pg_search_scope :search_user,
                   against: %i[username first_name last_name],
                   using: {
@@ -38,16 +41,9 @@ class User < ApplicationRecord
   # Basic validations
   validates :first_name, :last_name, :username, :email, presence: true
   validates :email, :username, uniqueness: { case_sensitive: true }
-  before_validation :set_slug
-  validates :slug, uniqueness: true
 
   def full_name
     "#{first_name} #{last_name}"
-  end
-
-  # Send the slug to params instead of id
-  def to_param
-    slug
   end
 
   # Methods related to user's trips
@@ -62,6 +58,7 @@ class User < ApplicationRecord
 
   def friend?(user)
     friends.include?(user)
+    # Participant.joins(:user, :trip).where(users: { id: self }).where(trip: Trip.joins(:participants).where(participants: { id: user })).pluck(:trip_id)
   end
 
   def friendship_relation_exist?(user)
@@ -74,11 +71,5 @@ class User < ApplicationRecord
 
   def find_friendship(friend)
     sent_friendships_requests.find_by(friend:)
-  end
-
-  private
-
-  def set_slug
-    self.slug = username.parameterize
   end
 end

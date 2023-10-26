@@ -56,7 +56,7 @@ class FriendsController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by(slug: params[:slug])
+    @user = User.friendly.find(params[:id])
   end
 
   def authorize_user!

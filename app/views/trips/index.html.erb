@@ -1,0 +1,19 @@
+<%= turbo_frame_tag :turbo__profile do %>
+
+  <div class="row m-0 justify-content-center h-100">
+    <div class='trips_index_container col-11'>
+
+      <div class="trips_container row">
+        <% @trips.each do |trip| %>
+          <div class='trip_item col-lg-3 col-5' style="background-image: url(<%= image_path trip.photo_url %>)">
+            <div class="trip_card_filter">
+              <h5 class='trip_title_index'><%= trip.name %></h5>
+              <p class='date_trip_info'>FROM <%= trip.start_date.strftime('%d-%m-%Y') %> - UNTIL <%= trip.end_date.strftime('%d-%m-%Y') %></p>
+              <p class='participant_trip_info'><%= trip.participants.count %> <%= 'participant'.pluralize(trip.participants.count).upcase %></p>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+<% end %>

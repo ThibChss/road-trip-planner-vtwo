@@ -19,7 +19,7 @@ class PagesController < ApplicationController
   private
 
   def set_user
-    @user = User.find_by(slug: params[:slug])
+    @user = User.friendly.find(params[:id])
   end
 
   def authorize_user!
@@ -32,9 +32,5 @@ class PagesController < ApplicationController
     return redirect_unauthorized_user! unless PagesControllerPolicy.new(current_user, @user).user_record?
 
     authorize @user, policy_class: PagesControllerPolicy
-  end
-
-  def user_exists?
-    redirect_nil_user! if @user.nil?
   end
 end
