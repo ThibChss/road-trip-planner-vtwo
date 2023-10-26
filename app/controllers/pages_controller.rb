@@ -33,8 +33,4 @@ class PagesController < ApplicationController
 
     authorize @user, policy_class: PagesControllerPolicy
   end
-
-  def user_exists?
-    redirect_nil_user! if @user.nil?
-  end
 end

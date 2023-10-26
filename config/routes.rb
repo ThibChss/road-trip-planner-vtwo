@@ -27,7 +27,7 @@ Rails.application.routes.draw do
 
 
   # Trips controller routes
-  get 'profiel/:id/trips', to: 'trips#trips'
+  get 'profile/:id/trips', to: 'trips#index', as: :trips
   resources :trips, only: %i[show new create]
 
 end

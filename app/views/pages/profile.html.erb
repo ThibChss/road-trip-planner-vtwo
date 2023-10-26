@@ -13,9 +13,11 @@
     <div class="empty__block">
     </div>
     <div class="menu__items">
-      <div class='menu-item' data-action='click->menu-profile#hideSubMenu'>
-        <h4>Trips</h4> <span class="material-symbols-outlined">navigate_next</span>
-      </div>
+        <%= link_to trips_path(@user), data: { turbo_frame: :turbo__profile }, class: 'link_profile_sections' do %>
+          <div class='menu-item' data-action='click->menu-profile#hideSubMenu'>
+            <h4>Trips</h4> <span class="material-symbols-outlined">navigate_next</span>
+          </div>
+        <% end %>
 
       <%# FRIENDS MENU %>
       <div class="list-friends">
@@ -49,7 +51,7 @@
       </div>
 
       <div class="container_frame_profile">
-        <%= turbo_frame_tag 'turbo__profile' do %>
+        <%= turbo_frame_tag 'turbo__profile', src: trips_path(@user) do %>
           <%= render 'welcome_profile', user: @user %>
         <% end %>
       </div>
