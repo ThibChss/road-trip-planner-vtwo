@@ -7,16 +7,24 @@
     </div>
 
     <div class='dropdown-container'>
-      <%= link_to profile_path(current_user), class: 'dropdown-item' do %>
-        <p>Profile</p>
+      <% if params[:action] == 'profile' %>
+        <%= link_to profile_path(current_user), data: { turbo_frame: :turbo__profile }, class: 'dropdown-item' do %>
+          <span><span class="material-symbols-outlined">account_circle</span>Profile</span>
+        <% end %>
+
+        <div class="dropdown-item">
+          <%= link_to search_friends_path(current_user), data: { turbo_frame: :turbo__profile }, class: 'dropdown-item' do %>
+            <span><span class="material-symbols-outlined">person_search</span>Search Friends</span>
+          <% end %>
+        </div>
+      <% else %>
+        <%= link_to profile_path(current_user), class: 'dropdown-item' do %>
+          <span><span class="material-symbols-outlined">account_circle</span>Profile</span>
+        <% end %>
       <% end %>
 
-      <div class="dropdown-item">
-        <p>Search Friends</p>
-      </div>
-
       <%= link_to destroy_user_session_path, data: { turbo_method: :delete }, class: 'dropdown-item' do %>
-        <p>Log Out</p>
+        <span><span class="material-symbols-outlined">logout</span>Log Out</span>
       <% end %>
     </div>
   </div>

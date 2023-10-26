@@ -14,7 +14,6 @@ class FriendsController < ApplicationController
 
   def friends
     @user_friends = @user.friends.where.not(id: current_user)
-    p @user_friends
 
     if params[:query].present?
       @query = params[:query]

@@ -3,9 +3,9 @@
 }
 
 .dropdown-container {
-  width: 150px;
+  width: max-content;
   position: absolute;
-  background: $aqua-second;
+  background: $aqua-prim;
   right: 0;
   margin-top: 10px;
   border-radius: 5px;
@@ -24,27 +24,77 @@
 
 .dropdown-item {
   cursor: pointer;
-  width: 140px;
-  height: 35px;
-  text-align: right;
+  width: 100%;
+  height: max-content;
   display: flex;
   align-items: center;
-  justify-content: right;
-  border-radius: 3px;
+  justify-content: left;
   text-decoration: none;
   color: inherit;
-  p {
-    margin: 0;
-    padding-right: 10px;
+  transition: background .2s ease-in;
+
+  span {
+    padding: 7px 20px;
+    width: 100%;
+    display: flex;
+    align-items: center;
+    justify-content: left;
+
+    span {
+      padding: 0;
+      margin-right: 10px;
+      width: max-content;
+      font-size: 20px;
+    }
   }
   &:hover {
-    background-color: rgba($red-accent, 0.5);
-    transition: 0.3s background-color ease-in-out;
+    background: $aqua-second;
+    transition: background .2s ease-out;
   }
-  &:first-child {
-    margin-top: 5px;
+}
+
+.menu_actions_friends {
+  position: absolute;
+  display: flex;
+  flex-direction: column;
+  background: $aqua-prim;
+  top: 9px;
+  right: 30px;
+  width: max-content;
+  border-radius: 5px;
+  z-index: -1;
+  opacity: 0;
+  overflow: hidden;
+  transition: all .1s ease-in;
+
+  a {
+    text-decoration: none;
+    color: inherit;
   }
-  &:last-child {
-    margin-bottom: 5px;
+
+  // Menu item
+  span {
+    display: flex;
+    align-items: center;
+    padding: 6px 15px;
+    cursor: pointer;
+    transition: background .2s ease-in;
+    &:hover {
+      background: $aqua-second;
+      transition: background .2s ease-out;
+    }
+
+    // Menu item's icon
+    span {
+      margin-right: 10px;
+      font-size: 20px;
+      padding: 0;
+    }
   }
+}
+
+.menu_actions_friends.active {
+  opacity: 1;
+  z-index: 5;
+  transition: all 0.1s ease-out;
 }

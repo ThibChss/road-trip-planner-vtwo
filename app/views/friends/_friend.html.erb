@@ -1,6 +1,9 @@
-<div class="friend_item" id="friend_item_<%= friend.id %>">
+<div class="friend_item" id="friend_item_<%= friend.id %>"
+      data-controller='actions-friends'>
+  <%= render 'menu_actions_friend', friend: friend %>
   <div class="container_img_card">
-    <%= image_tag "https://source.unsplash.com/random/?portrait?sig=#{rand(0..1000) * rand(0..1000)}", alt: "avatar_user" %>
+    <%#= image_tag "https://source.unsplash.com/random/?portrait?sig=#{rand(0..1000) * rand(0..1000)}", alt: "avatar_user" %>
+    <%= image_tag "avatar_placeholder.png" %>
   </div>
 
   <div class="text_friend_card_container">

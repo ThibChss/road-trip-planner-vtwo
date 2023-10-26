@@ -42,11 +42,16 @@
   height: 360px;
   width: 230px;
   overflow: hidden;
+  position: relative;
 
   &:hover {
     img {
       transform: scale(1.05);
       transition: all 0.1s ease-in;
+    }
+    .menu_friend_button {
+      opacity: 1;
+      transition: opacity 0.1s ease-in;
     }
   }
 
