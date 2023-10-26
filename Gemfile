@@ -64,6 +64,8 @@ gem "pg_search"
 # Not needed as .parameterize method does the same thing
 # gem 'slugify'
 
+gem 'friendly_id', '~> 5.4.0'
+
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
 

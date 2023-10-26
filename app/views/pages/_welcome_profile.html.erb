@@ -1,5 +1,9 @@
 <div class='welcome_profile'>
   <h1>
-    <span>Welcome <%= current_user.first_name %> 🕶️</span>
+    <% if user == current_user %>
+      <span>Welcome <%= user.first_name %> 🕶️</span>
+    <% else %>
+      <span>Welcome to <%= user.first_name %>'<%= s_or_not?(user) %> profile ☀️</span>
+    <% end %>
   </h1>
 </div>

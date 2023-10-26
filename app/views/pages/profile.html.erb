@@ -50,7 +50,7 @@
 
       <div class="container_frame_profile">
         <%= turbo_frame_tag 'turbo__profile' do %>
-          <%= render 'welcome_profile' %>
+          <%= render 'welcome_profile', user: @user %>
         <% end %>
       </div>
     </div>
