@@ -108,3 +108,20 @@
     transition: 300ms;
   }
 }
+
+.menu_friend_button_container {
+  position: absolute;
+  z-index: 5;
+  top: 5px;
+  right: 5px;
+}
+
+.menu_friend_button {
+  color: #ACC0C0;
+  text-shadow: 1px 2px 8px rgba(0, 0, 0, 0.9);
+  -webkit-text-stroke-width: 0.5px;
+  -webkit-text-stroke-color: #0d6363;
+  opacity: 0;
+  transition: opacity 0.1s ease-out;
+  cursor: pointer;
+}

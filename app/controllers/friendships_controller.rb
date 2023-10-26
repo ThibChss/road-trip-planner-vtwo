@@ -10,7 +10,7 @@ class FriendshipsController < ApplicationController
 
     if @friendship.save
       @suggestions = @user.friends_suggestions
-      flash.now[:notice] = params[:friendship][:action].empty? ? "Invitation sent to #{@friend.first_name.capitalize} 🎉" : "Confirm invitation from #{@friend.first_name.capitalize} 🎉"
+      flash.now[:notice] = params[:friendship][:action].empty? ? "Invitation sent to #{@friend.first_name.titleize} 🎉" : "Confirm invitation from #{@friend.first_name.titleize} 🎉"
       turbo_stream_action_success
     else
       flash.now[:alert] = 'Something went wrong ❌'
@@ -25,7 +25,7 @@ class FriendshipsController < ApplicationController
     @friend = @friendship.friend
     @friendship.destroy
 
-    flash.now[:alert] = "Cancel invitation to #{@friend.first_name.capitalize} 👋🏻"
+    flash.now[:alert] = "Cancel invitation to #{@friend.first_name.titleize} 👋🏻"
     turbo_stream_action_success
 
     authorize @user, policy_class: FriendshipPolicy
@@ -36,7 +36,20 @@ class FriendshipsController < ApplicationController
     @friend = @friendship.user
     @friendship.destroy
 
-    flash.now[:alert] = "Remove invitation from #{@friend.first_name.capitalize} 👋🏻"
+    flash.now[:alert] = "Remove invitation from #{@friend.first_name.titleize} 👋🏻"
+    turbo_stream_action_success
+
+    authorize @user, policy_class: FriendshipPolicy
+  end
+
+  # Destroy mutual friendships
+  def remove_mutual
+    @user = User.find(params[:user_id])
+    @friend = User.find(params[:friend_id])
+    @friendships = Friendship.where(user: [@user, @friend], friend: [@user, @friend])
+    @friendships.destroy_all
+
+    flash.now[:alert] = "#{@friend.first_name.titleize} removed from your friend list 👋🏻"
     turbo_stream_action_success
 
     authorize @user, policy_class: FriendshipPolicy

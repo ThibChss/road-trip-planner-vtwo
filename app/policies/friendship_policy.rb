@@ -22,4 +22,8 @@ class FriendshipPolicy < ApplicationPolicy
   def remove?
     true if user
   end
+
+  def remove_mutual?
+    true if user
+  end
 end
