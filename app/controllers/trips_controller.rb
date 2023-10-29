@@ -12,6 +12,12 @@ class TripsController < ApplicationController
     authorize @trips
   end
 
+  def show
+    @trip = Trip.find(params[:id])
+
+    authorize @trip
+  end
+
   private
 
   def set_user

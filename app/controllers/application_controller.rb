@@ -1,11 +1,21 @@
 class ApplicationController < ActionController::Base
   before_action :authenticate_user!
   include Pundit::Authorization
+  rescue_from Pundit::NotAuthorizedError, with: :user_not_authorized
 
   after_action :verify_authorized, except: :index, unless: :skip_pundit?
   after_action :verify_policy_scoped, only: :index, unless: :skip_pundit?
 
   private
+
+  def user_not_authorized
+    flash[:alert] = "You do not have access to this pages ⛔"
+    if user_signed_in?
+      redirect_to profile_path(current_user)
+    else
+      redirect_to root_path
+    end
+  end
 
   def redirect_signed_in_user!
     redirect_to profile_path(current_user) if user_signed_in?

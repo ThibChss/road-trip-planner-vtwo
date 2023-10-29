@@ -22,6 +22,11 @@
   border-radius: 5px;
   overflow: hidden;
 
+  a {
+    color: $text-white;
+    text-decoration: inherit;
+  }
+
   &:hover {
     .trip_card_filter {
       background: rgba(0, 0, 0, 0.5);
