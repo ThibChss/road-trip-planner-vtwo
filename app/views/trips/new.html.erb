@@ -1,0 +1,24 @@
+<%= turbo_frame_tag :turbo__profile do %>
+  <%= tag.div data: {
+                      controller: 'form-redirect',
+                      form_redirect_user_value: current_user.slug,
+                    } do %>
+    <%= turbo_frame_tag :form_new_trip, data: {
+                                                form_redirect_target: 'frameNewTrip'
+                                              } do %>
+      <%= simple_form_for @trip, url: trips_path, method: :post,
+                                                  html: {
+                                                    data: {
+                                                      # turbo_frame: :turbo__profile,
+                                                      # turbo: false,
+                                                      # turbo_action: :advance,
+                                                      action: 'turbo:submit-end->form-redirect#redirectNewTrip'                                                    }
+                                                  } do |f| %>
+        <%= f.input :name %>
+        <%= f.input :start_date %>
+        <%= f.input :end_date %>
+        <%= f.submit %>
+      <% end %>
+    <% end %>
+  <% end %>
+<% end %>

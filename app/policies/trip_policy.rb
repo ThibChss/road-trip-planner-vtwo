@@ -6,11 +6,23 @@ class TripPolicy < ApplicationPolicy
     end
   end
 
+  # def trips?
+  #   true
+  # end
+
   def index?
-    true
+    true if user
   end
 
   def show?
     true if record.participants.include?(user)
+  end
+
+  def new?
+    true if user
+  end
+
+  def create?
+    true
   end
 end

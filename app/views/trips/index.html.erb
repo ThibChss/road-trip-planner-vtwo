@@ -1,31 +1,46 @@
 <%= turbo_frame_tag :turbo__profile do %>
+  <%= turbo_frame_tag :form_new_trip do %>
+    <div class="row m-0 justify-content-center h-100"
+          data-controller='search-trips'
+          data-search-trips-user-value='<%= @user.slug %>'>
+      <div class="search_trip_container col-11 px-0 d-flex justify-content-center">
+        <%= form_with url: trips_index_path(@trips), method: :get, class: "search_trip_form" do %>
+          <%= text_field_tag :query,
+                params[:query],
+                placeholder: "Search a trip, participants, etc.",
+                id: 'search_bar_friends',
+                data: {
+                  action: 'input->search-trips#reloadFrameSearch'
+                }
+            %>
+          <%= submit_tag '#', disabled: true, hidden: true %>
+        <% end %>
+      </div>
 
-  <div class="row m-0 justify-content-center h-100"
-        data-controller='search-trips'
-        data-search-trips-user-value='<%= @user.slug %>'>
-    <div class="search_trip_container col-11 px-0 d-flex justify-content-center">
-      <%= form_with url: trips_path(@trips), method: :get, class: "search_trip_form" do %>
-        <%= text_field_tag :query,
-              params[:query],
-              placeholder: "Search a trip, participants, etc.",
-              id: 'search_bar_friends',
-              data: {
-                action: 'input->search-trips#reloadFrameSearch'
-              }
-          %>
-        <%= submit_tag '#', disabled: true, hidden: true %>
-      <% end %>
+      <div class='trips_index_container col-11'>
+        <%= turbo_frame_tag :search_trip_frame do %>
+
+          <% if @trips.empty? && @query.present? %>
+            <div class="empty_friends_container">
+              <h4>No Results</h4>
+            </div>
+          <% elsif @trips.empty? %>
+            <div class="empty_friends_container">
+              <div class="empty_friends">
+                <h4>You don't have any trip planned</h4>
+                <%= link_to search_friends_path(@user), data: { turbo_frame: :turbo__profile }, class: 'button_add_friend' do %>
+                  <span class="text">Organize One</span>
+                <% end %>
+              </div>
+            </div>
+          <% else %>
+            <div class="trips_container row" id="trips"></div>
+          <% end %>
+
+          <%= turbo_frame_tag :load_more, src: trips_index_path(format: :turbo_stream, query: @query), loading: :lazy %>
+        <% end %>
+      </div>
+
     </div>
-
-    <div class='trips_index_container col-11'>
-      <%= turbo_frame_tag :search_trip_frame do %>
-        <div class="trips_container row" id="trips">
-          <%#= render partial: 'trip', collection: @trips %>
-        </div>
-
-        <%= turbo_frame_tag :load_more, src: trips_path(format: :turbo_stream, query: @query), loading: :lazy %>
-      <% end %>
-    </div>
-
-  </div>
+  <% end %>
 <% end %>

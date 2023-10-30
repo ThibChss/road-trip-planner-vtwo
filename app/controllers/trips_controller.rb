@@ -4,7 +4,7 @@ class TripsController < ApplicationController
   # Check if user exist and redirect if not
   before_action :user_exists?, only: %i[index]
   # Check if the page is rendered in a turbo frame
-  before_action :in_turbo_frame?, only: %i[index]
+  before_action :in_turbo_frame?, only: %i[index new]
   # Find the current trip
   before_action :set_trip, only: %i[show]
 
@@ -13,6 +13,7 @@ class TripsController < ApplicationController
     @current_page = params[:page].to_i
     @user_trips = policy_scope(@user.trips).order(start_date: :asc)
     authorize @user_trips
+    p params[:source_frame]
 
     if params[:query].present?
       @query = params[:query]
@@ -28,7 +29,36 @@ class TripsController < ApplicationController
     authorize @trip
   end
 
+  def new
+    @trip = Trip.new
+
+    authorize @trip
+  end
+
+  def create
+    @trip = Trip.new(trip_params)
+    @trip.user = current_user
+    @admin = Participant.create(trip: @trip, user: current_user, admin: true)
+
+    if @trip.save
+      # redirect_to profile_path(current_user), notice: 'Your trip has been added 🌴'
+      # p params[:source_frame]
+      # respond_to do |format|
+      #   format.html { redirect_to trips_index_path(current_user) }
+      #   format.turbo_stream
+      # end
+    else
+      render :new, status: :unprocessable_entity, alert: 'Something went wrong❗'
+    end
+
+    authorize @trip
+  end
+
   private
+
+  def trip_params
+    params.require(:trip).permit(:name, :start_date, :end_date)
+  end
 
   def set_trip
     @trip = Trip.find(params[:id])

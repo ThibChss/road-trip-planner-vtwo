@@ -32,6 +32,12 @@
 
 .menu__items {
   height: 67.5%;
+  // display: flex;
+  // flex-direction: column;
+  // gap: 25px;
+}
+
+.menu__items_container {
   display: flex;
   flex-direction: column;
   gap: 25px;
