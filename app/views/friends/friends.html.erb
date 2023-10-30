@@ -32,6 +32,7 @@
           <%= turbo_frame_tag :search_mutual_friends, data: {
                                                               search_friends_target: 'searchFrame'
                                                             } do %>
+                                                            
             <% if @friends.empty? && @query.present? %>
               <div class="empty_friends_container">
                 <h4>No Results</h4>

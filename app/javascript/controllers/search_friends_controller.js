@@ -18,7 +18,7 @@ export default class extends Controller {
     const value         = event.target.value
     const searchPath    = `/profile/${this.userValue}/friends?query=${value}`
 
-    Turbo.visit(searchPath, { frame: 'search_mutual_friends', action: 'replace' })
+    Turbo.visit(searchPath, { frame: 'search_mutual_friends' })
   }
 
   reloadFrameSearchSuggestion(event) {

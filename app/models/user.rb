@@ -1,5 +1,4 @@
 class User < ApplicationRecord
-  include PgSearch::Model
 
   extend FriendlyId
   friendly_id :username, use: :slugged

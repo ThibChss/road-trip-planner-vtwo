@@ -9,4 +9,8 @@ class TripPolicy < ApplicationPolicy
   def index?
     true
   end
+
+  def show?
+    true if record.participants.include?(user)
+  end
 end
