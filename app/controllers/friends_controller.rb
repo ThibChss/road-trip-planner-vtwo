@@ -13,42 +13,42 @@ class FriendsController < ApplicationController
   before_action :in_turbo_frame?, only: %i[friends pending_friends invitations search_friends]
 
   def friends
-    @user_friends = @user.friends.where.not(id: current_user)
+    @user_friends = @user.friends.where.not(id: current_user).order(first_name: :asc)
 
     if params[:query].present?
       @query = params[:query]
-      @friends = @user_friends.search_user(params[:query]).offset(@page_limit * @current_page).limit(@page_limit).uniq
+      @friends = @user_friends.search_user(params[:query]).offset(@page_limit * @current_page).limit(@page_limit)
       @next_page = @current_page + 1 if @user_friends.search_user(params[:query]).count > (@page_limit * @current_page) + @page_limit
     else
-      @friends = @user_friends.offset(@page_limit * @current_page).limit(@page_limit).uniq
+      @friends = @user_friends.offset(@page_limit * @current_page).limit(@page_limit)
       @next_page = @current_page + 1 if @user_friends.count > (@page_limit * @current_page) + @page_limit
     end
   end
 
   def pending_friends
-    @user_sent_requests = @user.sent_friends.where.not(id: current_user)
+    @user_sent_requests = @user.sent_friends.where.not(id: current_user).order(created_at: :desc)
 
     @pending_friends = @user_sent_requests.offset(@page_limit * @current_page).limit(@page_limit)
     @next_page = @current_page + 1 if @user_sent_requests.count > (@page_limit * @current_page) + @page_limit
   end
 
   def invitations
-    @user_received_friends = @user.received_friends.where.not(id: current_user)
+    @user_received_friends = @user.received_friends.where.not(id: current_user).order(created_at: :desc)
 
     @invitations = @user_received_friends.offset(@page_limit * @current_page).limit(@page_limit)
     @next_page = @current_page + 1 if @user_received_friends.count > (@page_limit * @current_page) + @page_limit
   end
 
   def search_friends
-    @user_suggestions = @user.friends_suggestions
+    @user_suggestions = @user.friends_suggestions.order(first_name: :asc)
 
     if params[:query].present?
       @query = params[:query]
-      @suggestions = @user_suggestions.search_user(@query).offset(@page_limit * @current_page).limit(@page_limit).uniq
+      @suggestions = @user_suggestions.search_user(@query).offset(@page_limit * @current_page).limit(@page_limit)
       puts @suggestions.empty?
       @next_page = @current_page + 1 if @user_suggestions.search_user(@query).count > (@page_limit * @current_page) + @page_limit
     else
-      @suggestions = @user_suggestions.offset(@page_limit * @current_page).limit(@page_limit).uniq
+      @suggestions = @user_suggestions.offset(@page_limit * @current_page).limit(@page_limit)
       @next_page = @current_page + 1 if @user_suggestions.count > (@page_limit * @current_page) + @page_limit
     end
   end

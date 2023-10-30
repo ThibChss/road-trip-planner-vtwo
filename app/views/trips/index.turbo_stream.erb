@@ -1,0 +1,9 @@
+<%= turbo_stream.append "trips", locals: { query: @query } do %>
+  <%= render partial: "trips/trip", collection: @trips %>
+<% end %>
+
+<% if @next_page.present? %>
+  <%= turbo_stream.replace "load_more" do %>
+      <%= turbo_frame_tag "load_more", src: trips_path(page: @next_page, query: @query, format: :turbo_stream), loading: :lazy %>
+  <% end %>
+<% end %>
