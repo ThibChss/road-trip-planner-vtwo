@@ -8,7 +8,7 @@
 
     <div class='dropdown-container'>
       <% if params[:action] == 'profile' && @user == current_user %>
-        <%= link_to profile_path(current_user), data: { turbo_frame: :turbo__profile }, class: 'dropdown-item' do %>
+        <%= link_to trips_index_path(current_user), data: { turbo_frame: :turbo__profile }, class: 'dropdown-item' do %>
           <span><span class="material-symbols-outlined">account_circle</span>Profile</span>
         <% end %>
 
@@ -16,11 +16,11 @@
           <span><span class="material-symbols-outlined">person_search</span>Search Friends</span>
         <% end %>
       <% else %>
-        <%= link_to profile_path(current_user), class: 'dropdown-item' do %>
+        <%= link_to profile_path(current_user, source_frame: trips_index_path(current_user)), class: 'dropdown-item' do %>
           <span><span class="material-symbols-outlined">account_circle</span>Profile</span>
         <% end %>
 
-        <%= link_to '', class: 'dropdown-item', disabled: true do %>
+        <%= link_to profile_path(current_user, source_frame: search_friends_path(current_user)), class: 'dropdown-item', disabled: true do %>
           <span><span class="material-symbols-outlined">person_search</span>Search Friends</span>
         <% end %>
       <% end %>

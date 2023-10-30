@@ -1,5 +1,5 @@
 <% if user == current_user %>
-  <%= tag.div data: { action: 'click->menu-profile#showSubMenu' } do  %>
+  <%= tag.div data: { action: 'click->menu-profile#showSubMenu click->menu-profile#hideSubTripMenu' } do  %>
     <div class='menu-item'
           data-menu-profile-target='friendMenu'>
       <h4>Friends</h4>

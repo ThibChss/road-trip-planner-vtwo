@@ -1,0 +1,24 @@
+<div class='menu-item'
+      data-menu-profile-target='tripMenu'
+      data-action='click->menu-profile#hideSubMenu click->menu-profile#showSubTripMenu'>
+  <h4>Trips</h4> <span class="material-symbols-outlined">navigate_next</span>
+</div>
+
+<div class="sub-sections-friends hidden"
+  data-menu-profile-target='subMenuTrip'>
+  <%# Link to all mutual friends %>
+  <%= link_to trips_index_path(user), class: 'link_profile_sections', data: { turbo_frame: :turbo__profile } do  %>
+    <div class='sub_menu_item'>
+      <h4>Your Trips</h4>
+      <span class="material-symbols-outlined">navigate_next</span>
+    </div>
+  <% end %>
+
+  <%# Link to all received friend requests %>
+  <%= link_to new_trip_path, class: 'link_profile_sections', data: { turbo_frame: :turbo__profile } do  %>
+    <div class='sub_menu_item'>
+      <h4>Create One</h4>
+      <span class="material-symbols-outlined">navigate_next</span>
+    </div>
+  <% end %>
+</div>
