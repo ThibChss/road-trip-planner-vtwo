@@ -1,6 +1,6 @@
 <%= turbo_frame_tag :turbo__profile do %>
   <%= tag.div data: {
-                      controller: 'form-redirect nested-form',
+                      controller: 'form-redirect nested-form flatpickr',
                       form_redirect_user_value: current_user.slug,
                     },
               class: 'form_new_trip_container' do %>
@@ -46,18 +46,28 @@
                                               identity: 'name'
                                             }
                                           } %>
-                <%= f.input :start_date %>
-                <%= f.input :end_date %>
+                <div class="dates_new_trip_container">
+                  <h5>Select your dates</h5>
+                  <%= f.input :start_date, as: :string, label: false, input_html: { data: { flatpickr_target: "startTime" }, class: 'd-none' } %>
+                  <%= f.input :end_date, as: :string, label: false, input_html: { data: { flatpickr_target: "endTime" }, id: 'end_time', class: 'd-none' } %>
+                </div>
 
+              </div>
+            </div>
+
+            <div class="inputs_new_trip">
+              <div class="inputs_resized">
+                <h5 class='participants_added_title'>Participants</h5>
                 <div class="added_participants"
                       data-nested-form-target='addedParticipantsContainer'>
 
                 </div>
-              </div>
-            </div>
 
-            <div class="input_new_participant">
-              <%= render 'nested_participant_create_trip', f: f, friends: @friends %>
+                <h5 class='participants_added_title'>Select people</h5>
+                <div class="inputs_participants">
+                  <%= render 'nested_participant_create_trip', f: f, friends: @friends %>
+                </div>
+              </div>
             </div>
           </div>
         </div>
