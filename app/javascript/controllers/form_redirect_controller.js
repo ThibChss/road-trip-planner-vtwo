@@ -28,7 +28,5 @@ export default class extends Controller {
     if (success) {
       this.frameNewTripTarget.src = destination
     }
-
-    // if (success) Turbo.visit(path, { frame: 'turbo__profile', source: `/profile/${this.userValue}/trips` })
   }
 }

@@ -31,6 +31,8 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
+    @friends = current_user.friends
+    @trip.participations.build
 
     authorize @trip
   end
@@ -41,12 +43,11 @@ class TripsController < ApplicationController
     @admin = Participant.create(trip: @trip, user: current_user, admin: true)
 
     if @trip.save
-      # redirect_to profile_path(current_user), notice: 'Your trip has been added 🌴'
-      # p params[:source_frame]
-      # respond_to do |format|
-      #   format.html { redirect_to trips_index_path(current_user) }
-      #   format.turbo_stream
-      # end
+      flash.now[:notice] = 'Your trip has been added 🌴'
+      render turbo_stream: turbo_stream.append(
+        :flash,
+        partial: 'shared/flash_message'
+      )
     else
       render :new, status: :unprocessable_entity, alert: 'Something went wrong❗'
     end
@@ -57,7 +58,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :start_date, :end_date)
+    params.require(:trip).permit(:name, :start_date, :end_date, participations_attributes: [:id, :_destroy, :user_id])
   end
 
   def set_trip

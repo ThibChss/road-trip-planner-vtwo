@@ -51,7 +51,8 @@
       </div>
 
       <div class="container_frame_profile">
-        <%= turbo_frame_tag 'turbo__profile', src: params[:source_frame] ? params[:source_frame] : trips_index_path(current_user) do %>
+        <%#= turbo_frame_tag 'turbo__profile', src: params[:source_frame] ? params[:source_frame] : trips_index_path(current_user) do %>
+        <%= turbo_frame_tag 'turbo__profile', src: new_trip_path(current_user) do %>
           <%#= render 'welcome_profile', user: @user %>
         <% end %>
       </div>
