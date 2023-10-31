@@ -6,17 +6,21 @@
         <%= fp.hidden_field :_destroy %>
         <%#= fp.collection_select :user_id, current_user.friends, :id, :full_name, { multiple: true } %>
         <%= fp.hidden_field :user_id, id: 'input_user' %>
-        <div id="user_name_container" class='d-flex'>
+        <div id="user_name_container">
           <span id="user_name"></span>
-          <%= link_to ('<span class="material-symbols-outlined">close</span>').html_safe, '#', data: { action: 'nested-form#removeParticipant' } %>
+          <%= link_to ('<span class="material-symbols-outlined">close</span>').html_safe, '#',
+                      data: { action: 'nested-form#removeParticipant' },
+                      class: 'link_remove_participant' %>
         </div>
       </div>
     <% end %>
   </div>
 </template>
 
-<% friends.first(10).each do |friend| %>
-  <div>
-    <%= link_to friend.full_name, '#', data: { action: 'click->nested-form#addParticipant', id: friend.id }  %>
-  </div>
-<% end %>
+<div class="friends_select_container">
+  <% friends.last(10).each do |friend| %>
+    <div>
+      <%= link_to friend.full_name, '#', data: { action: 'click->nested-form#addParticipant', id: friend.id }  %>
+    </div>
+  <% end %>
+</div>

@@ -1,0 +1,52 @@
+.flatpickr-months .flatpickr-month {
+  background-color: $aqua-prim !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months {
+  background-color: $aqua-prim !important;
+}
+
+.flatpickr-current-month .flatpickr-monthDropdown-months .flatpickr-monthDropdown-month {
+  background-color: $aqua-prim !important;
+}
+
+span.flatpickr-weekday {
+  background-color: $aqua-prim !important;
+}
+
+.flatpickr-weekdays {
+  background-color: $aqua-prim !important;
+}
+
+.flatpickr-innerContainer {
+  border-radius: 0 0 5px 5px !important;
+  background: $whitish !important;
+}
+
+.flatpickr-day:hover {
+  background: $aqua-accent !important;
+  color: $text-white !important;
+}
+
+.flatpickr-day.selected,
+.flatpickr-day.startRange,
+.flatpickr-day.endRange,
+.flatpickr-day.selected.inRange,
+.flatpickr-day.startRange.inRange,
+.flatpickr-day.endRange.inRange,
+.flatpickr-day.selected:focus,
+.flatpickr-day.startRange:focus,
+.flatpickr-day.endRange:focus,
+.flatpickr-day.selected:hover,
+.flatpickr-day.startRange:hover,
+.flatpickr-day.endRange:hover,
+.flatpickr-day.selected.prevMonthDay,
+.flatpickr-day.startRange.prevMonthDay,
+.flatpickr-day.endRange.prevMonthDay,
+.flatpickr-day.selected.nextMonthDay,
+.flatpickr-day.startRange.nextMonthDay,
+.flatpickr-day.endRange.nextMonthDay {
+  background: $aqua-accent !important;
+  border-color: $aqua-accent !important;
+  color: $text-white !important;
+}

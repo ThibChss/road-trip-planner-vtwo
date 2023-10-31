@@ -37,3 +37,62 @@
   height: 90%;
   width: 90%;
 }
+
+.dates_new_trip_container {
+  margin-top: 20px;
+
+  h5 {
+    margin-bottom: 15px;
+  }
+}
+
+.participants_added_title {
+  margin-bottom: 15px;
+}
+
+.added_participants {
+  height: 25%;
+  display: flex;
+  flex-wrap: wrap;
+  padding-top: 10px;
+  overflow: scroll;
+}
+
+#user_name_container {
+  position: relative;
+  background: #ACC0C0;
+  color: #0d6363;
+  font-weight: bold;
+  border-radius: 5px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-right: 12px;
+  margin-bottom: 10px;
+}
+
+#user_name {
+  padding: 5px 10px;
+}
+
+.nested_participant {
+  height: max-content;
+}
+
+.link_remove_participant {
+  text-decoration: none;
+  color: white;
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background-color: #bc5c5c;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 1px;
+
+  span {
+    font-size: 15px;
+  }
+}
