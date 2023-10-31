@@ -7,9 +7,15 @@ class Trip < ApplicationRecord
 
   # Events belonging to a trip
   has_many :events, class_name: :TripEvent, dependent: :destroy
+
   # Find instances of participants in the trip
   has_many :participations, class_name: :Participant, dependent: :destroy
   has_many :participants, through: :participations, source: :user
+  # Allow creation of participation when creating a trip
+  accepts_nested_attributes_for :participations,
+                                allow_destroy: true,
+                                reject_if: :all_blank
+
   # Find the admins of the trip
   has_many :admins, -> { where(admin: true) }, class_name: :Participant
 
