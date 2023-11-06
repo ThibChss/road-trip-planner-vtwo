@@ -11,34 +11,20 @@ export default class extends Controller {
   ]
 
   connect() {
-    console.log(this.formTarget.method === 'post');
   }
 
   addParticipant(event) {
     event.preventDefault()
 
     const link                = event.target.closest('.link_add_participant_select')
-    const card                = link.querySelector('.container_card_friend_select')
-    const cardBack            = card.parentElement
     const id                  = link.dataset.id
     const participantsList    = Array.from(this.addedParticipantsContainerTarget.querySelectorAll('#input_user'))
     const participantExist    = participantsList.find(input => input.value === id)
 
-    const flashMessage = this.#cannotAddTwice()
-
     if (typeof participantExist !== 'undefined') {
-        const flash = document.querySelector('#flash')
-        flash.insertAdjacentHTML('afterbegin', flashMessage)
+      this.#displayMessage()
     } else {
-      const name    = link.querySelector('.name_user_to_select').innerText
-      const content = this.templateTarget.innerHTML.replace(/TEMPLATE_RECORD/g, new Date().getTime())
-
-      card.classList.add('focused')
-      cardBack.classList.add('resized')
-
-      this.addedParticipantsContainerTarget.insertAdjacentHTML('afterbegin', content)
-      this.addedParticipantsContainerTarget.firstElementChild.querySelector('#input_user').value      = id
-      this.addedParticipantsContainerTarget.firstElementChild.querySelector('#user_name').innerText   = name
+      this.#addParticipantToList(link)
     }
   }
 
@@ -48,8 +34,6 @@ export default class extends Controller {
     const wrapper     = event.target.closest('.nested_participant')
     const id          = wrapper.querySelector('#input_user').value
     const link        = this.friendCardTargets.find(card => card.dataset.id === id)
-    const card        = link.querySelector('.container_card_friend_select')
-    const cardBack    = card.parentElement
 
     if (this.formTarget.method === 'post') {
       wrapper.remove()
@@ -58,8 +42,36 @@ export default class extends Controller {
       wrapper.style.display = 'none'
     }
 
-    card.classList.remove('focused')
-    cardBack.classList.remove('resized')
+    this.#styleCardFriend(link)
+  }
+
+  // PRIVATE METHODS
+
+  #displayMessage() {
+    const flashMessage    = this.#cannotAddTwice()
+    const flash           = document.querySelector('#flash')
+
+    flash.insertAdjacentHTML('afterbegin', flashMessage)
+  }
+
+  #addParticipantToList(link) {
+    const id      = link.dataset.id
+    const name    = link.querySelector('.name_user_to_select').innerText
+    const content = this.templateTarget.innerHTML.replace(/TEMPLATE_RECORD/g, new Date().getTime())
+
+    this.#styleCardFriend(link)
+
+    this.addedParticipantsContainerTarget.insertAdjacentHTML('afterbegin', content)
+    this.addedParticipantsContainerTarget.firstElementChild.querySelector('#input_user').value      = id
+    this.addedParticipantsContainerTarget.firstElementChild.querySelector('#user_name').innerText   = name
+  }
+
+  #styleCardFriend(link) {
+    const card        = link.querySelector('.container_card_friend_select')
+    const cardBack    = card.parentElement
+
+    card.classList.toggle('focused')
+    cardBack.classList.toggle('resized')
   }
 
   #cannotAddTwice() {

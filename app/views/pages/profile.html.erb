@@ -5,7 +5,8 @@
 
 <div class="container-profile row banner-container-image"
       style='background-image: url(<%= image_path 'banner_background.svg' %>)'
-      data-controller='menu-profile'
+      data-controller='menu-profile clean-link'
+      data-clean-link-user-value='<%= @user.slug %>'
       data-menu-profile-active-class='active'>
 
   <%# Menu profile %>
@@ -51,7 +52,8 @@
       </div>
 
       <div class="container_frame_profile">
-        <%= turbo_frame_tag 'turbo__profile', src: params[:source_frame] ? params[:source_frame] : trips_index_path(current_user) do %>
+        <%= turbo_frame_tag 'turbo__profile', src: params[:source_frame] ? params[:source_frame] : trips_index_path(current_user),
+                                              data: { action: 'turbo:before-frame-render->clean-link#cleanLinkProfile'} do %>
         <%#= turbo_frame_tag 'turbo__profile', src: new_trip_path(current_user) do %>
           <%#= render 'welcome_profile', user: @user %>
         <% end %>
