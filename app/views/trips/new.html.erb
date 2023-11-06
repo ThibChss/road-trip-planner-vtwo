@@ -1,6 +1,7 @@
 <%= turbo_frame_tag :turbo__profile do %>
   <%= tag.div data: {
-                      controller: 'form-redirect nested-form flatpickr',
+                      controller: 'form-redirect nested-form flatpickr form-focus',
+                      form_focus_focused_class: 'focused',
                       form_redirect_user_value: current_user.slug,
                     },
               class: 'form_new_trip_container' do %>
@@ -14,6 +15,7 @@
                                                       # turbo_frame: :turbo__profile,
                                                       # turbo: false,
                                                       # turbo_action: :advance,
+                                                      nested_form_target: 'form',
                                                       action: 'turbo:submit-end->form-redirect#redirectNewTrip'                                                    }
                                                   } do |f| %>
         <div class="row m-0 justify-content-center h-100">
@@ -27,25 +29,27 @@
           <div class="inputs_new_trip_container col-11">
             <div class="inputs_new_trip">
               <div class='inputs_resized'>
-                <%= f.input :name,
-                            input_html: { class: 'input-form',
-                                            data: {
-                                              action: 'focus->form-focus#focused',
-                                              identity: 'name'
-                                            }
-                                          },
-                            label_html: { class: 'label-form',
-                                            data: {
-                                              form_focus_target: 'label',
-                                              identity: 'name'
-                                            }
-                                          },
-                            wrapper_html: { class: 'container-label-input',
-                                            data: {
-                                              form_focus_target: 'wrapper',
-                                              identity: 'name'
-                                            }
-                                          } %>
+                <div class="background-input">
+                  <%= f.input :name,
+                              input_html: { class: 'input-form',
+                                              data: {
+                                                action: 'focus->form-focus#focused',
+                                                identity: 'name'
+                                              }
+                                            },
+                              label_html: { class: 'label-form',
+                                              data: {
+                                                form_focus_target: 'label',
+                                                identity: 'name'
+                                              }
+                                            },
+                              wrapper_html: { class: 'container-label-input',
+                                              data: {
+                                                form_focus_target: 'wrapper',
+                                                identity: 'name'
+                                              }
+                                            } %>
+                </div>
                 <div class="dates_new_trip_container">
                   <h5>Select your dates</h5>
                   <%= f.input :start_date, as: :string, label: false, input_html: { data: { flatpickr_target: "startTime" }, class: 'd-none' } %>

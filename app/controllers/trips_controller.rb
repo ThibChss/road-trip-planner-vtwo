@@ -31,7 +31,7 @@ class TripsController < ApplicationController
 
   def new
     @trip = Trip.new
-    @friends = current_user.friends
+    @friends = current_user.friends.order(first_name: :asc)
     @trip.participations.build
 
     authorize @trip
