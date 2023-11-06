@@ -6,7 +6,8 @@ export default class extends Controller {
   static targets = [
     'template',
     'addedParticipantsContainer',
-    'form'
+    'form',
+    'friendCard'
   ]
 
   connect() {
@@ -16,7 +17,10 @@ export default class extends Controller {
   addParticipant(event) {
     event.preventDefault()
 
-    const id                  = event.target.closest('.link_add_participant_select').dataset.id
+    const link                = event.target.closest('.link_add_participant_select')
+    const card                = link.querySelector('.container_card_friend_select')
+    const cardBack            = card.parentElement
+    const id                  = link.dataset.id
     const participantsList    = Array.from(this.addedParticipantsContainerTarget.querySelectorAll('#input_user'))
     const participantExist    = participantsList.find(input => input.value === id)
 
@@ -26,8 +30,11 @@ export default class extends Controller {
         const flash = document.querySelector('#flash')
         flash.insertAdjacentHTML('afterbegin', flashMessage)
     } else {
-      const name    = event.target.innerText
+      const name    = link.querySelector('.name_user_to_select').innerText
       const content = this.templateTarget.innerHTML.replace(/TEMPLATE_RECORD/g, new Date().getTime())
+
+      card.classList.add('focused')
+      cardBack.classList.add('resized')
 
       this.addedParticipantsContainerTarget.insertAdjacentHTML('afterbegin', content)
       this.addedParticipantsContainerTarget.firstElementChild.querySelector('#input_user').value      = id
@@ -38,18 +45,26 @@ export default class extends Controller {
   removeParticipant(event) {
     event.preventDefault()
 
-    const wrapper = event.target.closest('.nested_participant')
+    const wrapper     = event.target.closest('.nested_participant')
+    const id          = wrapper.querySelector('#input_user').value
+    const link        = this.friendCardTargets.find(card => card.dataset.id === id)
+    const card        = link.querySelector('.container_card_friend_select')
+    const cardBack    = card.parentElement
+
     if (this.formTarget.method === 'post') {
       wrapper.remove()
     } else {
       wrapper.querySelector("input[name*='_destroy']").value = 1
       wrapper.style.display = 'none'
     }
+
+    card.classList.remove('focused')
+    cardBack.classList.remove('resized')
   }
 
   #cannotAddTwice() {
     return `
-      <div class="flash__message flash__notice",
+      <div class="flash__message flash__alert",
             data-controller='flash-removal'
             data-action='animationend->flash-removal#remove'>
         You cannot add the same personne twice ❌

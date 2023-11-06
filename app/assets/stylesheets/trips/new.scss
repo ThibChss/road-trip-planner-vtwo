@@ -78,10 +78,28 @@
   border: 2px solid #0d6363;
   border-radius: 5px;
   background-color: #ACC0C0;
+  position: relative;
+  background-clip: padding-box;
+  transition: all .1s ease-in;
 
   span {
     margin-left: 20px;
   }
+}
+
+.background-input.resized {
+  transform: scale(0.98);
+  transition: all .1s ease-out;
+}
+
+.container_card_friend_select.focused {
+  border-color: transparent;
+  transition: all .1s ease-out;
+}
+
+.container_card_friend_select.focused .check_added_participants {
+  opacity: 1;
+  transition: all .1s ease-out;
 }
 
 #user_name_container {
@@ -129,4 +147,17 @@
   text-decoration: none;
   color: #0d6363;
   font-weight: bold;
+}
+
+.check_added_participants {
+  margin: 0;
+  position: absolute;
+  right: 15px;
+  font-size: 15px !important;
+  background: #0d6363;
+  border-radius: 50%;
+  color: #f1fdfd;
+  padding: 2px;
+  opacity: 0;
+  transition: all .1s ease-in;
 }

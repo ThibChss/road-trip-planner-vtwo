@@ -20,12 +20,17 @@
 <%= turbo_frame_tag :search_friend_select do %>
   <div class="friends_select_container">
     <% friends.each do |friend| %>
-      <%= link_to '#', class: 'link_add_participant_select', data: { action: 'click->nested-form#addParticipant', id: friend.id } do %>
-        <div class='container_card_friend_select' data-id='<%= friend.id %>'>
-          <div class="background-avatar">
-            <%= image_tag 'avatar_placeholder.png', alt: "avatar_user", class: 'avatar-user' %>
+      <%= link_to '#', class: 'link_add_participant_select', data: { action: 'click->nested-form#addParticipant',
+                                                                      id: friend.id,
+                                                                      nested_form_target: 'friendCard' } do %>
+        <div class="background-input">
+          <div class='container_card_friend_select' data-id='<%= friend.id %>'>
+            <div class="background-avatar">
+              <%= image_tag 'avatar_placeholder.png', alt: "avatar_user", class: 'avatar-user' %>
+            </div>
+            <span class='name_user_to_select'><%= friend.full_name %></span>
+            <span class="material-symbols-outlined check_added_participants">check</span>
           </div>
-          <span><%= friend.full_name %></span>
         </div>
       <% end %>
     <% end %>

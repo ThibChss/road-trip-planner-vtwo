@@ -55,6 +55,7 @@ input:focus {
 .background-input {
   border-radius: 5px;
   background: linear-gradient(170deg, #0d6363, #bc5c5c);
+  transition: all .1s ease-in;
 }
 
 .input-form {
