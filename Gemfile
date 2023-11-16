@@ -57,6 +57,14 @@ gem "font-awesome-sass", "~> 6.1"
 
 gem "simple_form"
 
+# Google gem for calendars and further
+# gem 'google-api-client'
+# gem 'googleauth'
+# gem 'omniauth-google-oauth2'
+
+# Simple calendar gem => Plan B for calendar
+gem "simple_calendar", "~> 2.4"
+
 gem 'faker'
 
 gem "pg_search"

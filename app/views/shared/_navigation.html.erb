@@ -1,6 +1,7 @@
 <% items_current_user = {
   'Trip Menu': [
-    ['Trips', '', { class: 'option_menu_select' }]
+    ['Your Trips', trips_index_path(@user), { class: 'option_menu_select' }],
+    ['Add Trip', new_trip_path, { class: 'option_menu_select' }]
   ],
   'Friends Menu': [
     ['Your Friends', friends_path(@user), { class: 'option_menu_select' }],
@@ -15,7 +16,7 @@
 
 <% items_other_user = {
   'Trip Menu': [
-    ['Trips', '', { class: 'option_menu_select' }]
+    ['Your Trips', trips_index_path(@user), { class: 'option_menu_select' }]
   ],
   'Friends Menu': [
     ["#{@user.first_name}'#{@user.first_name.downcase.ends_with?('s') ? '' : 's'} Friends", friends_path(@user), { class: 'option_menu_select' }]

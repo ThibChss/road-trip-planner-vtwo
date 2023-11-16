@@ -1,1 +1,54 @@
-trip show
+<div class="container-profile row banner-container-image"
+      style='background-image: url(<%= image_path 'banner_background.svg' %>)'
+      data-controller='menu-profile clean-link'
+      data-menu-profile-active-class='active'>
+
+  <%# Menu profile %>
+  <div class="menu-container d-none col-md-3 d-lg-block">
+    <div class="empty__block">
+    </div>
+    <div class="menu__items">
+      <%= tag.div class: :menu__items_container do %>
+        <div class='menu-item' data-action=''>
+          <h4>Planner</h4> <span class="material-symbols-outlined">navigate_next</span>
+        </div>
+        <div class='menu-item' data-action=''>
+          <h4>Map</h4> <span class="material-symbols-outlined">navigate_next</span>
+        </div>
+        <div class='menu-item' data-action=''>
+          <h4>Participants</h4> <span class="material-symbols-outlined">navigate_next</span>
+        </div>
+        <div class='menu-item' data-action=''>
+          <h4>Pictures</h4> <span class="material-symbols-outlined">navigate_next</span>
+        </div>
+        <div class='menu-item' data-action=''>
+          <h4>Budget</h4> <span class="material-symbols-outlined">navigate_next</span>
+        </div>
+        <div class='menu-item' data-action=''>
+          <h4>Organize</h4> <span class="material-symbols-outlined">navigate_next</span>
+        </div>
+      <% end %>
+    </div>
+  </div>
+
+  <%# Display of the selected section %>
+  <div class="display-container col-12 col-lg-9">
+    <div class="empty__block_display">
+    </div>
+
+    <div class="frame__profile">
+      <div class="container-title-profile row">
+        <h4 class='title_profile col-lg-11 col-11 col-md-7'>
+          <span>TRIP: <%= style_words(@trip.name) %></span>
+          <span class="status_trip_<%= @trip.status %>"><%= @trip.status %></span>
+        </h4>
+      </div>
+
+      <div class="container_frame_profile">
+        <%= turbo_frame_tag 'turbo__trip_show', src: calendar_trip_path(@trip) do %>
+
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>
