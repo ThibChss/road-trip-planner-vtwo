@@ -6,14 +6,13 @@ class TripsController < ApplicationController
   # Check if the page is rendered in a turbo frame
   before_action :in_turbo_frame?, only: %i[index new]
   # Find the current trip
-  before_action :set_trip, only: %i[show]
+  before_action :set_trip, only: %i[show calendar]
 
   def index
     @page_limit = 9
     @current_page = params[:page].to_i
     @user_trips = policy_scope(@user.trips).order(start_date: :asc)
     authorize @user_trips
-    p params[:source_frame]
 
     if params[:query].present?
       @query = params[:query]
@@ -26,6 +25,10 @@ class TripsController < ApplicationController
   end
 
   def show
+    authorize @trip
+  end
+
+  def calendar
     authorize @trip
   end
 

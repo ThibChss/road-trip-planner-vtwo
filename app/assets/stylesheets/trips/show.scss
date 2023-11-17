@@ -1,0 +1,32 @@
+.status_trip_pending {
+  background: linear-gradient(120deg, #0d6363, #bc5c5c);
+  width: 110px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 5px 0px;
+}
+
+.status_trip_confirmed {
+  background: #0d6363;
+  width: 110px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 5px 0px;
+}
+
+.status_trip_cancelled {
+  background: #bc5c5c;
+  width: 110px;
+  text-align: center;
+  text-transform: uppercase;
+  font-weight: bold;
+  border-radius: 5px;
+  font-size: 16px;
+  padding: 5px 0px;
+}

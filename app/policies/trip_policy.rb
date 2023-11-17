@@ -18,6 +18,10 @@ class TripPolicy < ApplicationPolicy
     true if record.participants.include?(user)
   end
 
+  def calendar?
+    true if user
+  end
+
   def new?
     true if user
   end
