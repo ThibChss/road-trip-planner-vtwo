@@ -6,7 +6,7 @@ class TripsController < ApplicationController
   # Check if the page is rendered in a turbo frame
   before_action :in_turbo_frame?, only: %i[index new]
   # Find the current trip
-  before_action :set_trip, only: %i[show calendar]
+  before_action :set_trip, only: %i[show calendar month_calendar week_calendar]
 
   def index
     @page_limit = 9
@@ -29,6 +29,14 @@ class TripsController < ApplicationController
   end
 
   def calendar
+    authorize @trip
+  end
+
+  def month_calendar
+    authorize @trip
+  end
+
+  def week_calendar
     authorize @trip
   end
 

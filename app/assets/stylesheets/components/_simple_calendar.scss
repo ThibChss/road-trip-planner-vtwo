@@ -39,14 +39,32 @@
   border-radius: 5px;
   width: fit-content;
   position: absolute;
+  height: 46px;
 }
 
 .select_type {
   padding: 8px 10px;
   border-radius: 3px;
   font-weight: bold;
-  &.selected {
-    background: linear-gradient(144deg, $red-accent, $aqua-accent);
+  width: 70px;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+  cursor: pointer;
+}
+
+.background_select_type {
+  width: 70px;
+  background: linear-gradient(120deg, $red-accent, $aqua-accent);
+  border-radius: 3px;
+  position: absolute;
+  height: 85%;
+  z-index: 1;
+  transition: all .1s ease-in;
+
+  &.week {
+    transform: translateX(100%);
+    transition: all .1s ease-out;
   }
 }
 
