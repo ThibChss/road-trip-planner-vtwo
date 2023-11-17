@@ -1,18 +1,16 @@
 <%= turbo_frame_tag :turbo__trip_show do %>
-  <div class="container_calendar_trip">
+  <div class="container_calendar_trip"
+        data-controller='calendar-select'
+        data-calendar-select-trip-id-value='<%= @trip.id %>'>
     <div class='select_calendar_type'>
-      <span class='select_type'>Month</span>
-      <span class='select_type selected'>Week</span>
+      <span class='select_type' data-action='click->calendar-select#monthCalendar'>Month</span>
+      <span class='select_type' data-action='click->calendar-select#weekCalendar'>Week</span>
+      <span class='background_select_type' data-calendar-select-target='background'></span>
     </div>
-    <%= month_calendar(events: @trip.events, attribute: :start_date, end_attribute: :end_date) do |date, events| %>
-      <span class='date-calendar-wrapper'>
-        <span class='day-today-<%= date.day < 10 ? 'short' : 'long' %>'><%= date.day %></span>
-      </span>
-      <div class='scrollable'>
-        <% events.each do |event| %>
-          <div><%= event.name %></div>
-        <% end %>
-      </div>
+
+    <%= turbo_frame_tag :display__calendar, src: month_calendar_trip_path(@trip),
+                                            data: { calendar_select_target: 'calendarFrame'} do %>
+
     <% end %>
   </div>
 <% end %>

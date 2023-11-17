@@ -32,6 +32,8 @@ Rails.application.routes.draw do
   resources :trips, only: %i[show] do
     member do
       get :calendar
+      get :month_calendar
+      get :week_calendar
     end
   end
 end

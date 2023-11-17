@@ -5,9 +5,9 @@
     <% else %>
       <span class="calendar-title"><%= t('simple_calendar.week', default: 'Week') %> <%= calendar.week_number %> - <%= calendar.end_week %></span>
     <% end %>
-    <div>
-      <%= link_to t('simple_calendar.previous', default: 'Previous'), calendar.url_for_previous_view %>
-      <%= link_to t('<span class="material-symbols-outlined">navigate_next</span>'.html_safe, default: 'Next'), calendar.url_for_next_view %>
+    <div class='links_views_calendar'>
+      <%= link_to t('simple_calendar.previous', default: '<span class="material-symbols-outlined">navigate_before</span>'.html_safe), calendar.url_for_previous_view, class: 'link_calendar_view' %>
+      <%= link_to t('simple_calendar.next', default: '<span class="material-symbols-outlined">navigate_next</span>'.html_safe), calendar.url_for_next_view, class: 'link_calendar_view' %>
     </div>
   </div>
 

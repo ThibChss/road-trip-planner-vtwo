@@ -22,6 +22,14 @@ class TripPolicy < ApplicationPolicy
     true if user
   end
 
+  def week_calendar?
+    true if user
+  end
+
+  def month_calendar?
+    true if user
+  end
+
   def new?
     true if user
   end
