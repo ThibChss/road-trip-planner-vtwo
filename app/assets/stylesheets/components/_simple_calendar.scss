@@ -1,0 +1,255 @@
+.container_calendar_trip {
+  height: 100%;
+  overflow: scroll;
+  margin: 0 10px;
+  position: relative;
+}
+
+.simple-calendar {
+  display: flex;
+  flex-direction: column;
+}
+
+.simple-calendar .day {
+  height: 150px;
+  background: transparent;
+  .scrollable {
+    height: 100%;
+    overflow-y: scroll;
+    overflow-x: auto;
+  }
+}
+
+.calendar-heading {
+  align-items: center;
+  font-weight: bold;
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 15px;
+  align-self: end;
+  width: 60%;
+  padding: 3px 0;
+}
+
+.select_calendar_type {
+  background: #0c1d1d;
+  padding: 3px;
+  display: flex;
+  align-items: center;
+  border-radius: 5px;
+  width: fit-content;
+  position: absolute;
+}
+
+.select_type {
+  padding: 8px 10px;
+  border-radius: 3px;
+  font-weight: bold;
+  &.selected {
+    background: linear-gradient(144deg, $red-accent, $aqua-accent);
+  }
+}
+
+.links_views_calendar {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+
+.link_calendar_view {
+  display: flex;
+  text-decoration: none;
+  color: inherit;
+  background: #0c1d1d;
+  padding: 8px;
+  border-radius: 5px;
+  span {
+    font-weight: bold;
+  }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+.simple-calendar table {
+  backdrop-filter: blur(5px);
+}
+
+.simple-calendar table thead {
+  // background-color: #96C7C1;
+  // color: $white;
+}
+
+.simple-calendar table, .simple-calendar thead,
+.simple-calendar tr, .simple-calendar td,
+.simple-calendar tbody, .simple-calendar th {
+  // border-color: $light-aqua !important;
+  text-align: center;
+}
+
+
+.calendar-title {
+  font-size: 18px;
+  // font-family: 'Arvo', 'serif';
+}
+
+// .badge-calendar {
+//   // background-color: var(--color);
+//   border: none;
+//   // color: $white;
+//   opacity: 0.8;
+//   transition: .3s opacity ease-in-out;
+//   width: 100%;
+//   text-align: left;
+//   overflow: hidden;
+//   &:hover, &:focus, &:focus-visible {
+//     // background-color: var(--color) !important;
+//     // color: $white !important;
+//     opacity: 1;
+//   }
+// }
+
+.simple-calendar .prev-month,
+.simple-calendar .next-month {
+  // background: rgba($bold-beige, 0.5);
+}
+
+.simple-calendar td {
+  padding: 0 2.5px;
+  padding-top: 5px;
+}
+
+// .simple-calendar .today {
+//   background: none;
+// }
+
+// .simple-calendar tbody tr:nth-child(odd):not(.prev-month):not(.next-month) {
+//   background-color: #C3BCB16E;
+//   box-shadow: none;
+// }
+
+// .simple-calendar tbody tr:nth-child(even):not(.prev-month):not(.next-month) {
+//   background-color: #FEFCF3;
+//   box-shadow: none;
+// }
+
+.date-calendar-wrapper {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+}
+
+.day-today-long,
+.day-today-short {
+  width: 28px;
+  height: 28px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.simple-calendar .today .day-today-long,
+.simple-calendar .today .day-today-short {
+  // background-color: $light-aqua;
+  // color: $white;
+  border-radius: 50%;
+  font-weight: bold;
+}
+
+.simple-calendar table {
+  width: 100%;
+  table-layout: fixed;
+  border: none;
+}
+
+
+.arrow-calendar {
+  position: absolute;
+  right: 10px;
+}
+
+.wrapper-calendar {
+  width: 80vw;
+}
+
+
+// Min-width: 320px (smaller phone viewpoints)
+// Min-width: 480px (small devices and most phones)
+// Min-width: 768px (most tablets)
+// Min-width: 992px (smaller desktop viewpoints)
+// Min-width: 1200px (large devices and wide screens)
+
+// @media (max-width: 1080px) {
+
+// }
+
+// @media (max-width: 780px) {
+
+// }
+
+// @media (max-width: 580px) {
+
+// }
+
+// @media (max-width: 375px) {
+
+// }
+
+@media (max-width: 1080px) {
+}
+
+@media (max-width: 780px) {
+  .wrapper-calendar {
+    width: 90vw;
+  }
+
+  .simple-calendar th {
+    font-size: 0;
+  }
+
+  .simple-calendar th::first-letter {
+    font-size: 13px;
+  }
+}
+
+@media (max-width: 580px) {
+  .wrapper-calendar {
+    width: 99vw;
+  }
+
+  .simple-calendar .day {
+    height: 140px;
+  }
+
+  .simple-calendar .day .scrollable {
+    height: 100px;
+  }
+
+  .badge-calendar {
+    font-size: 10px;
+  }
+
+  .simple-calendar td {
+    padding: 0 1.5px;
+    padding-top: 5px;
+  }
+}
+
+@media (max-width: 375px) {
+  .badge-calendar {
+    font-size: 8px;
+  }
+}

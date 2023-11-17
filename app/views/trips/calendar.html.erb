@@ -1,5 +1,18 @@
 <%= turbo_frame_tag :turbo__trip_show do %>
-  <%= @trip.name %>
-
-  <div id="calendar"></div>
+  <div class="container_calendar_trip">
+    <div class='select_calendar_type'>
+      <span class='select_type'>Month</span>
+      <span class='select_type selected'>Week</span>
+    </div>
+    <%= month_calendar(events: @trip.events, attribute: :start_date, end_attribute: :end_date) do |date, events| %>
+      <span class='date-calendar-wrapper'>
+        <span class='day-today-<%= date.day < 10 ? 'short' : 'long' %>'><%= date.day %></span>
+      </span>
+      <div class='scrollable'>
+        <% events.each do |event| %>
+          <div><%= event.name %></div>
+        <% end %>
+      </div>
+    <% end %>
+  </div>
 <% end %>

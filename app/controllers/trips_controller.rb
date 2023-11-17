@@ -1,5 +1,3 @@
-require 'google/apis/calendar_v3'
-
 class TripsController < ApplicationController
   # Find the user first
   before_action :set_user, only: %i[index]
