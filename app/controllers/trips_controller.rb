@@ -3,10 +3,12 @@ class TripsController < ApplicationController
   before_action :set_user, only: %i[index]
   # Check if user exist and redirect if not
   before_action :user_exists?, only: %i[index]
-  # Check if the page is rendered in a turbo frame
-  before_action :in_turbo_frame?, only: %i[index new]
   # Find the current trip
   before_action :set_trip, only: %i[show calendar month_calendar week_calendar]
+  # Check if the page is rendered in a turbo frame
+  before_action :in_turbo_frame?, only: %i[index new]
+  # Check if the page is rendered in a turbo frame for a trip
+  before_action :in_turbo_frame_trip?, only: %i[calendar week_calendar month_calendar]
 
   def index
     @page_limit = 9
