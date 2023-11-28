@@ -26,8 +26,8 @@ Rails.application.routes.draw do
   # Trips controller routes
   scope 'profile/:id' do
     get 'trips', to: 'trips#index', as: :trips_index
-    resources :trips, only: %i[new create]
   end
+  resources :trips, only: %i[new create]
 
   resources :trips, only: %i[show] do
     member do
