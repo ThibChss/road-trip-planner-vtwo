@@ -33,6 +33,10 @@ class ApplicationController < ActionController::Base
     redirect_to profile_path(@user), alert: "Cannot find this page" unless turbo_frame_request?
   end
 
+  def in_turbo_frame_trip?
+    redirect_to trip_path(@trip), alert: "Cannot find this page" unless turbo_frame_request?
+  end
+
   def user_exists?
     redirect_nil_user! if @user.nil?
   end
