@@ -1,4 +1,40 @@
 class TripEvent < ApplicationRecord
+  CATEGORIES = {
+    'Not Specified' => [
+      '❓ Not Specified'
+    ],
+    'Accomodations' => [
+      '🏨 Hotel',
+      '🏠 Airbnb',
+      '🏕️ Camping',
+      '🏢 Hostel',
+      '🏚️ House',
+    ],
+    'Activities' => [
+      '🍔 Food',
+      '🍽️ Restaurant',
+      '🍺 Drink',
+      '🎨 Culture',
+      '🏋🏻 Sport',
+      '🎤 Entertainment',
+      '🎭 Movie & Theater',
+      '🏞️ Visit'
+    ],
+    'Transports' => [
+      '✈️ Plane',
+      '🚆 Train',
+      '🚕 Taxi',
+      '🚗 Car',
+      '🚲 Bike',
+      '🚊 Public Transport',
+      '🚢 Boat',
+    ],
+    'Other' => [
+      '🏷️ Other',
+      '🛒 Groceries'
+    ]
+  }
+
   belongs_to :trip
   belongs_to :creator, class_name: :User
 
