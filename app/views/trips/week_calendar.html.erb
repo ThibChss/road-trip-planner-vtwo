@@ -5,7 +5,7 @@
     </span>
     <div class='scrollable'>
       <% events.each do |event| %>
-        <div><%= event.name %></div>
+        <div class='event_day' style='--color: <%= category_color(event.category) %>'><%= event.name %></div>
       <% end %>
     </div>
   <% end %>
