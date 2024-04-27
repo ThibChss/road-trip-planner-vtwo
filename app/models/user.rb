@@ -5,7 +5,7 @@ class User < ApplicationRecord
   pg_search_scope :search_user,
                   against: %i[username first_name last_name],
                   using: {
-                    tsearch: { prefix: true } # <-- now `superman batm` will return something!
+                    tsearch: { prefix: true }
                   }
 
   devise  :database_authenticatable, :registerable,

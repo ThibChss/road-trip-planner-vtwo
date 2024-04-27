@@ -75,7 +75,7 @@ class TripsController < ApplicationController
   end
 
   def set_trip
-    @trip = Trip.find(params[:id])
+    @trip = Trip.friendly.find(params[:id])
   end
 
   def set_user
