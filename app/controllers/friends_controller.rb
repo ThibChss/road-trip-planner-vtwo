@@ -2,74 +2,66 @@ class FriendsController < ApplicationController
   # Find the user first
   before_action :set_user, only: %i[friends pending_friends invitations search_friends]
 
-  # Set page limit and define current page
-  before_action :define_page, only: %i[friends pending_friends invitations search_friends]
-
-  # If user exist check if it is authorized
-  before_action :authorize_user!, only: %i[friends]
-
-  # Authorize only the current_user
-  before_action :authorize_current_user_only!, only: %i[pending_friends invitations search_friends]
+  # Authorization for different actions
+  before_action :authorize_for_action, only: %i[friends pending_friends invitations search_friends]
 
   # Check if the page is rendered in a turbo frame
-  before_action :in_turbo_frame?, only: %i[friends pending_friends invitations search_friends]
+  # before_action :in_turbo_frame?, only: %i[friends pending_friends invitations search_friends]
 
   def friends
-    @user_friends = @user.friends.where.not(id: current_user).order(first_name: :asc)
+    @friends = @user.friends.where.not(id: current_user.id).order(first_name: :asc)
 
-    if params[:query].present?
-      @query = params[:query]
-      @friends = @user_friends.search_user(params[:query]).offset(@page_limit * @current_page).limit(@page_limit).decorate
-      @next_page = @current_page + 1 if @user_friends.search_user(params[:query]).count > (@page_limit * @current_page) + @page_limit
-    else
-      @friends = @user_friends.offset(@page_limit * @current_page).limit(@page_limit).decorate
-      @next_page = @current_page + 1 if @user_friends.count > (@page_limit * @current_page) + @page_limit
-    end
+    paginate_friends
   end
 
   def pending_friends
-    @user_sent_requests = @user.sent_friends.where.not(id: current_user).order(created_at: :desc).decorate
+    @friends = @user.sent_friends.where.not(id: current_user).order(created_at: :desc)
 
-    @pending_friends = @user_sent_requests.offset(@page_limit * @current_page).limit(@page_limit)
-    @next_page = @current_page + 1 if @user_sent_requests.count > (@page_limit * @current_page) + @page_limit
+    paginate_friends
   end
 
   def invitations
-    @user_received_friends = @user.received_friends.where.not(id: current_user).order(created_at: :desc).decorate
+    @friends = @user.received_friends.where.not(id: current_user).order(created_at: :desc)
 
-    @invitations = @user_received_friends.offset(@page_limit * @current_page).limit(@page_limit)
-    @next_page = @current_page + 1 if @user_received_friends.count > (@page_limit * @current_page) + @page_limit
+    paginate_friends
   end
 
   def search_friends
-    @user_suggestions = @user.friends_suggestions.order(first_name: :asc)
+    @friends = @user.friends_suggestions.order(first_name: :asc)
 
-    if params[:query].present?
-      @query = params[:query]
-      @suggestions = @user_suggestions.search_user(@query).offset(@page_limit * @current_page).limit(@page_limit).decorate
-      @next_page = @current_page + 1 if @user_suggestions.search_user(@query).count > (@page_limit * @current_page) + @page_limit
-    else
-      @suggestions = @user_suggestions.offset(@page_limit * @current_page).limit(@page_limit).decorate
-      @next_page = @current_page + 1 if @user_suggestions.count > (@page_limit * @current_page) + @page_limit
-    end
+    paginate_friends
   end
 
   private
 
-  def authorize_user!
-    return redirect_unauthorized_user! unless FriendsControllerPolicy.new(current_user, @user).check_friends?
+  def authorize_for_action
+    policy = FriendsControllerPolicy.new(current_user, @user)
+
+    case action_name
+    when :friends
+      return redirect_unauthorized_user! unless policy.check_friends?
+    when :pending_friends, :invitations, :search_friends
+      return redirect_unauthorized_user! unless policy.user_record?
+    end
 
     authorize @user, policy_class: FriendsControllerPolicy
   end
 
-  def authorize_current_user_only!
-    return redirect_unauthorized_user! unless FriendsControllerPolicy.new(current_user, @user).user_record?
-
-    authorize @user, policy_class: FriendsControllerPolicy
-  end
-
-  def define_page
+  def paginate_friends
     @page_limit = 8
     @current_page = params[:page].to_i
+    @query = params[:query].presence
+
+    if @query
+      @results = @friends.search_user(@query)
+
+      @friends = @results.decorate.offset(@page_limit * @current_page).limit(@page_limit)
+      @next_page = @current_page + 1 if @results.size > (@page_limit * @current_page) + @page_limit
+    else
+      @results = @friends
+
+      @friends = @friends.decorate.offset(@page_limit * @current_page).limit(@page_limit)
+      @next_page = @current_page + 1 if @results.size > (@page_limit * @current_page) + @page_limit
+    end
   end
 end
