@@ -6,7 +6,7 @@ class FriendsController < ApplicationController
   before_action :authorize_for_action, only: %i[friends pending_friends invitations search_friends]
 
   # Check if the page is rendered in a turbo frame
-  # before_action :in_turbo_frame?, only: %i[friends pending_friends invitations search_friends]
+  before_action :in_turbo_frame?, only: %i[friends pending_friends invitations search_friends]
 
   def friends
     @friends = @user.friends.where.not(id: current_user.id).order(first_name: :asc)
