@@ -72,7 +72,11 @@ gem "pg_search"
 # Not needed as .parameterize method does the same thing
 # gem 'slugify'
 
+# Add slug to the URL and let find instances by id
 gem 'friendly_id', '~> 5.4.0'
+
+# Add decorators to the models
+gem 'draper'
 
 # Use Active Storage variants [https://guides.rubyonrails.org/active_storage_overview.html#transforming-images]
 # gem "image_processing", "~> 1.2"
