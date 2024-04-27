@@ -2,6 +2,7 @@
   <div class="row m-0 justify-content-center h-100"
         data-controller='search-friends'
         data-search-friends-user-value='<%= @user.slug %>'>
+
     <div class="friends_display col-11">
       <%# MUTUAL FRIENDS %>
       <div class="container__friends">
@@ -27,12 +28,10 @@
           <% end %>
         </div>
 
-
         <div class="friend_item_container">
           <%= turbo_frame_tag :search_mutual_friends, data: {
                                                               search_friends_target: 'searchFrame'
                                                             } do %>
-                                                            
             <% if @friends.empty? && @query.present? %>
               <div class="empty_friends_container">
                 <h4>No Results</h4>
@@ -49,11 +48,13 @@
             <% else %>
               <div class="friends_items" id='friends'></div>
             <% end %>
-
             <%= turbo_frame_tag :load_more, src: friends_path(format: :turbo_stream, query: @query), loading: :lazy %>
           <% end %>
         </div>
+
       </div>
     </div>
   </div>
 <% end %>
+
+<%= console %>
