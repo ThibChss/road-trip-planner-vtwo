@@ -1,5 +1,4 @@
 <%= turbo_frame_tag 'turbo__profile' do %>
-
   <div class="row m-0 justify-content-center h-100"
         data-controller='search-friends'
         data-search-friends-user-value='<%= @user.slug %>'>
@@ -10,7 +9,6 @@
           <h4 class='friend_title'>
             SEARCH PEOPLE
           </h4>
-
           <%= form_with url: search_friends_path(@user), method: :get, class: "search_bar_friend_form" do %>
             <%= text_field_tag :query,
                   params[:query],
@@ -23,25 +21,22 @@
             <%= submit_tag '#', disabled: true, hidden: true %>
           <% end %>
         </div>
-
-
+        <%# DISPLAY RESULTS %>
         <div class="friend_item_container">
           <%= turbo_frame_tag :search_new_friends, data: {
                                                           search_friends_target: 'searchFrame'
                                                           } do %>
-
-            <% if @suggestions.empty? && @query.present? %>
+            <% if @friends.empty? && @query.present? %>
               <div class="empty_friends_container">
                 <h4>No Results</h4>
               </div>
-            <% elsif @suggestions.empty? %>
+            <% elsif @friends.empty? %>
               <div class="empty_friends_container">
                 <h4>No one to suggest</h4>
               </div>
             <% else %>
               <div class="friends_items" id='search_new_friends_div'></div>
             <% end %>
-
             <%= turbo_frame_tag :load_more, src: search_friends_path(query: @query, format: :turbo_stream), loading: :lazy %>
           <% end %>
         </div>
