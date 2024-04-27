@@ -1,12 +1,16 @@
 class PagesController < ApplicationController
   # Does not require to be connected on the homepage
   skip_before_action :authenticate_user!, only: :home
+
   # If user is already signed in => Does not allow access to this page
   before_action :redirect_signed_in_user!, only: :connect
+
   # Find the user first
   before_action :set_user, only: %i[profile]
+
   # Check if user exist and redirect if not
   before_action :user_exists?, only: %i[profile]
+
   # If user exist check if it is authorized
   before_action :authorize_user!, only: %i[profile]
 
