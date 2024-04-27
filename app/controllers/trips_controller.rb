@@ -2,9 +2,6 @@ class TripsController < ApplicationController
   # Find the user first
   before_action :set_user, only: %i[index]
 
-  # Check if user exist and redirect if not
-  before_action :user_exists?, only: %i[index]
-
   # Find the current trip
   before_action :set_trip, only: %i[show calendar month_calendar week_calendar]
 
@@ -60,13 +57,13 @@ class TripsController < ApplicationController
     @admin = Participant.create(trip: @trip, user: current_user, admin: true)
 
     if @trip.save
-      flash.now[:notice] = 'Your trip has been added 🌴'
+      flash.now[:notice] = "Your trip has been added 🌴"
       render turbo_stream: turbo_stream.append(
         :flash,
-        partial: 'shared/flash_message'
+        partial: "shared/flash_message",
       )
     else
-      render :new, status: :unprocessable_entity, alert: 'Something went wrong❗'
+      render :new, status: :unprocessable_entity, alert: "Something went wrong❗"
     end
 
     authorize @trip
@@ -80,9 +77,7 @@ class TripsController < ApplicationController
 
   def set_trip
     @trip = Trip.friendly.find(params[:id])
-  end
-
-  def set_user
-    @user = User.friendly.find(params[:id])
+  rescue ActiveRecord::RecordNotFound
+    redirect_to profile_path(current_user), alert: "We couldn't find this trip 🌴"
   end
 end

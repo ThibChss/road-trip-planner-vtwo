@@ -2,9 +2,6 @@ class FriendsController < ApplicationController
   # Find the user first
   before_action :set_user, only: %i[friends pending_friends invitations search_friends]
 
-  # Check if user exist and redirect if not
-  before_action :user_exists?, only: %i[friends pending_friends invitations search_friends]
-
   # Set page limit and define current page
   before_action :define_page, only: %i[friends pending_friends invitations search_friends]
 
@@ -62,10 +59,6 @@ class FriendsController < ApplicationController
 
   private
 
-  def set_user
-    @user = User.friendly.find(params[:id]).decorate
-  end
-
   def authorize_user!
     return redirect_unauthorized_user! unless FriendsControllerPolicy.new(current_user, @user).check_friends?
 
@@ -76,10 +69,6 @@ class FriendsController < ApplicationController
     return redirect_unauthorized_user! unless FriendsControllerPolicy.new(current_user, @user).user_record?
 
     authorize @user, policy_class: FriendsControllerPolicy
-  end
-
-  def user_exists?
-    redirect_nil_user! if @user.nil?
   end
 
   def define_page

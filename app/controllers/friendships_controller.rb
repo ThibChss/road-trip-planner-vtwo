@@ -13,7 +13,7 @@ class FriendshipsController < ApplicationController
       flash.now[:notice] = params[:friendship][:action].empty? ? "Invitation sent to #{@friend.first_name.titleize} 🎉" : "Confirm invitation from #{@friend.first_name.titleize} 🎉"
       turbo_stream_action_success
     else
-      flash.now[:alert] = 'Something went wrong ❌'
+      flash.now[:alert] = "Something went wrong ❌"
       render turbo_stream: turbo_stream_flash_message
     end
 
@@ -76,14 +76,14 @@ class FriendshipsController < ApplicationController
   def turbo_stream_flash_message
     turbo_stream.append(
       :flash,
-      partial: 'shared/flash_message'
+      partial: "shared/flash_message",
     )
   end
 
   def turbo_stream_action_success
     render turbo_stream: [
       turbo_stream.remove("friend_item_#{@friend.id}"),
-      turbo_stream_flash_message
+      turbo_stream_flash_message,
     ]
   end
 end

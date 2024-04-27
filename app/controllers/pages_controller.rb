@@ -8,9 +8,6 @@ class PagesController < ApplicationController
   # Find the user first
   before_action :set_user, only: %i[profile]
 
-  # Check if user exist and redirect if not
-  before_action :user_exists?, only: %i[profile]
-
   # If user exist check if it is authorized
   before_action :authorize_user!, only: %i[profile]
 
@@ -21,10 +18,6 @@ class PagesController < ApplicationController
   def connect; end
 
   private
-
-  def set_user
-    @user = User.friendly.find(params[:id])
-  end
 
   def authorize_user!
     return redirect_unauthorized_user! unless PagesControllerPolicy.new(current_user, @user).check_friends?

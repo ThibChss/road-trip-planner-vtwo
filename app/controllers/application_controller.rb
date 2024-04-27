@@ -37,8 +37,10 @@ class ApplicationController < ActionController::Base
     redirect_to trip_path(@trip), alert: "Cannot find this page" unless turbo_frame_request?
   end
 
-  def user_exists?
-    redirect_nil_user! if @user.nil?
+  def set_user
+    @user = User.friendly.find(params[:id]).decorate
+  rescue ActiveRecord::RecordNotFound
+    redirect_nil_user!
   end
 
   protected
