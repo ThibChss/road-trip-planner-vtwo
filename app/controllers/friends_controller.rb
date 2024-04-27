@@ -14,17 +14,15 @@ class FriendsController < ApplicationController
   # Check if the page is rendered in a turbo frame
   before_action :in_turbo_frame?, only: %i[friends pending_friends invitations search_friends]
 
-  decorates_assigned :user, with: UserDecorator
-
   def friends
-    @user_friends = @user.friends.where.not(id: current_user).order(first_name: :asc).decorate
+    @user_friends = @user.friends.where.not(id: current_user).order(first_name: :asc)
 
     if params[:query].present?
       @query = params[:query]
-      @friends = @user_friends.search_user(params[:query]).offset(@page_limit * @current_page).limit(@page_limit)
+      @friends = @user_friends.search_user(params[:query]).offset(@page_limit * @current_page).limit(@page_limit).decorate
       @next_page = @current_page + 1 if @user_friends.search_user(params[:query]).count > (@page_limit * @current_page) + @page_limit
     else
-      @friends = @user_friends.offset(@page_limit * @current_page).limit(@page_limit)
+      @friends = @user_friends.offset(@page_limit * @current_page).limit(@page_limit).decorate
       @next_page = @current_page + 1 if @user_friends.count > (@page_limit * @current_page) + @page_limit
     end
   end
@@ -44,15 +42,14 @@ class FriendsController < ApplicationController
   end
 
   def search_friends
-    @user_suggestions = @user.friends_suggestions.order(first_name: :asc).decorate
+    @user_suggestions = @user.friends_suggestions.order(first_name: :asc)
 
     if params[:query].present?
       @query = params[:query]
-      @suggestions = @user_suggestions.search_user(@query).offset(@page_limit * @current_page).limit(@page_limit)
-      puts @suggestions.empty?
+      @suggestions = @user_suggestions.search_user(@query).offset(@page_limit * @current_page).limit(@page_limit).decorate
       @next_page = @current_page + 1 if @user_suggestions.search_user(@query).count > (@page_limit * @current_page) + @page_limit
     else
-      @suggestions = @user_suggestions.offset(@page_limit * @current_page).limit(@page_limit)
+      @suggestions = @user_suggestions.offset(@page_limit * @current_page).limit(@page_limit).decorate
       @next_page = @current_page + 1 if @user_suggestions.count > (@page_limit * @current_page) + @page_limit
     end
   end
