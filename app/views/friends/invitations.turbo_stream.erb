@@ -1,5 +1,5 @@
 <%= turbo_stream.append "received_friends" do %>
-  <%= render partial: "friends/friend", collection: @invitations %>
+  <%= render partial: "friends/friend", collection: @friends %>
 <% end %>
 
 <% if @next_page.present? %>
