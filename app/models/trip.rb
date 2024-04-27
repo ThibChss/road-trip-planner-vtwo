@@ -1,3 +1,18 @@
+# == Schema Information
+#
+# Table name: trips
+#
+#  id         :bigint           not null, primary key
+#  name       :string
+#  start_date :date
+#  end_date   :date
+#  user_id    :bigint           not null
+#  created_at :datetime         not null
+#  updated_at :datetime         not null
+#  status     :integer          default("pending")
+#  photo_url  :string
+#  slug       :string
+#
 class Trip < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
