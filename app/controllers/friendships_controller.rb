@@ -9,7 +9,7 @@ class FriendshipsController < ApplicationController
     @friendship.friend = @friend
 
     if @friendship.save
-      @suggestions = @user.friends_suggestions
+      @friends = @user.friends_suggestions
       flash.now[:notice] = params[:friendship][:action].empty? ? "Invitation sent to #{@friend.first_name.titleize} 🎉" : "Confirm invitation from #{@friend.first_name.titleize} 🎉"
       turbo_stream_action_success
     else
