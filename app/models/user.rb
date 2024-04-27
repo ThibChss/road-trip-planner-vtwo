@@ -60,16 +60,16 @@ class User < ApplicationRecord
 
   # Methods related to user's trips
   def trips_in_common(user)
-    trips & user.trips
+    trips.where(id: user.trips.ids)
   end
 
   # Methods for friends
   def friends_in_common(user)
-    friends & user.friends
+    friends.where(id: user.friends.ids)
   end
 
   def friend?(user)
-    friends.include?(user)
+    friends.includes(:friends).include?(user)
     # Participant.joins(:user, :trip).where(users: { id: self }).where(trip: Trip.joins(:participants).where(participants: { id: user })).pluck(:trip_id)
   end
 
