@@ -40,10 +40,6 @@ class User < ApplicationRecord
   validates :first_name, :last_name, :username, :email, presence: true
   validates :email, :username, uniqueness: { case_sensitive: true }
 
-  def full_name
-    "#{first_name} #{last_name}"
-  end
-
   # Methods related to user's trips
   def trips_in_common(user)
     trips & user.trips
