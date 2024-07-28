@@ -70,7 +70,6 @@ class User < ApplicationRecord
 
   def friend?(user)
     friends.includes(:friends).include?(user)
-    # Participant.joins(:user, :trip).where(users: { id: self }).where(trip: Trip.joins(:participants).where(participants: { id: user })).pluck(:trip_id)
   end
 
   def friendship_relation_exist?(user)
@@ -78,7 +77,10 @@ class User < ApplicationRecord
   end
 
   def friends_suggestions
-    self.class.where.not(id: self).where.not(id: sent_friends).where.not(id: received_friends).where.not(id: friends)
+    self.class.where.not(id: id)
+              .where.not(id: sent_friends.ids)
+              .where.not(id: received_friends.ids)
+              .where.not(id: friends.ids)
   end
 
   def find_friendship(friend)
