@@ -28,7 +28,7 @@
             <div class="background-avatar">
               <%= image_tag 'avatar_placeholder.png', alt: "avatar_user", class: 'avatar-user' %>
             </div>
-            <span class='name_user_to_select'><%= friend.full_name %></span>
+            <span class='name_user_to_select'><%= friend.decorate.full_name %></span>
             <span class="material-symbols-outlined check_added_participants">check</span>
           </div>
         </div>

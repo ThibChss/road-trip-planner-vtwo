@@ -37,7 +37,7 @@ class Trip < ApplicationRecord
   # Find the admins of the trip
   has_many :admins, -> { where(admin: true) }, class_name: :Participant
 
-  enum status: %i[confirmed pending cancelled]
+  enum :status, %i[confirmed pending cancelled]
 
   validates :name, :start_date, :end_date, :user, presence: true
 
