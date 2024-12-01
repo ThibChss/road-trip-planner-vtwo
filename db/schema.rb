@@ -10,12 +10,13 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema[7.0].define(version: 2024_04_27_165954) do
+ActiveRecord::Schema[8.0].define(version: 2024_12_01_152230) do
   # These are extensions that must be enabled in order to support this database
-  enable_extension "plpgsql"
+  enable_extension "pg_catalog.plpgsql"
+  enable_extension "pgcrypto"
 
-  create_table "addresses", force: :cascade do |t|
-    t.bigint "trip_event_id", null: false
+  create_table "addresses", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "trip_event_id", null: false
     t.string "address"
     t.float "longitude"
     t.float "latitude"
@@ -35,26 +36,26 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_27_165954) do
     t.index ["sluggable_type", "sluggable_id"], name: "index_friendly_id_slugs_on_sluggable_type_and_sluggable_id"
   end
 
-  create_table "friendships", force: :cascade do |t|
-    t.integer "user_id"
-    t.integer "friend_id"
+  create_table "friendships", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id"
+    t.uuid "friend_id"
     t.boolean "status", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
   end
 
-  create_table "paid_for_trip_events", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "price_id", null: false
+  create_table "paid_for_trip_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "price_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["price_id"], name: "index_paid_for_trip_events_on_price_id"
     t.index ["user_id"], name: "index_paid_for_trip_events_on_user_id"
   end
 
-  create_table "participants", force: :cascade do |t|
-    t.bigint "user_id", null: false
-    t.bigint "trip_id", null: false
+  create_table "participants", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "user_id", null: false
+    t.uuid "trip_id", null: false
     t.boolean "admin", default: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
@@ -62,18 +63,18 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_27_165954) do
     t.index ["user_id"], name: "index_participants_on_user_id"
   end
 
-  create_table "prices", force: :cascade do |t|
-    t.integer "paid_by_id"
-    t.bigint "trip_event_id", null: false
+  create_table "prices", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "paid_by_id"
+    t.uuid "trip_event_id", null: false
     t.float "total_paid"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["trip_event_id"], name: "index_prices_on_trip_event_id"
   end
 
-  create_table "trip_events", force: :cascade do |t|
-    t.bigint "trip_id", null: false
-    t.integer "creator_id"
+  create_table "trip_events", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
+    t.uuid "trip_id", null: false
+    t.uuid "creator_id"
     t.string "name"
     t.string "category", default: "Not Specified"
     t.datetime "start_date"
@@ -83,11 +84,11 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_27_165954) do
     t.index ["trip_id"], name: "index_trip_events_on_trip_id"
   end
 
-  create_table "trips", force: :cascade do |t|
+  create_table "trips", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "name"
     t.date "start_date"
     t.date "end_date"
-    t.bigint "user_id", null: false
+    t.uuid "user_id", null: false
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.integer "status", default: 1
@@ -97,7 +98,7 @@ ActiveRecord::Schema[7.0].define(version: 2024_04_27_165954) do
     t.index ["user_id"], name: "index_trips_on_user_id"
   end
 
-  create_table "users", force: :cascade do |t|
+  create_table "users", id: :uuid, default: -> { "gen_random_uuid()" }, force: :cascade do |t|
     t.string "email", default: "", null: false
     t.string "encrypted_password", default: "", null: false
     t.string "reset_password_token"
