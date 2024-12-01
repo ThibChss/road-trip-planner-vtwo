@@ -25,6 +25,7 @@ class Trip < ApplicationRecord
 
   # Events belonging to a trip
   has_many :events, class_name: :TripEvent, dependent: :destroy
+  has_many :expenses, through: :events, source: :price
 
   # Find instances of participants in the trip
   has_many :participations, class_name: :Participant, dependent: :destroy
