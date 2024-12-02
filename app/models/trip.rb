@@ -17,7 +17,7 @@ class Trip < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  belongs_to :user
+  belongs_to :user # The user who created the trip
 
   # Get some informations from the associated class and can use them like 'user_first_name'
   # Just a test => NOT needed here
