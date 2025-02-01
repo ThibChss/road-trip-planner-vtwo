@@ -60,7 +60,7 @@ class TripsController < ApplicationController
       flash.now[:notice] = "Your trip has been added 🌴"
       render turbo_stream: turbo_stream.append(
         :flash,
-        partial: "shared/flash_message",
+        partial: "shared/flash_message"
       )
     else
       render :new, status: :unprocessable_entity, alert: "Something went wrong❗"
@@ -72,7 +72,7 @@ class TripsController < ApplicationController
   private
 
   def trip_params
-    params.require(:trip).permit(:name, :start_date, :end_date, participations_attributes: [:id, :_destroy, :user_id])
+    params.require(:trip).permit(:name, :start_date, :end_date, participations_attributes: %i[id _destroy user_id])
   end
 
   def set_trip

@@ -1,15 +1,22 @@
 class BalanceCalculator < BaseService
-  Debt = Struct.new(:creditor, :debtor, :amount)
-  attr_reader :expenses, :debts
+  class IterationError < StandardError; end
+
+  TOLERANCE = 1e-5
+  MAX_ITERATIONS = 1000
+  private_constant :TOLERANCE, :MAX_ITERATIONS
+
+  Debt = Struct.new(:creditor_id, :debtor_id, :amount)
+
+  private attr_reader :expenses, :debts
 
   def initialize(expenses)
     @expenses = expenses
     @debts = []
+    @iterations = 0
   end
 
   def call
     calculate_debts
-
     debts
   end
 
@@ -20,34 +27,49 @@ class BalanceCalculator < BaseService
   end
 
   def calculate_balances
-    expenses.map.with_object(Hash.new(0)) do |expense, balances|
-      balances[expense.paid_by.id] += expense.total_paid
+    expenses.map.with_object(Hash.new(0)) do |expense, balance|
+      # Add the full amount to what the payer paid
+      balance[expense.paid_by.id] += expense.total_paid
 
+      # Subtract what each person owes
       expense.paid_for.each do |participant|
-        balances[participant.id] -= expense.total_paid / expense.paid_for.size
+        balance[participant.id] -= (expense.total_paid.to_f / expense.paid_for.size)
       end
     end
   end
 
   def calculate_debts
-    loop do
-      transform_balances
-      break if balances.values.all? { |balance| balance >= 0 }
+    while balances.values.any? { it.abs >= TOLERANCE }
+      break if debtors.empty? || creditors.empty?
 
-      debtor = balances.key(balances.values.min)
-      creditor = balances.key(balances.values.max)
-
-      debt_amount = [balances[debtor].abs, balances[creditor]].min
-      next if debt_amount.zero?
-
-      balances[debtor] += debt_amount
-      balances[creditor] -= debt_amount
-
-      debts << Debt.new(debtor.record, creditor.record, debt_amount)
+      settle_next_debt
+      monitor_iteration
     end
   end
 
-  def transform_balances
-    balances.transform_values! { |balance| balance.abs < 1e-10 ? 0 : balance.round(2) }
+  def settle_next_debt
+    debtor_id, debt = debtors.min_by { |_, value| -value }
+    creditor_id, credit = creditors.max_by { |_, value| value }
+
+    amount = [debt.abs, credit].min
+
+    balances[debtor_id] += amount
+    balances[creditor_id] -= amount
+
+    debts.push(Debt.new(creditor_id, debtor_id, amount.round))
+  end
+
+  def debtors
+    balances.select { |_, value| value < -TOLERANCE }
+  end
+
+  def creditors
+    balances.select { |_, value| value > TOLERANCE }
+  end
+
+  def monitor_iteration
+    return unless (@iterations += 1) > MAX_ITERATIONS
+
+    raise IterationError, "Maximum iterations exceeded"
   end
 end

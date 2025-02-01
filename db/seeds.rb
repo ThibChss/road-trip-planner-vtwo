@@ -1,290 +1,175 @@
-# DELETING INSTANCES
-puts 'Destroying trips ❌'
-Trip.destroy_all
-puts 'Done 👌🏻'
-print "\n"
+puts 'Destroying all data...'
+# [Participant, Friendship, Price, PaidForTripEvent, Address, TripEvent, Trip, User].each(&:delete_all)
+DatabaseCleaner.clean_with(:truncation)
+puts 'All data destroyed!'
 
-puts 'Destroying people 💀'
-User.destroy_all
-puts 'Done 👌🏻'
-print "\n"
+# CREATING USERS
+puts 'Creating users 🙍🏻'
+TOTAL_USERS = 10_000
+TOTAL_FRIENDSHIPS = 50_000
+TOTAL_TRIPS = 500
+EVENTS_PER_TRIP = 25
 
-puts 'Destroying participation 📅'
-Participant.destroy_all
-puts 'Done 👌🏻'
-print "\n"
+users = []
 
-puts 'Destroying friendships 🥹'
-Friendship.destroy_all
-puts 'Done 👌🏻'
-print "\n"
+puts 'Creating you...'
+you = User.create!(
+  username: 'Thibault',
+  first_name: 'Thibault',
+  last_name: 'Chssn',
+  email: 'thib@gmail.com',
+  private: [true, false].sample,
+  password: 'password'
+)
+users << you
 
-puts 'Destroying events 👎🏻'
-TripEvent.destroy_all
-puts 'Done 👌🏻'
-print "\n"
-
-puts 'Destroying prices 💲'
-Price.destroy_all
-puts 'Done 👌🏻'
-print "\n"
-
-puts 'Destroying debts 🎉'
-PaidForTripEvent.destroy_all
-puts 'Done 👌🏻'
-print "\n"
-
-puts 'Destroying places 💣'
-Address.destroy_all
-puts 'Done 👌🏻'
-print "\n"
-
-
-print "\n"
-print "\n"
-print "\n"
-
-
-# CREATING INSTANCES
-puts 'Creating some users 🙍🏻'
-
-people = {
-  thibault: {
-    username: 'Le Thib',
-    first_name: 'Thibault',
-    last_name: 'Chassine',
-    email: 'thib@gmail.com'
-  },
-  quentin: {
-    username: 'La Quen',
-    first_name: 'Quentin',
-    last_name: 'Brll',
-    email: 'quen@gmail.com'
-  },
-  astrid: {
-    username: 'La Jeune',
-    first_name: 'Astrid',
-    last_name: 'Flpv',
-    email: 'astr@gmail.com'
-  },
-  antoine: {
-    username: 'La Tute',
-    first_name: 'Antoine',
-    last_name: 'Blc',
-    email: 'anto@gmail.com'
-  },
-  clea: {
-    username: 'Kéké',
-    first_name: 'Cléa',
-    last_name: 'Drd',
-    email: 'clea@gmail.com'
-  },
-  louis: {
-    username: 'Le Louis',
-    first_name: 'Louis',
-    last_name: 'Lps',
-    email: 'loui@gmail.com'
-  },
-  jeanne: {
-    username: 'La Jane',
-    first_name: 'Jeanne',
-    last_name: 'Prt',
-    email: 'jean@gmail.com'
-  },
-  marie: {
-    username: 'Tow',
-    first_name: 'Marie',
-    last_name: 'Crdn',
-    email: 'marie@gmail.com'
-  },
-  quitterie: {
-    username: 'Kit',
-    first_name: 'Quitterie',
-    last_name: 'Urcl',
-    email: 'quit@gmail.com'
-  },
-  eugenie: {
-    username: 'Eugène',
-    first_name: 'Eugénie',
-    last_name: 'Lsn',
-    email: 'euge@gmail.com'
-  },
-  margaux: {
-    username: 'Marguiche',
-    first_name: 'Margaux',
-    last_name: 'Cts',
-    email: 'marg@gmail.com'
-  },
-  theo: {
-    username: 'Le T',
-    first_name: 'Théo',
-    last_name: 'Crd',
-    email: 'theo@gmail.com'
-  }
-}
-
-the_team = []
-
-people.each do |_, infos|
-  user = User.create(
-    username: infos[:username],
-    first_name: infos[:first_name],
-    last_name: infos[:last_name],
-    email: infos[:email],
-    private: [true, false].sample,
-    password: 'password'
-  )
-  the_team << user
-
-  puts "All good for #{user.first_name} 👍🏻"
-end
-
-thib = User.first
-
-quen = User.second
-
-anto = User.fourth
-
-30.times do
-  user = User.create(
-    username: Faker::Internet.username,
+user_records = []
+TOTAL_USERS.times do |i|
+  user_records << {
+    username: Faker::Internet.username(specifier: 5..10),
     first_name: Faker::Name.first_name,
     last_name: Faker::Name.last_name,
-    email: Faker::Internet.email,
+    email: Faker::Internet.unique.email,
     private: [true, false].sample,
-    password: 'password'
-  )
-  user.username = user.username.titleize
-
-  puts "All good for #{user.first_name} 👍🏻"
+    encrypted_password: 'password'
+  }
+  puts "Prepared user #{i + 1}" if (i % 1000).zero?
 end
 
-puts 'Done 👌🏻'
-print "\n"
+User.insert_all!(user_records) # Bulk insert users
+users += User.all.to_a # Fetch all users in memory
+puts "#{TOTAL_USERS} users created!"
 
+# CREATING FRIENDSHIPS
+puts 'Creating friendships 💞'
+friendship_records = []
 
+TOTAL_FRIENDSHIPS.times do |i|
+  user = users.sample
+  friend = users.sample
+  next if user == friend # Skip self-friendship
 
-puts 'Creating friends 💞'
+  friendship_records << { user_id: user.id, friend_id: friend.id, status: [true, false].sample, created_at: Time.now, updated_at: Time.now }
+  friendship_records << { user_id: friend.id, friend_id: user.id, status: [true, false].sample, created_at: Time.now, updated_at: Time.now }
 
-users_team = User.where(id: the_team).where.not(id: [thib, quen, anto])
-
-users_team.each do |user|
-  Friendship.create(user: thib, friend: user, status: true)
-  Friendship.create(user:, friend: thib, status: true)
-
-  status = [true, false].sample
-
-  Friendship.create(user: quen, friend: user, status: false)
-  Friendship.create(user:, friend: anto, status: false)
-
-  friends = users_team.where.not(id: user)
-  friend = friends.sample
-
-  Friendship.create(user: friend, friend: user, status:)
-  Friendship.create(user:, friend:, status:)
-
-  puts "#{user.first_name} and #{friend.first_name} are now friends 🫱🏻‍🫲🏻"
+  puts "Prepared friendship #{i + 1}" if (i % 1000).zero?
 end
 
-Friendship.create(user: thib, friend: quen, status: true)
-Friendship.create(user: quen, friend: thib, status: true)
+Friendship.insert_all!(friendship_records) # Bulk insert friendships
+puts "#{TOTAL_FRIENDSHIPS} friendships created!"
 
-other_users = User.where.not(id: the_team)
+# CREATING TRIPS
+puts 'Creating trips ✈️'
+trip_records = []
 
-other_users.each do |user|
-  status = [true, false].sample
-  everyone = User.where.not(id: user).where.not(id: thib)
-  someone = everyone.sample
-
-  Friendship.create(user:, friend: someone, status:)
-  Friendship.create(user: someone, friend: user, status:)
-
-  status = [true, false].sample
-  Friendship.create(user: thib, friend: user, status:)
-  Friendship.create(user:, friend: thib, status:)
-
-  puts "#{user.first_name} and #{someone.first_name} are now friends 🫱🏻‍🫲🏻"
+TOTAL_TRIPS.times do |i|
+  trip_records << {
+    name: Faker::Lorem.words(number: 3).join(' ').titleize,
+    start_date: Faker::Date.forward(days: 30),
+    end_date: Faker::Date.forward(days: 50),
+    user_id: users.sample.id,
+    photo_url: Faker::LoremFlickr.image(search_terms: ['travel']),
+    created_at: Time.now,
+    updated_at: Time.now
+  }
+  puts "Prepared trip #{i + 1}" if (i % 100).zero?
 end
 
-puts 'Done 👌🏻'
-print "\n"
+Trip.insert_all!(trip_records) # Bulk insert trips
+trips = Trip.all.to_a
+puts "#{TOTAL_TRIPS} trips created!"
 
-
-
-puts 'Creating the best trip ✈️'
-best_trip = Trip.create(name: 'Best Trip Ever ☀️', start_date: Date.today, end_date: Date.today + 8, user: thib, photo_url: "https://images.unsplash.com/photo-1494822493217-c9840aba840c?auto=format&fit=crop&q=60&w=700&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxzZWFyY2h8M3x8YmVzdCUyMHRyaXB8ZW58MHx8MHx8fDA%3D")
-puts "#{best_trip.name} created 🧳"
-trip = Trip.create(name: 'Weekend Bourguignon 🍷', start_date: Date.today + 20, end_date: Date.today + 23, user: quen, photo_url: "https://images.unsplash.com/photo-1589819482236-b583fe65f1d5?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-puts "#{trip.name} created 🧳"
-trip = Trip.create(name: "The Big 3.O's 🎉", start_date: Date.today + 100, end_date: Date.today + 105, user: anto, photo_url: "https://images.unsplash.com/photo-1533174072545-7a4b6ad7a6c3?auto=format&fit=crop&q=80&w=2670&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-puts "#{trip.name} created 🧳"
-trip = Trip.create(name: 'IDK Where We Are 🆘', start_date: Date.today + 200, end_date: Date.today + 210, user: the_team.sample, photo_url: "https://images.unsplash.com/photo-1506773090264-ac0b07293a64?auto=format&fit=crop&q=80&w=2536&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-puts "#{trip.name} created 🧳"
-trip = Trip.create(name: 'The Big Apple 🍎', start_date: Date.today + 70, end_date: Date.today + 80, user: the_team.sample, photo_url: "https://images.unsplash.com/photo-1602828889956-45ec6cee6758?auto=format&fit=crop&q=80&w=2532&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D")
-puts "#{trip.name} created 🧳"
-puts 'Done 👌🏻'
-print "\n"
-
-
-
+# ADDING PARTICIPANTS
 puts 'Adding participants 🧍🏻🧍🏻‍♀️'
-the_team.each do |user|
-  Participant.create(user:, trip: best_trip)
-  puts "#{user.first_name} has been added to #{best_trip.name} 🎉"
+participant_records = []
+
+trips.each_with_index do |trip, i|
+  trip_users = users.sample(rand(50..100)) # Each trip gets 50-100 participants
+  trip_users.each do |user|
+    participant_records << { user_id: user.id, trip_id: trip.id, created_at: Time.now, updated_at: Time.now }
+  end
+  puts "Prepared participants for trip #{i + 1}" if (i % 10).zero?
 end
 
-trips = Trip.where.not(id: best_trip)
+Participant.insert_all!(participant_records) # Bulk insert participants
+puts 'Participants added!'
 
-trips.each do |other_trip|
-  the_team.each do |user|
-    Participant.create(user:, trip: other_trip)
-    puts "#{user.first_name} has been added to #{other_trip.name} 🎉"
-  end
+# ADDING EVENTS TO TRIPS
+puts 'Creating events 🕺🏻'
+price_records = []
+address_records = []
+paid_for_records = []
 
-  other_users.sample(6).each do |user|
-    Participant.create(user:, trip: other_trip)
-    puts "#{user.first_name} has been added to #{other_trip.name} 🎉"
-  end
-end
-puts 'Done 👌🏻'
-print "\n"
+trips.each_with_index do |trip, i|
+  trip_events = []
+  EVENTS_PER_TRIP.times do
+    event_start = Faker::Date.between(from: trip.start_date, to: trip.end_date - 2).to_datetime
+    event_end = event_start + rand(1..3).hours
 
-
-
-puts 'Adding some events to the trip 🕺🏻'
-
-Trip.find_each do |this_trip|
-  20.times do
-    date = ((this_trip.start_date + 1)...(this_trip.end_date - 1)).to_a.sample
-    event = TripEvent.create!(
+    trip_events << {
       name: Faker::Restaurant.name,
-      creator: this_trip.participants.sample,
-      trip: this_trip,
-      start_date: date.to_datetime,
-      end_date: (date + 1).to_datetime,
-      category: TripEvent::CATEGORIES.values.flatten.sample
-    )
-    paid_by = this_trip.participants.sample
-    paid_for = this_trip.participants.take(5)
-    price = Price.create(
-      paid_by:,
-      trip_event: event,
-      total_paid: rand(50..150)
-    )
-    paid_for.each do |user|
-      PaidForTripEvent.create(
-        user:,
-        price:
-      )
-    end
-    Address.create(
-      trip_event: event,
-      address: Faker::Address.full_address
-    )
-
-    puts "The event @#{event.name} has been created for #{this_trip.name} ✅"
+      creator_id: trip.participants.sample.id,
+      trip_id: trip.id,
+      start_date: event_start,
+      end_date: event_end,
+      category: TripEvent::CATEGORIES.values.flatten.sample,
+      created_at: Time.now,
+      updated_at: Time.now
+    }
   end
+
+  # Insert events in bulk and retrieve their IDs
+  inserted_events = TripEvent.insert_all!(trip_events, returning: %w[id trip_id creator_id])
+  inserted_event_ids = inserted_events.pluck('id')
+
+  # Create associated prices, addresses, and paid_for records
+  inserted_event_ids.each do |event_id|
+    paid_by = trip.participants.sample.id
+    total_paid = rand(50..500)
+
+    price_records << {
+      paid_by_id: paid_by,
+      trip_event_id: event_id,
+      total_paid: total_paid,
+      created_at: Time.now,
+      updated_at: Time.now
+    }
+
+    address_records << {
+      trip_event_id: event_id,
+      address: Faker::Address.full_address,
+      created_at: Time.now,
+      updated_at: Time.now
+    }
+
+    # Simulate payments for random participants
+    price_participants = trip.participants.sample(rand(5..20))
+    price_participants.each do |participant|
+      paid_for_records << {
+        user_id: participant.id,
+        price_id: nil, # Will update later after inserting prices
+        created_at: Time.now,
+        updated_at: Time.now
+      }
+    end
+  end
+
+  puts "Prepared events for trip #{i + 1}" if (i % 10).zero?
 end
 
-puts 'Done 👌🏻'
-print "\n"
+# Insert prices and fetch their IDs
+inserted_prices = Price.insert_all!(price_records, returning: %w[id trip_event_id])
+inserted_price_ids = inserted_prices.pluck('id')
+
+# Update `price_id` in `paid_for_records` with the correct IDs
+paid_for_records.each do |record|
+  record[:price_id] = inserted_price_ids.sample
+end
+
+# Bulk insert paid_for records
+PaidForTripEvent.insert_all!(paid_for_records)
+
+# Bulk insert addresses
+Address.insert_all!(address_records)
+
+puts 'Events created!'

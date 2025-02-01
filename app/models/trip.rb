@@ -19,10 +19,6 @@ class Trip < ApplicationRecord
 
   belongs_to :user
 
-  # Get some informations from the associated class and can use them like 'user_first_name'
-  # Just a test => NOT needed here
-  # delegate :first_name, :last_name, to: :user, prefix: true
-
   # Events belonging to a trip
   has_many :events, class_name: :TripEvent, dependent: :destroy
   has_many :expenses, through: :events, source: :price
@@ -44,6 +40,8 @@ class Trip < ApplicationRecord
 
   validate :validate_end_date
 
+  after_create :set_creator_as_admin
+
   pg_search_scope :search_trip,
                   against: %i[name],
                   associated_against: {
@@ -53,7 +51,15 @@ class Trip < ApplicationRecord
                     tsearch: { prefix: true }
                   }
 
+  def balance
+    @balance ||= BalanceCalculator.call(expenses)
+  end
+
   private
+
+  def set_creator_as_admin
+    participations.create!(user:, admin: true)
+  end
 
   def validate_end_date
     return if end_date.nil? || start_date.nil?

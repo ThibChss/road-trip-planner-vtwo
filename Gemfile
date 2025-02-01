@@ -1,7 +1,7 @@
 source "https://rubygems.org"
 git_source(:github) { |repo| "https://github.com/#{repo}.git" }
 
-ruby "3.3.6"
+ruby "3.4.1"
 
 # Bundle edge Rails instead: gem "rails", github: "rails/rails", branch: "main"
 gem "rails", "~> 8.0.0"
@@ -90,6 +90,7 @@ group :development, :test do
   gem 'bullet'
   gem 'annotate'
   gem 'rubocop'
+  gem 'database_cleaner'
 end
 
 group :development do

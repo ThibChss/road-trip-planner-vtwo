@@ -10,5 +10,7 @@ class CreateTripEvents < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :trip_events, :id, unique: true
   end
 end

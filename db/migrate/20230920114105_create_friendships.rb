@@ -7,5 +7,7 @@ class CreateFriendships < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :friendships, :id, unique: true
   end
 end

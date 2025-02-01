@@ -9,7 +9,7 @@ export default class extends Controller {
   ]
 
   static values = {
-    tripId: Number
+    tripId: String
   }
 
   connect() {

@@ -6,5 +6,7 @@ class CreatePaidForTripEvents < ActiveRecord::Migration[7.0]
 
       t.timestamps
     end
+
+    add_index :paid_for_trip_events, :id, unique: true
   end
 end
