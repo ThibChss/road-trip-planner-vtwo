@@ -17,7 +17,7 @@ class Trip < ApplicationRecord
   extend FriendlyId
   friendly_id :name, use: :slugged
 
-  belongs_to :user
+  belongs_to :user # The user who created the trip
 
   # Events belonging to a trip
   has_many :events, class_name: :TripEvent, dependent: :destroy
